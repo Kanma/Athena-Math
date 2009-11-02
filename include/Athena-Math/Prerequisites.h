@@ -7,6 +7,13 @@
 #ifndef _ATHENA_MATH_PREREQUISITES_H_
 #define _ATHENA_MATH_PREREQUISITES_H_
 
+#include <Athena-Math/Declarations.h>
+#include <limits>
+#include <algorithm>
+#include <cmath>
+#include <assert.h>
+
+
 namespace Athena {
 namespace Math {
 
@@ -22,6 +29,7 @@ namespace Math {
     // Forward declaration of classes
     class Degree;
     class Radian;
+    class Vector2;
 }
 }
 

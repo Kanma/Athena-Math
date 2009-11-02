@@ -12,10 +12,6 @@
 #define _ATHENA_MATH_MATH_H_
 
 #include <Athena-Math/Prerequisites.h>
-#include <Athena-Math/Declarations.h>
-#include <limits>
-#include <algorithm>
-#include <cmath>
 
 
 namespace Athena {

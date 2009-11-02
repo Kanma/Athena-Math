@@ -1,5 +1,7 @@
 # List the source files
-set(SRCS MathUtils.cpp)
+set(SRCS MathUtils.cpp
+         Vector2.cpp
+)
 
 # Precompiler definitions
 add_definitions(-DATHENA_EXPORTS)
