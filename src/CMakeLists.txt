@@ -1,6 +1,7 @@
 # List the source files
 set(SRCS MathUtils.cpp
          Vector2.cpp
+         Vector3.cpp
 )
 
 # Precompiler definitions

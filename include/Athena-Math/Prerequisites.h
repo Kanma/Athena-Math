@@ -30,6 +30,7 @@ namespace Math {
     class Degree;
     class Radian;
     class Vector2;
+    class Vector3;
 }
 }
 
