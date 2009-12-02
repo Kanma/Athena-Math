@@ -422,8 +422,8 @@ namespace Math {
 		/// @brief  Sets this vector's components to the minimum of its own and the ones
 		///         of the passed in vector
 		///
-        /// @remark 'Minimum' in this case means the combination of the lowest value of x,
-        ///         y and z from both vectors. Lowest is taken just numerically, not
+        /// @remark 'Minimum' in this case means the combination of the lowest value of x
+        ///         and y from both vectors. Lowest is taken just numerically, not
         ///         magnitude, so -1 < 0.
         //--------------------------------------------------------------------------------
         inline void makeFloor(const Vector2& cmp)
@@ -436,8 +436,8 @@ namespace Math {
 		/// @brief  Sets this vector's components to the maximum of its own and the ones
 		///         of the passed in vector
 		///
-        /// @remark 'Maximum' in this case means the combination of the highest value of x,
-        ///         y and z from both vectors. Highest is taken just numerically, not
+        /// @remark 'Maximum' in this case means the combination of the highest value of x
+        ///         and y from both vectors. Highest is taken just numerically, not
         ///         magnitude, so 1 > -3.
         //--------------------------------------------------------------------------------
         inline void makeCeil(const Vector2& cmp)
@@ -490,6 +490,25 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
+		/// @brief  Gets the angle between 2 vectors
+        ///    
+        /// @remark Vectors do not have to be unit-length but must represent directions.
+        //--------------------------------------------------------------------------------
+		inline Radian angleBetween(const Vector2& dest)
+		{
+			Real lenProduct = length() * dest.length();
+
+			// Divide by zero check
+			if(lenProduct < 1e-6f)
+				lenProduct = 1e-6f;
+
+			Real f = dotProduct(dest) / lenProduct;
+
+			f = MathUtils::Clamp(f, (Real) -1.0, (Real) 1.0);
+			return MathUtils::ACos(f);
+		}
+
+        //--------------------------------------------------------------------------------
 		/// @brief  Indicates if this vector is zero length
         //--------------------------------------------------------------------------------
         inline bool isZeroLength(void) const
@@ -520,6 +539,34 @@ namespace Math {
             return Vector2(*this - (2 * this->dotProduct(normal) * normal));
         }
         
+        //--------------------------------------------------------------------------------
+		/// @brief  Indicates whether this vector is within a positional tolerance of
+		///         another vector
+		///
+		/// @param  rhs         The vector to compare with
+		/// @param  tolerance   The amount that each element of the vector may vary by
+		///                     and still be considered equal
+        //--------------------------------------------------------------------------------
+		inline bool positionEquals(const Vector2& rhs, Real tolerance = 1e-03) const
+		{
+			return MathUtils::RealEqual(x, rhs.x, tolerance) &&
+                   MathUtils::RealEqual(y, rhs.y, tolerance);
+		}
+
+        //--------------------------------------------------------------------------------
+		/// @brief  Indicates whether this vector is within a positional tolerance of
+		///         another vector, by taking the scales of the vectors into account
+		///
+		/// @param  rhs         The vector to compare with
+		/// @param  tolerance   The amount (related to the scale of vectors) that distance
+        ///                     of the vector may vary by and still be considered close
+        //--------------------------------------------------------------------------------
+		inline bool positionCloses(const Vector2& rhs, Real tolerance = 1e-03f) const
+		{
+			return squaredDistance(rhs) <=
+                (squaredLength() + rhs.squaredLength()) * tolerance;
+		}
+
         //--------------------------------------------------------------------------------
 		/// @brief  Check whether this vector contains valid values
         //--------------------------------------------------------------------------------
