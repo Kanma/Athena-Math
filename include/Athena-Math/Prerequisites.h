@@ -31,6 +31,7 @@ namespace Math {
     class Radian;
     class Vector2;
     class Vector3;
+    class Vector4;
 }
 }
 

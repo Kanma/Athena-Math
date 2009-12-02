@@ -2,6 +2,7 @@
 set(SRCS MathUtils.cpp
          Vector2.cpp
          Vector3.cpp
+         Vector4.cpp
 )
 
 # Precompiler definitions
