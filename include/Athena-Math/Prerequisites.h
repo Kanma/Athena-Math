@@ -27,6 +27,7 @@ namespace Math {
 
     
     // Forward declaration of classes
+    class AxisAlignedBox;
     class Degree;
     class Plane;
     class Radian;

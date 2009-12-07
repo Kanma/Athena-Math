@@ -113,7 +113,7 @@ namespace Math {
     	/// @remark One corner ON the plane is sufficient to consider the box and the
     	///         plane intersecting.
     	//--------------------------------------------------------------------------------
-        //tSide getSide (const AxisAlignedBox& rkBox) const;
+        tSide getSide(const AxisAlignedBox& rkBox) const;
 
     	//--------------------------------------------------------------------------------
     	/// @brief  Returns the side of the plane where the given box is. The box is

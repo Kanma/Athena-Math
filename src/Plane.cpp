@@ -9,7 +9,7 @@
 
 #include <Athena-Math/Plane.h>
 //#include <Athena-Math/Matrix3.h>
-//#include <Athena-Math/AxisAlignedBox.h>
+#include <Athena-Math/AxisAlignedBox.h>
 
 using namespace Athena::Math;
 
@@ -79,7 +79,7 @@ Plane::tSide Plane::getSide(const Vector3& rkPoint) const
 }
 
 //-----------------------------------------------------------------------
-/*
+
 Plane::tSide Plane::getSide(const AxisAlignedBox& box) const
 {
 	if (box.isNull()) 
@@ -90,7 +90,7 @@ Plane::tSide Plane::getSide(const AxisAlignedBox& box) const
 
     return getSide(box.getCenter(), box.getHalfSize());
 }
-*/
+
 //-----------------------------------------------------------------------
 
 Plane::tSide Plane::getSide(const Vector3& centre, const Vector3& halfSize) const
