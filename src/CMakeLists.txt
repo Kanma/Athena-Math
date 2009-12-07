@@ -1,5 +1,6 @@
 # List the source files
 set(SRCS MathUtils.cpp
+         Plane.cpp
          Vector2.cpp
          Vector3.cpp
          Vector4.cpp

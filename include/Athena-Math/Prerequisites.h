@@ -28,6 +28,7 @@ namespace Math {
     
     // Forward declaration of classes
     class Degree;
+    class Plane;
     class Radian;
     class Vector2;
     class Vector3;
