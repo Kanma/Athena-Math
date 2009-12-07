@@ -763,18 +763,24 @@ namespace Math {
 
         //_____ Comparison operators __________
     public:
-        inline bool operator< (const Vector3& rhs) const
+        inline bool operator<(const Vector3& rhs) const
         {
-            if(x < rhs.x && y < rhs.y && z < rhs.z)
-                return true;
-            return false;
+            return (x < rhs.x && y < rhs.y && z < rhs.z);
         }
 
-        inline bool operator> (const Vector3& rhs) const
+        inline bool operator>(const Vector3& rhs) const
         {
-            if(x > rhs.x && y > rhs.y && z > rhs.z)
-                return true;
-            return false;
+            return (x > rhs.x && y > rhs.y && z > rhs.z);
+        }
+
+        inline bool operator<=(const Vector3& rhs) const
+        {
+            return (x <= rhs.x && y <= rhs.y && z <= rhs.z);
+        }
+
+        inline bool operator>=(const Vector3& rhs) const
+        {
+            return (x >= rhs.x && y >= rhs.y && z >= rhs.z);
         }
 
 

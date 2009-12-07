@@ -1,5 +1,6 @@
 # List the source files
 set(SRCS AxisAlignedBox.cpp
+         Intersection.cpp
          MathUtils.cpp
          Plane.cpp
          Vector2.cpp

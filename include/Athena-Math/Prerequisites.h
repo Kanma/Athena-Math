@@ -29,8 +29,10 @@ namespace Math {
     // Forward declaration of classes
     class AxisAlignedBox;
     class Degree;
+    class Intersection;
     class Plane;
     class Radian;
+    class Sphere;
     class Vector2;
     class Vector3;
     class Vector4;

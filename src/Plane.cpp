@@ -56,7 +56,8 @@ Plane::Plane(const Vector3& rkPoint0, const Vector3& rkPoint1, const Vector3& rk
 	redefine(rkPoint0, rkPoint1, rkPoint2);
 }
 
-//-----------------------------------------------------------------------
+
+/**************************************** METHODS ***************************************/
 
 Real Plane::getDistance(const Vector3& rkPoint) const
 {

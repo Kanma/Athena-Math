@@ -12,7 +12,7 @@
 
 #include <Athena-Math/Prerequisites.h>
 #include <Athena-Math/Vector3.h>
-#include <Athena-Math/Plane.h>
+#include <Athena-Math/Intersection.h>
 //#include <Athena-Math/Matrix4.h>
 
 
@@ -656,41 +656,25 @@ namespace Math {
     	//--------------------------------------------------------------------------------
     	/// @brief  Tests whether this box intersects a sphere
     	//--------------------------------------------------------------------------------
-/*		bool intersects(const Sphere& s) const
+		inline bool intersects(const Sphere& sphere) const
 		{
-			return MathUtils::intersects(s, *this); 
+			return Intersection::intersects(*this, sphere);
 		}
-*/		
+		
     	//--------------------------------------------------------------------------------
     	/// @brief  Tests whether this box intersects a plane
     	//--------------------------------------------------------------------------------
-		bool intersects(const Plane& p) const
+		inline bool intersects(const Plane& plane) const
 		{
-			return (p.getSide(*this) == Plane::BOTH_SIDE);
+			return Intersection::intersects(*this, plane);
 		}
 		
     	//--------------------------------------------------------------------------------
     	/// @brief  Tests whether a point is within this box
     	//--------------------------------------------------------------------------------
-		bool intersects(const Vector3& v) const
+		inline bool intersects(const Vector3& point) const
 		{
-			switch (mExtent)
-			{
-			case EXTENT_NULL:
-				return false;
-
-			case EXTENT_FINITE:
-				return (v.x >= mMinimum.x  &&  v.x <= mMaximum.x  && 
-					    v.y >= mMinimum.y  &&  v.y <= mMaximum.y  && 
-					    v.z >= mMinimum.z  &&  v.z <= mMaximum.z);
-
-			case EXTENT_INFINITE:
-				return true;
-
-			default: // shut up compiler
-				assert( false && "Never reached" );
-				return false;
-			}
+			return Intersection::intersects(*this, point);
 		}
 		
     	//--------------------------------------------------------------------------------
