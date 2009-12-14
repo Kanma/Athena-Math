@@ -1,7 +1,7 @@
 /** @file   Vector3.h
     @author Philip Abbet
     
-    Declaration of the class Athena::MathUtils::Vector3
+    Declaration of the class Athena::Math::Vector3
     
     @note   This is based on the corresponding class from
             <a href="http://www.ogre3d.org/">Ogre3D</a>.
@@ -99,7 +99,7 @@ namespace Math {
 		}
 
 
-        //_____ Value assignement __________
+        //_____ Value assignation __________
     public:
         inline Vector3& operator=(const Vector3& rkVector)
         {

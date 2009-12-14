@@ -96,7 +96,7 @@ namespace Math {
 		}
 
 
-        //_____ Value assignement __________
+        //_____ Value assignation__________
     public:
         inline Vector2& operator=(const Vector2& rkVector)
         {

@@ -35,7 +35,7 @@ namespace Math {
 		Radian(const Degree& d);
 		
 
-        //_____ Value assignement & retrieval __________
+        //_____ Value assignation & retrieval __________
 	public:
 		Radian& operator=(const Real& f) { m_radians = f; return *this; }
 		Radian& operator=(const Radian& r) { m_radians = r.m_radians; return *this; }
@@ -94,7 +94,7 @@ namespace Math {
 		Degree(const Radian& r) : m_degrees(r.valueDegrees()) {}
 
 
-        //_____ Value assignement & retrieval __________
+        //_____ Value assignation & retrieval __________
 	public:
 		Degree& operator=(const Real& f) { m_degrees = f; return *this; }
 		Degree& operator=(const Degree& d) { m_degrees = d.m_degrees; return *this; }
