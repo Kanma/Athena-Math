@@ -30,6 +30,7 @@ namespace Math {
     class AxisAlignedBox;
     class Degree;
     class Intersection;
+    class Matrix3;
     class Plane;
     class Radian;
     class Sphere;
