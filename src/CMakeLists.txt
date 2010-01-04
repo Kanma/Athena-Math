@@ -3,6 +3,7 @@ set(SRCS AxisAlignedBox.cpp
          Intersection.cpp
          MathUtils.cpp
          Matrix3.cpp
+         Matrix4.cpp
          Plane.cpp
          Vector2.cpp
          Vector3.cpp

@@ -31,6 +31,7 @@ namespace Math {
     class Degree;
     class Intersection;
     class Matrix3;
+    class Matrix4;
     class Plane;
     class Radian;
     class Sphere;
