@@ -8,7 +8,6 @@
 */
 
 #include <Athena-Math/Matrix3.h>
-#include <Athena-Math/Vector3.h>
 #include <Athena-Math/MathUtils.h>
 
 using namespace Athena::Math;
@@ -299,22 +298,6 @@ Vector3 Matrix3::operator*(const Vector3& rkPoint) const
 
 //-----------------------------------------------------------------------
 
-Vector3 operator*(const Vector3& rkPoint, const Matrix3& rkMatrix)
-{
-    Vector3 kProd;
-    for (size_t iRow = 0; iRow < 3; ++iRow)
-    {
-        kProd[iRow] =
-            rkPoint[0]*rkMatrix.m[0][iRow] +
-            rkPoint[1]*rkMatrix.m[1][iRow] +
-            rkPoint[2]*rkMatrix.m[2][iRow];
-    }
-
-    return kProd;
-}
-
-//-----------------------------------------------------------------------
-
 Matrix3 Matrix3::operator-() const
 {
     Matrix3 kNeg;
@@ -336,20 +319,6 @@ Matrix3 Matrix3::operator*(Real fScalar) const
     {
         for (size_t iCol = 0; iCol < 3; ++iCol)
             kProd[iRow][iCol] = fScalar * m[iRow][iCol];
-    }
-
-    return kProd;
-}
-
-//-----------------------------------------------------------------------
-
-Matrix3 operator*(Real fScalar, const Matrix3& rkMatrix)
-{
-    Matrix3 kProd;
-    for (size_t iRow = 0; iRow < 3; ++iRow)
-    {
-        for (size_t iCol = 0; iCol < 3; ++iCol)
-            kProd[iRow][iCol] = fScalar * rkMatrix.m[iRow][iCol];
     }
 
     return kProd;

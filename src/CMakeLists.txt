@@ -5,6 +5,7 @@ set(SRCS AxisAlignedBox.cpp
          Matrix3.cpp
          Matrix4.cpp
          Plane.cpp
+         Quaternion.cpp
          Vector2.cpp
          Vector3.cpp
          Vector4.cpp

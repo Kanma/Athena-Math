@@ -96,13 +96,13 @@ namespace Math {
         /// @brief  Creates a standard 4x4 transformation matrix with a zero translation
         ///         part from a rotation Quaternion
         //--------------------------------------------------------------------------------
-        // inline Matrix4(const Quaternion& rot)
-        // {
-        //     Matrix3 m3x3;
-        //     rot.ToRotationMatrix(m3x3);
-        //     operator=(IDENTITY);
-        //     operator=(m3x3);
-        // }
+        inline Matrix4(const Quaternion& rot)
+        {
+            Matrix3 m3x3;
+            rot.ToRotationMatrix(m3x3);
+            operator=(IDENTITY);
+            operator=(m3x3);
+        }
 
 
         //_____ Value retrieval __________
@@ -146,7 +146,7 @@ namespace Math {
         ///         size of translation, rotation and scaling are always centered on the
         ///         origin.
         //--------------------------------------------------------------------------------
-        // void makeTransform(const Vector3& position, const Vector3& scale, const Quaternion& orientation);
+        void makeTransform(const Vector3& position, const Vector3& scale, const Quaternion& orientation);
 
         //--------------------------------------------------------------------------------
         /// @brief  Building an inverse Matrix4 from orientation / scale / position
@@ -155,7 +155,7 @@ namespace Math {
         ///         makeTransform, so performing -translation, -rotate, 1/scale in that
         ///         order.
         //--------------------------------------------------------------------------------
-        // void makeInverseTransform(const Vector3& position, const Vector3& scale, const Quaternion& orientation);
+        void makeInverseTransform(const Vector3& position, const Vector3& scale, const Quaternion& orientation);
 
         //--------------------------------------------------------------------------------
         /// @brief  Exchange the contents of this matrix with another
@@ -426,13 +426,13 @@ namespace Math {
         //--------------------------------------------------------------------------------
         /// @brief  Extracts the rotation / scaling part as a quaternion from the matrix
         //--------------------------------------------------------------------------------
-        // inline Quaternion extractQuaternion() const
-        // {
-        //     Matrix3 m3x3;
-        //     extract3x3Matrix(m3x3);
-        //     return Quaternion(m3x3);
-        // }
-
+        inline Quaternion extractQuaternion() const
+        {
+            Matrix3 m3x3;
+            extract3x3Matrix(m3x3);
+            return Quaternion(m3x3);
+        }
+        
 		Matrix4 adjoint() const;
 		Real determinant() const;
 		Matrix4 inverse() const;

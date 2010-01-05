@@ -33,6 +33,7 @@ namespace Math {
     class Matrix3;
     class Matrix4;
     class Plane;
+    class Quaternion;
     class Radian;
     class Sphere;
     class Vector2;

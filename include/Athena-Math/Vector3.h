@@ -12,6 +12,7 @@
 
 #include <Athena-Math/Prerequisites.h>
 #include <Athena-Math/MathUtils.h>
+#include <Athena-Math/Quaternion.h>
 
 
 namespace Athena {
@@ -552,7 +553,6 @@ namespace Math {
             return perp;
         }
         
-/*    
         //--------------------------------------------------------------------------------
 		/// @brief  Generates a new random vector which deviates from this vector by a
         ///         given angle in a random direction
@@ -595,7 +595,7 @@ namespace Math {
             q.FromAngleAxis(angle, newUp);
             return q * (*this);
         }
-*/
+
         //--------------------------------------------------------------------------------
 		/// @brief  Gets the angle between 2 vectors
         ///    
@@ -614,7 +614,7 @@ namespace Math {
 			f = MathUtils::Clamp(f, (Real) -1.0, (Real) 1.0);
 			return MathUtils::ACos(f);
 		}
-/*		
+		
         //--------------------------------------------------------------------------------
 		/// @brief  Gets the shortest arc quaternion to rotate this vector to the
 		///         destination vector
@@ -673,7 +673,7 @@ namespace Math {
 			}
             return q;
         }
-*/
+
         //--------------------------------------------------------------------------------
 		/// @brief  Indicates if this vector is zero length
         //--------------------------------------------------------------------------------

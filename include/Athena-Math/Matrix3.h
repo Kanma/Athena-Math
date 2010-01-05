@@ -12,6 +12,7 @@
 
 #include <Athena-Math/Prerequisites.h>
 #include <Athena-Math/MathUtils.h>
+#include <Athena-Math/Vector3.h>
 
 
 namespace Athena {
@@ -157,9 +158,20 @@ namespace Math {
         //--------------------------------------------------------------------------------
         /// @brief  vector * matrix [1x3 * 3x3 = 1x3]
         //--------------------------------------------------------------------------------
-        ATHENA_MATH_SYMBOL friend Vector3 operator*(const Vector3& rkVector,
-                                                    const Matrix3& rkMatrix);
+        inline friend Vector3 operator*(const Vector3& rkVector, const Matrix3& rkMatrix)
+        {
+            Vector3 kProd;
+            for (size_t iRow = 0; iRow < 3; ++iRow)
+            {
+                kProd[iRow] =
+                    rkVector[0]*rkMatrix.m[0][iRow] +
+                    rkVector[1]*rkMatrix.m[1][iRow] +
+                    rkVector[2]*rkMatrix.m[2][iRow];
+            }
 
+            return kProd;
+        }
+        
         //--------------------------------------------------------------------------------
         /// @brief  matrix * scalar
         //--------------------------------------------------------------------------------
@@ -168,7 +180,17 @@ namespace Math {
         //--------------------------------------------------------------------------------
         /// @brief  scalar * matrix
         //--------------------------------------------------------------------------------
-        ATHENA_MATH_SYMBOL friend Matrix3 operator*(Real fScalar, const Matrix3& rkMatrix);
+        inline friend Matrix3 operator*(Real fScalar, const Matrix3& rkMatrix)
+        {
+            Matrix3 kProd;
+            for (size_t iRow = 0; iRow < 3; ++iRow)
+            {
+                for (size_t iCol = 0; iCol < 3; ++iCol)
+                    kProd[iRow][iCol] = fScalar * rkMatrix.m[iRow][iCol];
+            }
+
+            return kProd;
+        }
 
 
         //_____ Methods __________
