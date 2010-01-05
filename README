@@ -1,0 +1,51 @@
+********************************************************************************
+*                                                                              *
+*                                 Athena-Math                                  *
+*                       http://github.com/Kanma/Athena-Math                    *
+*                                                                              *
+********************************************************************************
+
+
+---------------------------------------
+- Summary
+---------------------------------------
+
+Athena-Math is the mathematics module of the Athena Game Framework, in the form
+of a library written in C++. 
+
+
+---------------------------------------
+- Credits
+---------------------------------------
+
+This module is HEAVILY based on the corresponding classes of OGRE 1.7
+(Object-Oriented Graphics Rendering Engine), a scene-oriented and flexible 3D
+engine, released under the MIT License. OGRE is the 3D engine used by the Athena
+Game Framework.
+
+Many of the maths/spatial routines in OGRE are inspired by Dr D.H. Eberley,
+adapted from the 'free' parts of the Wild Magic engine 0.2 source provided with
+his book "3D Engine Design" (http://www.geometrictools.com/).
+
+The license of OGRE is contained in the file 'docs/LICENSE-OGRE'. 
+
+
+---------------------------------------
+- License
+---------------------------------------
+
+Athena-Math is released under the same open source license than OGRE 1.7, the
+MIT License. The text of the license is in the file 'LICENSE'.
+
+Under the MIT License you may use Athena-Math for any purpose you wish, without
+warranty, and modify it if you require, subject to one condition:
+
+   "The above copyright notice and this permission notice shall be included in
+   all copies or substantial portions of the Software."
+
+In practice this means that whenever you distribute your application, whether as
+binary or as source code, you must include somewhere in your distribution the
+text in the files 'LICENSE' and 'docs/LICENSE-OGRE'. This might be in the
+printed documentation, as a file on delivered media, or even on the
+credits / acknowledgements of the runtime application itself; any of those would
+satisfy the requirement.
