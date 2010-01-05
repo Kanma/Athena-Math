@@ -163,7 +163,7 @@ namespace Math {
     	///             result of this method from the original vector, since parallel +
     	///             perpendicular = original.
     	//--------------------------------------------------------------------------------
-		//Vector3 projectVector(const Vector3& v) const;
+		Vector3 projectVector(const Vector3& v) const;
 
     	//--------------------------------------------------------------------------------
     	/// @brief  Normalises the plane

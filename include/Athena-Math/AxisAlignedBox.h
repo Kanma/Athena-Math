@@ -13,7 +13,7 @@
 #include <Athena-Math/Prerequisites.h>
 #include <Athena-Math/Vector3.h>
 #include <Athena-Math/Intersection.h>
-//#include <Athena-Math/Matrix4.h>
+#include <Athena-Math/Matrix4.h>
 
 
 namespace Athena {
@@ -418,7 +418,7 @@ namespace Math {
     	///         the axes to produce another AABB. Useful when you have a local AABB
     	///         for an object which is then transformed.
     	//--------------------------------------------------------------------------------
-/*		inline void transform(const Matrix4& matrix)
+		inline void transform(const Matrix4& matrix)
 		{
 			// Do nothing if current null or infinite
 			if (mExtent != EXTENT_FINITE)
@@ -498,13 +498,13 @@ namespace Math {
 
 			Vector3 newCentre = m.transformAffine(centre);
 			Vector3 newHalfSize(
-				Math::Abs(m[0][0]) * halfSize.x + Math::Abs(m[0][1]) * halfSize.y + Math::Abs(m[0][2]) * halfSize.z, 
-				Math::Abs(m[1][0]) * halfSize.x + Math::Abs(m[1][1]) * halfSize.y + Math::Abs(m[1][2]) * halfSize.z,
-				Math::Abs(m[2][0]) * halfSize.x + Math::Abs(m[2][1]) * halfSize.y + Math::Abs(m[2][2]) * halfSize.z);
+				MathUtils::Abs(m[0][0]) * halfSize.x + MathUtils::Abs(m[0][1]) * halfSize.y + MathUtils::Abs(m[0][2]) * halfSize.z, 
+				MathUtils::Abs(m[1][0]) * halfSize.x + MathUtils::Abs(m[1][1]) * halfSize.y + MathUtils::Abs(m[1][2]) * halfSize.z,
+				MathUtils::Abs(m[2][0]) * halfSize.x + MathUtils::Abs(m[2][1]) * halfSize.y + MathUtils::Abs(m[2][2]) * halfSize.z);
 
 			setExtents(newCentre - newHalfSize, newCentre + newHalfSize);
 		}
-*/
+
     	//--------------------------------------------------------------------------------
     	/// @brief  Sets the box to a 'null' value i.e. not a box
     	//--------------------------------------------------------------------------------

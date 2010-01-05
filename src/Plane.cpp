@@ -130,11 +130,9 @@ void Plane::redefine(const Vector3& rkNormal, const Vector3& rkPoint)
 }
 
 //-----------------------------------------------------------------------
-/*
+
 Vector3 Plane::projectVector(const Vector3& p) const
 {
-    normalize();
-    
 	Matrix3 xform;
 	xform[0][0] = 1.0f - normal.x * normal.x;
 	xform[0][1] = -normal.x * normal.y;
@@ -148,7 +146,7 @@ Vector3 Plane::projectVector(const Vector3& p) const
 
 	return xform * p;
 }
-*/
+
 //-----------------------------------------------------------------------
 
 Real Plane::normalise(void)
