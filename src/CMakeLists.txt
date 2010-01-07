@@ -23,9 +23,19 @@ endif()
 # List the include paths
 include_directories(${ATHENA_MATH_SOURCE_DIR}/include)
 
+# Disable some warnings in Visual Studio
+if (WIN32)
+    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+endif()
+
 # Declaration of the library
 if (NOT ATHENA_MATH_STATIC)
     add_library(Athena-Math SHARED ${SRCS})
 else()
     add_library(Athena-Math STATIC ${SRCS})
+endif()
+
+# Disable some warnings in Visual Studio
+if (WIN32)
+    set_target_properties(Athena-Math PROPERTIES COMPILE_DEFINITIONS "/wd4244 /wd4305")
 endif()
