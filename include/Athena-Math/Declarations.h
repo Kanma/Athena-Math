@@ -23,7 +23,7 @@
 
 // Finds the compiler type and version
 #if defined( _MSC_VER )
-#   define ATHENA_MATH_COMPILER ATHENA_COMPILER_MSVC
+#   define ATHENA_MATH_COMPILER ATHENA_MATH_COMPILER_MSVC
 #   define ATHENA_MATH_COMP_VER _MSC_VER
 #elif defined( __GNUC__ )
 #   define ATHENA_MATH_COMPILER ATHENA_MATH_COMPILER_GNUC
