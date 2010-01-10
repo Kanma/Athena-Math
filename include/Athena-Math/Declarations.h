@@ -17,6 +17,10 @@
 #define ATHENA_MATH_COMPILER_MSVC 1
 #define ATHENA_MATH_COMPILER_GNUC 2
 
+// Endianess
+#define ATHENA_MATH_ENDIAN_LITTLE 1
+#define ATHENA_MATH_ENDIAN_BIG 2
+
 // Supported architectures
 #define ATHENA_MATH_ARCHITECTURE_32 1
 #define ATHENA_MATH_ARCHITECTURE_64 2
@@ -68,6 +72,13 @@
 #   endif
 #else
 #   define ATHENA_MATH_FORCEINLINE __inline
+#endif
+
+// Endian Settings
+#ifdef ATHENA_MATH_CONFIG_BIG_ENDIAN
+#    define ATHENA_MATH_ENDIAN ATHENA_MATH_ENDIAN_BIG
+#else
+#    define ATHENA_MATH_ENDIAN ATHENA_MATH_ENDIAN_LITTLE
 #endif
 
 #endif

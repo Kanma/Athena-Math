@@ -1,5 +1,6 @@
 # List the source files
 set(SRCS AxisAlignedBox.cpp
+         Color.cpp
          Intersection.cpp
          MathUtils.cpp
          Matrix3.cpp
@@ -18,6 +19,12 @@ if (ATHENA_DOUBLE_PRECISION)
     add_definitions(-DATHENA_DOUBLE_PRECISION=1)
 else()
     add_definitions(-DATHENA_DOUBLE_PRECISION=0)
+endif()
+
+if (ATHENA_TEST_BIG_ENDIAN)
+    add_definitions(-DATHENA_MATH_CONFIG_BIG_ENDIAN)
+else()
+    add_definitions(-DATHENA_MATH_CONFIG_LITTLE_ENDIAN)
 endif()
 
 # List the include paths

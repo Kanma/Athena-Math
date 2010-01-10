@@ -28,6 +28,7 @@ namespace Math {
     
     // Forward declaration of classes
     class AxisAlignedBox;
+    class Color;
     class Degree;
     class Intersection;
     class Matrix3;
@@ -39,6 +40,21 @@ namespace Math {
     class Vector2;
     class Vector3;
     class Vector4;
+
+    typedef unsigned int    uint32;
+    typedef unsigned short  uint16;
+    typedef unsigned char   uint8;
+    typedef int             int32;
+    typedef short           int16;
+    typedef char            int8;
+
+    #if ATHENA_MATH_COMPILER == ATHENA_MATH_COMPILER_MSVC
+    	typedef unsigned __int64    uint64;
+    	typedef __int64             int64;
+    #else
+    	typedef unsigned long long  uint64;
+    	typedef long long           int64;
+    #endif
 }
 }
 
