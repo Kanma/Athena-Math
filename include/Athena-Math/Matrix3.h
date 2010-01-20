@@ -40,7 +40,7 @@ namespace Math {
     ///           0       0       1
     /// where t > 0 indicates a counterclockwise rotation in the xy-plane.
 	//------------------------------------------------------------------------------------
-	class ATHENA_MATH_SYMBOL Matrix3
+	class ATHENA_SYMBOL Matrix3
 	{
         //_____ Construction / Destruction __________
     public:

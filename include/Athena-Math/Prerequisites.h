@@ -48,7 +48,7 @@ namespace Math {
     typedef short           int16;
     typedef char            int8;
 
-    #if ATHENA_MATH_COMPILER == ATHENA_MATH_COMPILER_MSVC
+    #if ATHENA_COMPILER == ATHENA_COMPILER_MSVC
     	typedef unsigned __int64    uint64;
     	typedef __int64             int64;
     #else

@@ -34,7 +34,7 @@ namespace Math {
     /// For instance, a plane with a normal equals to (0, 1, 0) and D = -4 contains the
     /// following points: (0, 4, 0), (10, 4, 5) and (3, 4, 12)
 	//------------------------------------------------------------------------------------
-	class ATHENA_MATH_SYMBOL Plane
+	class ATHENA_SYMBOL Plane
 	{
         //_____ Internal types __________
 	public:

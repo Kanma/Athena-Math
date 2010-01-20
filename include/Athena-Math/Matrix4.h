@@ -49,7 +49,7 @@ namespace Math {
     ///     [ m[3][0]  m[3][1]  m[3][2]  m[3][3] ]   {1}
     /// </pre>
 	//------------------------------------------------------------------------------------
-	class ATHENA_MATH_SYMBOL Matrix4
+	class ATHENA_SYMBOL Matrix4
 	{
         //_____ Construction / Destruction __________
     public:

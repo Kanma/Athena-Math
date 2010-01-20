@@ -15,20 +15,9 @@ set(SRCS AxisAlignedBox.cpp
 # Precompiler definitions
 add_definitions(-DATHENA_EXPORTS)
 
-if (ATHENA_DOUBLE_PRECISION)
-    add_definitions(-DATHENA_DOUBLE_PRECISION=1)
-else()
-    add_definitions(-DATHENA_DOUBLE_PRECISION=0)
-endif()
-
-if (ATHENA_TEST_BIG_ENDIAN)
-    add_definitions(-DATHENA_MATH_CONFIG_BIG_ENDIAN)
-else()
-    add_definitions(-DATHENA_MATH_CONFIG_LITTLE_ENDIAN)
-endif()
-
 # List the include paths
-include_directories(${ATHENA_MATH_SOURCE_DIR}/include)
+include_directories(${ATHENA_MATH_SOURCE_DIR}/include
+                    ${ATHENA_BINARY_DIR}/include)
 
 # Disable some warnings in Visual Studio
 if (WIN32)

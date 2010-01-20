@@ -30,7 +30,7 @@ namespace Math {
     ///         x^2 + y^2 + z^2 = r^2 (for sphere's centered on the origin). Ogre stores
     ///         spheres simply as a center point and a radius.
 	//------------------------------------------------------------------------------------
-	class ATHENA_MATH_SYMBOL Sphere
+	class ATHENA_SYMBOL Sphere
 	{
         //_____ Construction / Destruction __________
 	public:
