@@ -2,9 +2,7 @@ cmake_minimum_required(VERSION 2.6)
 project(ATHENA_MATH)
 
 # Settings
-if (NOT ATHENA_DOUBLE_PRECISION)
-    set(ATHENA_DOUBLE_PRECISION OFF CACHE BOOL "Use double-precision floating point numbers")
-endif()
+set(ATHENA_DOUBLE_PRECISION OFF CACHE BOOL "Use double-precision floating point numbers")
 
 # Set the output paths
 if (NOT ATHENA_BINARY_DIR)
