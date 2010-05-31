@@ -17,9 +17,8 @@ if (NOT ATHENA_BINARY_DIR)
 endif()
 
 # XMake settings
-if (NOT xmake_init_static)
-    set(CMAKE_MODULE_PATH "${ATHENA_MATH_SOURCE_DIR}/dependencies/xmake")
-    include(XMake)
+if (EXISTS "${ATHENA_MATH_SOURCE_DIR}/dependencies/xmake/XMake.cmake")
+    include("${ATHENA_MATH_SOURCE_DIR}/dependencies/xmake/XMake.cmake")
 endif()
 
 if (ATHENA_MATH_STATIC)
@@ -31,6 +30,7 @@ else()
 endif()
 
 xmake_add_include_paths(ATHENA_MATH "${ATHENA_MATH_SOURCE_DIR}/include")
+xmake_add_link_targets(ATHENA_MATH Athena-Math)
 
 # Determine system endianess
 include(TestBigEndian)
