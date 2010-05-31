@@ -29,7 +29,8 @@ else()
     xmake_add_link_paths(ATHENA_MATH "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
 endif()
 
-xmake_add_include_paths(ATHENA_MATH "${ATHENA_MATH_SOURCE_DIR}/include")
+xmake_add_include_paths(ATHENA_MATH "${ATHENA_MATH_SOURCE_DIR}/include"
+                                    "${ATHENA_BINARY_DIR}/include")
 xmake_add_link_targets(ATHENA_MATH Athena-Math)
 
 # Determine system endianess

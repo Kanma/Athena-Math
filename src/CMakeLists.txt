@@ -16,8 +16,7 @@ set(SRCS AxisAlignedBox.cpp
 add_definitions(-DATHENA_EXPORTS)
 
 # List the include paths
-include_directories(${ATHENA_MATH_SOURCE_DIR}/include
-                    ${ATHENA_BINARY_DIR}/include)
+xmake_include_directories(ATHENA_MATH)
 
 # Disable some warnings in Visual Studio
 if (WIN32)
