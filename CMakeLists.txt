@@ -4,6 +4,10 @@ project(ATHENA_MATH)
 # Settings
 set(ATHENA_DOUBLE_PRECISION OFF CACHE BOOL "Use double-precision floating point numbers")
 
+if (NOT DEFINED ATHENA_MATH_STATIC)
+    set(ATHENA_MATH_STATIC OFF CACHE BOOL "Build Athena-Math as a static library")
+endif()
+
 # Set the output paths
 if (NOT ATHENA_BINARY_DIR)
     set(ATHENA_BINARY_DIR "${ATHENA_MATH_BINARY_DIR}")
@@ -11,6 +15,22 @@ if (NOT ATHENA_BINARY_DIR)
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${ATHENA_MATH_BINARY_DIR}/lib")
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${ATHENA_MATH_BINARY_DIR}/bin")
 endif()
+
+# XMake settings
+if (NOT xmake_init_static)
+    set(CMAKE_MODULE_PATH "${ATHENA_MATH_SOURCE_DIR}/dependencies/xmake")
+    include(XMake)
+endif()
+
+if (ATHENA_MATH_STATIC)
+    xmake_init_static(ATHENA_MATH)
+    xmake_add_link_paths(ATHENA_MATH "${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}")
+else()
+    xmake_init_dynamic(ATHENA_MATH)
+    xmake_add_link_paths(ATHENA_MATH "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
+endif()
+
+xmake_add_include_paths(ATHENA_MATH "${ATHENA_MATH_SOURCE_DIR}/include")
 
 # Determine system endianess
 include(TestBigEndian)
