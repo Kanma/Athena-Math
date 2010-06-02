@@ -26,6 +26,11 @@ endif()
 # Declaration of the library
 if (NOT ATHENA_MATH_STATIC)
     add_library(Athena-Math SHARED ${SRCS})
+
+    # Set the INSTALL_PATH so that the dynamic library can be local
+    set_target_properties(Athena-Math PROPERTIES BUILD_WITH_INSTALL_RPATH ON
+                                                 INSTALL_NAME_DIR "@rpath"
+    )
 else()
     add_library(Athena-Math STATIC ${SRCS})
 endif()
