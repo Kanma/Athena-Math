@@ -19,6 +19,13 @@ endif()
 # XMake settings
 if (EXISTS "${ATHENA_MATH_SOURCE_DIR}/dependencies/xmake/XMake.cmake")
     include("${ATHENA_MATH_SOURCE_DIR}/dependencies/xmake/XMake.cmake")
+else()
+    message(FATAL_ERROR
+"Missing dependency: XMake
+Athena-Math requires XMake to compile. It is provided as a GIT submodule of this repository.
+Did you forgot to execute the following commands?
+   git submodule init
+   git submodule update")
 endif()
 
 if (ATHENA_MATH_STATIC)
