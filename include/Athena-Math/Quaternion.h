@@ -153,7 +153,7 @@ namespace Math {
         void FromAxes (const Vector3& xAxis, const Vector3& yAxis, const Vector3& zAxis);
         void ToAxes (Vector3* akAxis) const;
         void ToAxes (Vector3& xAxis, Vector3& yAxis, Vector3& zAxis) const;
-        
+
     	//--------------------------------------------------------------------------------
     	/// @brief  Get the local x-axis
     	//--------------------------------------------------------------------------------
@@ -196,6 +196,16 @@ namespace Math {
         
         Quaternion Exp() const;
         Quaternion Log() const;
+
+    	//--------------------------------------------------------------------------------
+    	/// @brief  Returns the rotation to apply to this quaternion to get to another one
+    	//--------------------------------------------------------------------------------
+        Quaternion rotationTo(const Quaternion& q) const;
+
+    	//--------------------------------------------------------------------------------
+    	/// @brief  Returns the rotation to apply to another quaternion to get to this one
+    	//--------------------------------------------------------------------------------
+        Quaternion rotationFrom(const Quaternion& q) const;
 
     	//--------------------------------------------------------------------------------
     	/// @brief  Calculate the local roll element of this quaternion

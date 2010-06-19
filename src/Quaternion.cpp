@@ -365,6 +365,22 @@ Quaternion Quaternion::Log() const
 
 //-----------------------------------------------------------------------
 
+Quaternion Quaternion::rotationTo(const Quaternion& q) const
+{
+    // q = r ** this => r = q ** inv(this)
+    return q * Inverse();
+}
+
+//-----------------------------------------------------------------------
+
+Quaternion Quaternion::rotationFrom(const Quaternion& q) const
+{
+    // this = r ** q => r = this ** inv(q)
+    return (*this) * q.Inverse();
+}
+
+//-----------------------------------------------------------------------
+
 bool Quaternion::equals(const Quaternion& rhs, const Radian& tolerance) const
 {
     Real fCos = Dot(rhs);
