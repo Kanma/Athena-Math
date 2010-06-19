@@ -7,19 +7,22 @@ set(ATHENA_DOUBLE_PRECISION OFF CACHE BOOL "Use double-precision floating point 
 if (NOT DEFINED ATHENA_MATH_STATIC)
     set(ATHENA_MATH_STATIC OFF CACHE BOOL "Build Athena-Math as a static library")
 endif()
-
+    
 # Set the output paths
-if (NOT ATHENA_BINARY_DIR)
+if (NOT DEFINED ATHENA_BINARY_DIR)
     set(ATHENA_BINARY_DIR "${ATHENA_MATH_BINARY_DIR}")
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${ATHENA_MATH_BINARY_DIR}/bin")
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${ATHENA_MATH_BINARY_DIR}/lib")
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${ATHENA_MATH_BINARY_DIR}/bin")
 endif()
 
-# XMake settings
-if (EXISTS "${ATHENA_MATH_SOURCE_DIR}/dependencies/xmake/XMake.cmake")
-    include("${ATHENA_MATH_SOURCE_DIR}/dependencies/xmake/XMake.cmake")
-else()
+# Set the dependencies path
+if (NOT DEFINED ATHENA_DEPENDENCIES_DIR)
+    set(ATHENA_DEPENDENCIES_DIR "${ATHENA_MATH_SOURCE_DIR}/dependencies")
+endif()
+
+# Import XMake
+if (NOT EXISTS "${ATHENA_DEPENDENCIES_DIR}/xmake/XMake.cmake")
     message(FATAL_ERROR
 "Missing dependency: XMake
 Athena-Math requires XMake to compile. It is provided as a GIT submodule of this repository.
@@ -28,6 +31,9 @@ Did you forgot to execute the following commands?
    git submodule update")
 endif()
 
+include("${ATHENA_DEPENDENCIES_DIR}/xmake/XMake.cmake")
+
+# XMake settings
 if (ATHENA_MATH_STATIC)
     xmake_init_static(ATHENA_MATH)
     xmake_add_link_paths(ATHENA_MATH "${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}")
