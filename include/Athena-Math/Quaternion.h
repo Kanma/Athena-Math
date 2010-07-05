@@ -12,6 +12,7 @@
 
 #include <Athena-Math/Prerequisites.h>
 #include <Athena-Math/MathUtils.h>
+#include <memory.h>
 
 
 namespace Athena {
