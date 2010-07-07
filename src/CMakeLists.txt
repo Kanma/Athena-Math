@@ -7,6 +7,7 @@ set(SRCS AxisAlignedBox.cpp
          Matrix4.cpp
          Plane.cpp
          Quaternion.cpp
+         RandomNumberGenerator.cpp
          Vector2.cpp
          Vector3.cpp
          Vector4.cpp

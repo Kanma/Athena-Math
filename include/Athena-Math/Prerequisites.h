@@ -36,6 +36,7 @@ namespace Math {
     class Plane;
     class Quaternion;
     class Radian;
+    class RandomNumberGenerator;
     class Sphere;
     class Vector2;
     class Vector3;
