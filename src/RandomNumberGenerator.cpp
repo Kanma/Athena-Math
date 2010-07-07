@@ -16,7 +16,7 @@ using namespace Athena::Math;
 
 const unsigned int A = 1664525;
 const unsigned int B = 1013904223;
-const unsigned long long N = 0x100000000;
+const uint64 N = 0x100000000LL;
 
 
 /****************************** CONSTRUCTION / DESTRUCTION ******************************/
@@ -54,28 +54,28 @@ void RandomNumberGenerator::reset()
 
 unsigned int RandomNumberGenerator::randomize(unsigned int max)
 {
-	return randomize() % ((unsigned long long) max) + 1;
+	return randomize() % ((uint64) max) + 1;
 }
 
 //-----------------------------------------------------------------------
 
 unsigned int RandomNumberGenerator::randomize(unsigned int min, unsigned int max)
 {
-	return randomize() % (((unsigned long long) max) + 1 - min) + min;
+	return randomize() % (((uint64) max) + 1 - min) + min;
 }
 
 //-----------------------------------------------------------------------
 
 int RandomNumberGenerator::randomize(int max)
 {
-	return randomize() % ((long long) max) + 1;
+	return randomize() % ((int64) max) + 1;
 }
 
 //-----------------------------------------------------------------------
 
 int RandomNumberGenerator::randomize(int min, int max)
 {
-	return randomize() % (((long long) max) + 1 - min) + min;
+	return randomize() % (((int64) max) + 1 - min) + min;
 }
 
 //-----------------------------------------------------------------------
