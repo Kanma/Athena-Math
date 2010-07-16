@@ -37,6 +37,8 @@ else()
 endif()
 
 # Disable some warnings in Visual Studio
-if (WIN32)
+if (NOT WIN32)
+    set_target_properties(Athena-Math PROPERTIES COMPILE_FLAGS "-fPIC")
+else()
     set_target_properties(Athena-Math PROPERTIES COMPILE_DEFINITIONS "/wd4244 /wd4305")
 endif()
