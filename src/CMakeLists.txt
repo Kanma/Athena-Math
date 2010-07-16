@@ -36,7 +36,7 @@ else()
     add_library(Athena-Math STATIC ${SRCS})
 
     if (NOT WIN32)
-        set_target_properties(Athena-Core PROPERTIES COMPILE_FLAGS "-fPIC")
+        set_target_properties(Athena-Math PROPERTIES COMPILE_FLAGS "-fPIC")
     endif()
 endif()
 
