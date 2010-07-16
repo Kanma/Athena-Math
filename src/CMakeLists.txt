@@ -34,11 +34,13 @@ if (NOT ATHENA_MATH_STATIC)
     )
 else()
     add_library(Athena-Math STATIC ${SRCS})
+
+    if (NOT WIN32)
+        set_target_properties(Athena-Core PROPERTIES COMPILE_FLAGS "-fPIC")
+    endif()
 endif()
 
 # Disable some warnings in Visual Studio
-if (NOT WIN32)
-    set_target_properties(Athena-Math PROPERTIES COMPILE_FLAGS "-fPIC")
-else()
+if (WIN32)
     set_target_properties(Athena-Math PROPERTIES COMPILE_DEFINITIONS "/wd4244 /wd4305")
 endif()
