@@ -5,6 +5,7 @@
 */
 
 #include <Athena-Math/RandomNumberGenerator.h>
+#include <Athena-Math/MathUtils.h>
 #include <math.h>
 #include <time.h>
 
@@ -54,6 +55,9 @@ void RandomNumberGenerator::reset()
 
 unsigned int RandomNumberGenerator::randomize(unsigned int max)
 {
+    if (max == 0)
+        return 0;
+    
 	return randomize() % ((uint64) max) + 1;
 }
 
@@ -61,6 +65,9 @@ unsigned int RandomNumberGenerator::randomize(unsigned int max)
 
 unsigned int RandomNumberGenerator::randomize(unsigned int min, unsigned int max)
 {
+    if (max <= min)
+        return min;
+
 	return randomize() % (((uint64) max) + 1 - min) + min;
 }
 
@@ -68,6 +75,9 @@ unsigned int RandomNumberGenerator::randomize(unsigned int min, unsigned int max
 
 int RandomNumberGenerator::randomize(int max)
 {
+    if (max <= 0)
+        return 0;
+
 	return randomize() % ((int64) max) + 1;
 }
 
@@ -75,6 +85,9 @@ int RandomNumberGenerator::randomize(int max)
 
 int RandomNumberGenerator::randomize(int min, int max)
 {
+    if (max <= min)
+        return min;
+
 	return randomize() % (((int64) max) + 1 - min) + min;
 }
 
@@ -82,6 +95,9 @@ int RandomNumberGenerator::randomize(int min, int max)
 
 float RandomNumberGenerator::randomize(float max)
 {
+    if ((max < 0.0f) || MathUtils::RealEqual(max, 0.0f))
+        return 0.0f;
+
 	return fmod(randomize(), max);
 }
 
@@ -89,6 +105,9 @@ float RandomNumberGenerator::randomize(float max)
 
 float RandomNumberGenerator::randomize(float min, float max)
 {
+    if ((max < min) || MathUtils::RealEqual(max, min))
+        return min;
+
 	return fmod(randomize(), max - min) + min;
 }
 
