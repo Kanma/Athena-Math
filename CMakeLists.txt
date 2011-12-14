@@ -57,3 +57,8 @@ test_big_endian(ATHENA_TEST_BIG_ENDIAN)
 
 add_subdirectory(include)
 add_subdirectory(src)
+
+if (DEFINED ATHENA_SCRIPTING_ENABLED AND ATHENA_SCRIPTING_ENABLED)
+    add_subdirectory(scripting)
+    add_subdirectory(unittests)
+endif()
