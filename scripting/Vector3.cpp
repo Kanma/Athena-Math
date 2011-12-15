@@ -459,7 +459,30 @@ Handle<Value> Vector3_INegate(const Arguments& args)
 }
 
 
-/*********************************** BINDING FUNCTION **********************************/
+/**************************************** METHODS ***************************************/
+
+Handle<Value> Vector3_Length(const Arguments& args)
+{
+    Vector3* self = CastJSObject<Vector3>(args.This());
+    if (!self)
+        return Handle<Value>();
+
+    return Number::New(self->length());
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_SquaredLength(const Arguments& args)
+{
+    Vector3* self = CastJSObject<Vector3>(args.This());
+    if (!self)
+        return Handle<Value>();
+
+    return Number::New(self->squaredLength());
+}
+
+
+/************************************ BINDING FUNCTION **********************************/
 
 bool bind_Vector3(Handle<Object> parent)
 {
@@ -493,6 +516,10 @@ bool bind_Vector3(Handle<Object> parent)
     template_Vector3->Set(String::New("imul"), FunctionTemplate::New(Vector3_IMul)->GetFunction());
     template_Vector3->Set(String::New("idivide"), FunctionTemplate::New(Vector3_IDivide)->GetFunction());
     template_Vector3->Set(String::New("inegate"), FunctionTemplate::New(Vector3_INegate)->GetFunction());
+
+    // Methods
+    template_Vector3->Set(String::New("length"), FunctionTemplate::New(Vector3_Length)->GetFunction());
+    template_Vector3->Set(String::New("squaredLength"), FunctionTemplate::New(Vector3_SquaredLength)->GetFunction());
 
     // Add the class to the parent
     return parent->Set(String::New("Vector3"), FunctionTemplate::New(Vector3_New)->GetFunction());

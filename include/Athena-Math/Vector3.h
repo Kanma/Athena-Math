@@ -342,7 +342,7 @@ namespace Math {
 		///             CPU operations. If you don't need to know the exact length (e.g.
 		///             for just comparing lengths) use squaredLength() instead.
         //--------------------------------------------------------------------------------
-        inline Real length () const
+        inline Real length() const
         {
             return MathUtils::Sqrt(x * x + y * y + z * z);
         }
@@ -357,7 +357,7 @@ namespace Math {
 		///         taken. Use this if you want to find the longest / shortest vector
 		///         without incurring the square root.
         //--------------------------------------------------------------------------------
-        inline Real squaredLength () const
+        inline Real squaredLength() const
         {
             return x * x + y * y + z * z;
         }

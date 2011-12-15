@@ -15,6 +15,7 @@ set(JS_FILES Vector3_CreationWithXYZ.js
              Vector3_ISub.js
              Vector3_IMul.js
              Vector3_IDivide.js
+             Vector3_Length.js
 )
 
 
