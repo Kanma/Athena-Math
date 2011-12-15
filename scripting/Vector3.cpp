@@ -78,12 +78,6 @@ Handle<Value> Vector3_New(const Arguments& args)
     if (!v)
         v = new Vector3();
 
-    // Persistent<Object> jsVector = Persistent<Object>::New(template_Vector3->NewInstance());
-    // jsVector->SetInternalField(0, External::New(v));
-    // jsVector.MakeWeak(0, Vector3_WeakCallback);
-    // 
-    // V8::AdjustAmountOfExternalAllocatedMemory(sizeof(Vector3));
-    
     return createJSVector3(v);
 }
 
