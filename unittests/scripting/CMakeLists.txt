@@ -1,6 +1,9 @@
 set(JS_FILES Vector3_CreationWithXYZ.js
              Vector3_CreationWithScale.js
-             Vector3_Assignement.js
+             Vector3_CreationWithVector3.js
+             Vector3_AttributesAssignement.js
+             Vector3_AssignementUsingVector3.js
+             Vector3_AssignementUsingScalar.js
 )
 
 
