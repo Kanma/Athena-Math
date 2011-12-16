@@ -206,6 +206,42 @@ Handle<Value> Vector3_NotEquals(const Arguments& args)
     return Boolean::New((*self) != (*rkVector));
 }
 
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_LesserThan(const Arguments& args)
+{
+    if (args.Length() != 1)
+        return Handle<Value>();
+
+    Vector3* self = CastJSObject<Vector3>(args.This());
+    if (!self)
+        return Handle<Value>();
+
+    Vector3* rkVector = CastJSObject<Vector3>(args[0]);
+    if (!rkVector)
+        return Handle<Value>();
+
+    return Boolean::New((*self) < (*rkVector));
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_GreaterThan(const Arguments& args)
+{
+    if (args.Length() != 1)
+        return Handle<Value>();
+
+    Vector3* self = CastJSObject<Vector3>(args.This());
+    if (!self)
+        return Handle<Value>();
+
+    Vector3* rkVector = CastJSObject<Vector3>(args[0]);
+    if (!rkVector)
+        return Handle<Value>();
+
+    return Boolean::New((*self) > (*rkVector));
+}
+
 
 /********************************* ARITHMETIC OPERATIONS ********************************/
 
@@ -481,6 +517,326 @@ Handle<Value> Vector3_SquaredLength(const Arguments& args)
     return Number::New(self->squaredLength());
 }
 
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_IsZeroLength(const Arguments& args)
+{
+    Vector3* self = CastJSObject<Vector3>(args.This());
+    if (!self)
+        return Handle<Value>();
+
+    return Boolean::New(self->isZeroLength());
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_Distance(const Arguments& args)
+{
+    if (args.Length() != 1)
+        return Handle<Value>();
+
+    Vector3* self = CastJSObject<Vector3>(args.This());
+    if (!self)
+        return Handle<Value>();
+
+    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    if (!rhs)
+        return Handle<Value>();
+
+    return Number::New(self->distance(*rhs));
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_SquaredDistance(const Arguments& args)
+{
+    if (args.Length() != 1)
+        return Handle<Value>();
+
+    Vector3* self = CastJSObject<Vector3>(args.This());
+    if (!self)
+        return Handle<Value>();
+
+    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    if (!rhs)
+        return Handle<Value>();
+
+    return Number::New(self->squaredDistance(*rhs));
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_DotProduct(const Arguments& args)
+{
+    if (args.Length() != 1)
+        return Handle<Value>();
+
+    Vector3* self = CastJSObject<Vector3>(args.This());
+    if (!self)
+        return Handle<Value>();
+
+    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    if (!rhs)
+        return Handle<Value>();
+
+    return Number::New(self->dotProduct(*rhs));
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_AbsDotProduct(const Arguments& args)
+{
+    if (args.Length() != 1)
+        return Handle<Value>();
+
+    Vector3* self = CastJSObject<Vector3>(args.This());
+    if (!self)
+        return Handle<Value>();
+
+    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    if (!rhs)
+        return Handle<Value>();
+
+    return Number::New(self->absDotProduct(*rhs));
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_Normalise(const Arguments& args)
+{
+    Vector3* self = CastJSObject<Vector3>(args.This());
+    if (!self)
+        return Handle<Value>();
+
+    return Number::New(self->normalise());
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_NormalisedCopy(const Arguments& args)
+{
+    Vector3* self = CastJSObject<Vector3>(args.This());
+    if (!self)
+        return Handle<Value>();
+
+    return createJSVector3(new Vector3(self->normalisedCopy()));
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_CrossProduct(const Arguments& args)
+{
+    if (args.Length() != 1)
+        return Handle<Value>();
+
+    Vector3* self = CastJSObject<Vector3>(args.This());
+    if (!self)
+        return Handle<Value>();
+
+    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    if (!rhs)
+        return Handle<Value>();
+
+    return createJSVector3(new Vector3(self->crossProduct(*rhs)));
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_MidPoint(const Arguments& args)
+{
+    if (args.Length() != 1)
+        return Handle<Value>();
+
+    Vector3* self = CastJSObject<Vector3>(args.This());
+    if (!self)
+        return Handle<Value>();
+
+    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    if (!rhs)
+        return Handle<Value>();
+
+    return createJSVector3(new Vector3(self->midPoint(*rhs)));
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_MakeFloor(const Arguments& args)
+{
+    if (args.Length() != 1)
+        return Handle<Value>();
+
+    Vector3* self = CastJSObject<Vector3>(args.This());
+    if (!self)
+        return Handle<Value>();
+
+    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    if (!rhs)
+        return Handle<Value>();
+
+    self->makeFloor(*rhs);
+
+    return Handle<Value>();
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_MakeCeil(const Arguments& args)
+{
+    if (args.Length() != 1)
+        return Handle<Value>();
+
+    Vector3* self = CastJSObject<Vector3>(args.This());
+    if (!self)
+        return Handle<Value>();
+
+    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    if (!rhs)
+        return Handle<Value>();
+
+    self->makeCeil(*rhs);
+
+    return Handle<Value>();
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_Perpendicular(const Arguments& args)
+{
+    Vector3* self = CastJSObject<Vector3>(args.This());
+    if (!self)
+        return Handle<Value>();
+
+    return createJSVector3(new Vector3(self->perpendicular()));
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_Reflect(const Arguments& args)
+{
+    if (args.Length() != 1)
+        return Handle<Value>();
+
+    Vector3* self = CastJSObject<Vector3>(args.This());
+    if (!self)
+        return Handle<Value>();
+
+    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    if (!rhs)
+        return Handle<Value>();
+
+    return createJSVector3(new Vector3(self->reflect(*rhs)));
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_PositionEquals(const Arguments& args)
+{
+    if (args.Length() != 2)
+        return Handle<Value>();
+
+    Vector3* self = CastJSObject<Vector3>(args.This());
+    if (!self)
+        return Handle<Value>();
+
+    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    if (!rhs)
+        return Handle<Value>();
+
+    if (!args[1]->IsNumber())
+        return Handle<Value>();
+
+    return Number::New(self->positionEquals(*rhs, args[1]->ToNumber()->Value()));
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_PositionCloses(const Arguments& args)
+{
+    if (args.Length() != 2)
+        return Handle<Value>();
+
+    Vector3* self = CastJSObject<Vector3>(args.This());
+    if (!self)
+        return Handle<Value>();
+
+    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    if (!rhs)
+        return Handle<Value>();
+
+    if (!args[1]->IsNumber())
+        return Handle<Value>();
+
+    return Number::New(self->positionCloses(*rhs, args[1]->ToNumber()->Value()));
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_IsNaN(const Arguments& args)
+{
+    Vector3* self = CastJSObject<Vector3>(args.This());
+    if (!self)
+        return Handle<Value>();
+
+    return Boolean::New(self->isNaN());
+}
+
+
+/**************************************** CONSTANTS *************************************/
+
+// Handle<Value> Vector3_ZERO(const Arguments& args)
+// {
+//     return createJSVector3(new Vector3(Vector3::ZERO));
+// }
+// 
+// //-----------------------------------------------------------------------
+// 
+// Handle<Value> Vector3_UNIT_X(const Arguments& args)
+// {
+//     return createJSVector3(new Vector3(Vector3::UNIT_X));
+// }
+// 
+// //-----------------------------------------------------------------------
+// 
+// Handle<Value> Vector3_UNIT_Y(const Arguments& args)
+// {
+//     return createJSVector3(new Vector3(Vector3::UNIT_Y));
+// }
+// 
+// //-----------------------------------------------------------------------
+// 
+// Handle<Value> Vector3_UNIT_Z(const Arguments& args)
+// {
+//     return createJSVector3(new Vector3(Vector3::UNIT_Z));
+// }
+// 
+// //-----------------------------------------------------------------------
+// 
+// Handle<Value> Vector3_NEGATIVE_UNIT_X(const Arguments& args)
+// {
+//     return createJSVector3(new Vector3(Vector3::NEGATIVE_UNIT_X));
+// }
+// 
+// //-----------------------------------------------------------------------
+// 
+// Handle<Value> Vector3_NEGATIVE_UNIT_Y(const Arguments& args)
+// {
+//     return createJSVector3(new Vector3(Vector3::NEGATIVE_UNIT_Y));
+// }
+// 
+// //-----------------------------------------------------------------------
+// 
+// Handle<Value> Vector3_NEGATIVE_UNIT_Z(const Arguments& args)
+// {
+//     return createJSVector3(new Vector3(Vector3::NEGATIVE_UNIT_Z));
+// }
+// 
+// //-----------------------------------------------------------------------
+// 
+// Handle<Value> Vector3_UNIT_SCALE(const Arguments& args)
+// {
+//     return createJSVector3(new Vector3(Vector3::UNIT_SCALE));
+// }
+
 
 /************************************ BINDING FUNCTION **********************************/
 
@@ -502,6 +858,8 @@ bool bind_Vector3(Handle<Object> parent)
     // Comparison operations
     template_Vector3->Set(String::New("equals"), FunctionTemplate::New(Vector3_Equals)->GetFunction());
     template_Vector3->Set(String::New("notEquals"), FunctionTemplate::New(Vector3_NotEquals)->GetFunction());
+    template_Vector3->Set(String::New("lesserThan"), FunctionTemplate::New(Vector3_LesserThan)->GetFunction());
+    template_Vector3->Set(String::New("greaterThan"), FunctionTemplate::New(Vector3_GreaterThan)->GetFunction());
 
     // Arithmetic operations
     template_Vector3->Set(String::New("add"), FunctionTemplate::New(Vector3_Add)->GetFunction());
@@ -520,7 +878,37 @@ bool bind_Vector3(Handle<Object> parent)
     // Methods
     template_Vector3->Set(String::New("length"), FunctionTemplate::New(Vector3_Length)->GetFunction());
     template_Vector3->Set(String::New("squaredLength"), FunctionTemplate::New(Vector3_SquaredLength)->GetFunction());
-
+    template_Vector3->Set(String::New("isZeroLength"), FunctionTemplate::New(Vector3_IsZeroLength)->GetFunction());
+    template_Vector3->Set(String::New("distance"), FunctionTemplate::New(Vector3_Distance)->GetFunction());
+    template_Vector3->Set(String::New("squaredDistance"), FunctionTemplate::New(Vector3_SquaredDistance)->GetFunction());
+    template_Vector3->Set(String::New("dot"), FunctionTemplate::New(Vector3_DotProduct)->GetFunction());
+    template_Vector3->Set(String::New("absDot"), FunctionTemplate::New(Vector3_AbsDotProduct)->GetFunction());
+    template_Vector3->Set(String::New("normalise"), FunctionTemplate::New(Vector3_Normalise)->GetFunction());
+    template_Vector3->Set(String::New("normalisedCopy"), FunctionTemplate::New(Vector3_NormalisedCopy)->GetFunction());
+    template_Vector3->Set(String::New("cross"), FunctionTemplate::New(Vector3_CrossProduct)->GetFunction());
+    template_Vector3->Set(String::New("midPoint"), FunctionTemplate::New(Vector3_MidPoint)->GetFunction());
+    template_Vector3->Set(String::New("makeFloor"), FunctionTemplate::New(Vector3_MakeFloor)->GetFunction());
+    template_Vector3->Set(String::New("makeCeil"), FunctionTemplate::New(Vector3_MakeCeil)->GetFunction());
+    template_Vector3->Set(String::New("perpendicular"), FunctionTemplate::New(Vector3_Perpendicular)->GetFunction());
+    // MISSING: randomDeviant()
+    // MISSING: angleBetween()
+    // MISSING: getRotationTo()
+    template_Vector3->Set(String::New("reflect"), FunctionTemplate::New(Vector3_Reflect)->GetFunction());
+    template_Vector3->Set(String::New("positionEquals"), FunctionTemplate::New(Vector3_PositionEquals)->GetFunction());
+    template_Vector3->Set(String::New("positionCloses"), FunctionTemplate::New(Vector3_PositionCloses)->GetFunction());
+    // MISSING: directionEquals()
+    template_Vector3->Set(String::New("isNaN"), FunctionTemplate::New(Vector3_IsNaN)->GetFunction());
+    
+    // Constants
+    // template_Vector3->Set(String::New("ZERO"), FunctionTemplate::New(Vector3_ZERO)->GetFunction());
+    // template_Vector3->Set(String::New("UNIT_X"), FunctionTemplate::New(Vector3_UNIT_X)->GetFunction());
+    // template_Vector3->Set(String::New("UNIT_Y"), FunctionTemplate::New(Vector3_UNIT_Y)->GetFunction());
+    // template_Vector3->Set(String::New("UNIT_Z"), FunctionTemplate::New(Vector3_UNIT_Z)->GetFunction());
+    // template_Vector3->Set(String::New("NEGATIVE_UNIT_X"), FunctionTemplate::New(Vector3_NEGATIVE_UNIT_X)->GetFunction());
+    // template_Vector3->Set(String::New("NEGATIVE_UNIT_Y"), FunctionTemplate::New(Vector3_NEGATIVE_UNIT_Y)->GetFunction());
+    // template_Vector3->Set(String::New("NEGATIVE_UNIT_Z"), FunctionTemplate::New(Vector3_NEGATIVE_UNIT_Z)->GetFunction());
+    // template_Vector3->Set(String::New("UNIT_SCALE"), FunctionTemplate::New(Vector3_UNIT_SCALE)->GetFunction());
+    
     // Add the class to the parent
     return parent->Set(String::New("Vector3"), FunctionTemplate::New(Vector3_New)->GetFunction());
 }

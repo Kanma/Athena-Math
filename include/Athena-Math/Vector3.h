@@ -143,6 +143,26 @@ namespace Math {
             return (x != rkVector.x || y != rkVector.y || z != rkVector.z);
         }
 
+        inline bool operator<(const Vector3& rhs) const
+        {
+            return (x < rhs.x && y < rhs.y && z < rhs.z);
+        }
+
+        inline bool operator>(const Vector3& rhs) const
+        {
+            return (x > rhs.x && y > rhs.y && z > rhs.z);
+        }
+
+        inline bool operator<=(const Vector3& rhs) const
+        {
+            return (x <= rhs.x && y <= rhs.y && z <= rhs.z);
+        }
+
+        inline bool operator>=(const Vector3& rhs) const
+        {
+            return (x >= rhs.x && y >= rhs.y && z >= rhs.z);
+        }
+
 
         //_____ Arithmetic operations __________
     public:
@@ -363,6 +383,16 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
+		/// @brief  Indicates if this vector is zero length
+        //--------------------------------------------------------------------------------
+        inline bool isZeroLength(void) const
+        {
+            Real sqlen = (x * x) + (y * y) + (z * z);
+            return (sqlen < (1e-06 * 1e-06));
+
+        }
+
+        //--------------------------------------------------------------------------------
 		/// @brief  Returns the distance to another vector
 		///
 		/// @warning    This operation requires a square root and is expensive in terms of
@@ -448,6 +478,17 @@ namespace Math {
             }
 
             return fLength;
+        }
+
+        //--------------------------------------------------------------------------------
+		/// @brief  As normalise, except that this vector is unaffected and the normalised
+		///         vector is returned as a copy
+        //--------------------------------------------------------------------------------
+        inline Vector3 normalisedCopy(void) const
+        {
+            Vector3 ret = *this;
+            ret.normalise();
+            return ret;
         }
 
         //--------------------------------------------------------------------------------
@@ -675,27 +716,6 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Indicates if this vector is zero length
-        //--------------------------------------------------------------------------------
-        inline bool isZeroLength(void) const
-        {
-            Real sqlen = (x * x) + (y * y) + (z * z);
-            return (sqlen < (1e-06 * 1e-06));
-
-        }
-
-        //--------------------------------------------------------------------------------
-		/// @brief  As normalise, except that this vector is unaffected and the normalised
-		///         vector is returned as a copy
-        //--------------------------------------------------------------------------------
-        inline Vector3 normalisedCopy(void) const
-        {
-            Vector3 ret = *this;
-            ret.normalise();
-            return ret;
-        }
-
-        //--------------------------------------------------------------------------------
 		/// @brief  Calculates a reflection vector to the plane with the given normal
 		///
 		/// @remark Assumes 'this' is pointing AWAY FROM the plane, invert if it is not.
@@ -759,29 +779,6 @@ namespace Math {
 		{
 			return MathUtils::isNaN(x) || MathUtils::isNaN(y) || MathUtils::isNaN(z);
 		}
-
-
-        //_____ Comparison operators __________
-    public:
-        inline bool operator<(const Vector3& rhs) const
-        {
-            return (x < rhs.x && y < rhs.y && z < rhs.z);
-        }
-
-        inline bool operator>(const Vector3& rhs) const
-        {
-            return (x > rhs.x && y > rhs.y && z > rhs.z);
-        }
-
-        inline bool operator<=(const Vector3& rhs) const
-        {
-            return (x <= rhs.x && y <= rhs.y && z <= rhs.z);
-        }
-
-        inline bool operator>=(const Vector3& rhs) const
-        {
-            return (x >= rhs.x && y >= rhs.y && z >= rhs.z);
-        }
 
 
         //_____ Constants __________

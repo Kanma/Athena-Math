@@ -6,6 +6,7 @@ set(JS_FILES Vector3_CreationWithXYZ.js
              Vector3_AssignementUsingScalar.js
              Vector3_Equals.js
              Vector3_NotEquals.js
+             Vector3_LesserGreater.js
              Vector3_Add.js
              Vector3_Sub.js
              Vector3_Mul.js
@@ -16,6 +17,17 @@ set(JS_FILES Vector3_CreationWithXYZ.js
              Vector3_IMul.js
              Vector3_IDivide.js
              Vector3_Length.js
+             Vector3_Distance.js
+             Vector3_DotProduct.js
+             Vector3_Normalise.js
+             Vector3_CrossProduct.js
+             Vector3_MidPoint.js
+             Vector3_FloorCeil.js
+             Vector3_Perpendicular.js
+             Vector3_PositionEquals.js
+             Vector3_PositionCloses.js
+             Vector3_IsNaN.js
+#             Vector3_Constants.js
 )
 
 
