@@ -783,59 +783,59 @@ Handle<Value> Vector3_IsNaN(const Arguments& args)
 
 /**************************************** CONSTANTS *************************************/
 
-// Handle<Value> Vector3_ZERO(const Arguments& args)
-// {
-//     return createJSVector3(new Vector3(Vector3::ZERO));
-// }
-// 
-// //-----------------------------------------------------------------------
-// 
-// Handle<Value> Vector3_UNIT_X(const Arguments& args)
-// {
-//     return createJSVector3(new Vector3(Vector3::UNIT_X));
-// }
-// 
-// //-----------------------------------------------------------------------
-// 
-// Handle<Value> Vector3_UNIT_Y(const Arguments& args)
-// {
-//     return createJSVector3(new Vector3(Vector3::UNIT_Y));
-// }
-// 
-// //-----------------------------------------------------------------------
-// 
-// Handle<Value> Vector3_UNIT_Z(const Arguments& args)
-// {
-//     return createJSVector3(new Vector3(Vector3::UNIT_Z));
-// }
-// 
-// //-----------------------------------------------------------------------
-// 
-// Handle<Value> Vector3_NEGATIVE_UNIT_X(const Arguments& args)
-// {
-//     return createJSVector3(new Vector3(Vector3::NEGATIVE_UNIT_X));
-// }
-// 
-// //-----------------------------------------------------------------------
-// 
-// Handle<Value> Vector3_NEGATIVE_UNIT_Y(const Arguments& args)
-// {
-//     return createJSVector3(new Vector3(Vector3::NEGATIVE_UNIT_Y));
-// }
-// 
-// //-----------------------------------------------------------------------
-// 
-// Handle<Value> Vector3_NEGATIVE_UNIT_Z(const Arguments& args)
-// {
-//     return createJSVector3(new Vector3(Vector3::NEGATIVE_UNIT_Z));
-// }
-// 
-// //-----------------------------------------------------------------------
-// 
-// Handle<Value> Vector3_UNIT_SCALE(const Arguments& args)
-// {
-//     return createJSVector3(new Vector3(Vector3::UNIT_SCALE));
-// }
+Handle<Value> Vector3_ZERO(Local<String> property, const AccessorInfo &info)
+{
+    return createJSVector3(new Vector3(Vector3::ZERO));
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_UNIT_X(Local<String> property, const AccessorInfo &info)
+{
+    return createJSVector3(new Vector3(Vector3::UNIT_X));
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_UNIT_Y(Local<String> property, const AccessorInfo &info)
+{
+    return createJSVector3(new Vector3(Vector3::UNIT_Y));
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_UNIT_Z(Local<String> property, const AccessorInfo &info)
+{
+    return createJSVector3(new Vector3(Vector3::UNIT_Z));
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_NEGATIVE_UNIT_X(Local<String> property, const AccessorInfo &info)
+{
+    return createJSVector3(new Vector3(Vector3::NEGATIVE_UNIT_X));
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_NEGATIVE_UNIT_Y(Local<String> property, const AccessorInfo &info)
+{
+    return createJSVector3(new Vector3(Vector3::NEGATIVE_UNIT_Y));
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_NEGATIVE_UNIT_Z(Local<String> property, const AccessorInfo &info)
+{
+    return createJSVector3(new Vector3(Vector3::NEGATIVE_UNIT_Z));
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> Vector3_UNIT_SCALE(Local<String> property, const AccessorInfo &info)
+{
+    return createJSVector3(new Vector3(Vector3::UNIT_SCALE));
+}
 
 
 /************************************ BINDING FUNCTION **********************************/
@@ -898,17 +898,18 @@ bool bind_Vector3(Handle<Object> parent)
     template_Vector3->Set(String::New("positionCloses"), FunctionTemplate::New(Vector3_PositionCloses)->GetFunction());
     // MISSING: directionEquals()
     template_Vector3->Set(String::New("isNaN"), FunctionTemplate::New(Vector3_IsNaN)->GetFunction());
-    
-    // Constants
-    // template_Vector3->Set(String::New("ZERO"), FunctionTemplate::New(Vector3_ZERO)->GetFunction());
-    // template_Vector3->Set(String::New("UNIT_X"), FunctionTemplate::New(Vector3_UNIT_X)->GetFunction());
-    // template_Vector3->Set(String::New("UNIT_Y"), FunctionTemplate::New(Vector3_UNIT_Y)->GetFunction());
-    // template_Vector3->Set(String::New("UNIT_Z"), FunctionTemplate::New(Vector3_UNIT_Z)->GetFunction());
-    // template_Vector3->Set(String::New("NEGATIVE_UNIT_X"), FunctionTemplate::New(Vector3_NEGATIVE_UNIT_X)->GetFunction());
-    // template_Vector3->Set(String::New("NEGATIVE_UNIT_Y"), FunctionTemplate::New(Vector3_NEGATIVE_UNIT_Y)->GetFunction());
-    // template_Vector3->Set(String::New("NEGATIVE_UNIT_Z"), FunctionTemplate::New(Vector3_NEGATIVE_UNIT_Z)->GetFunction());
-    // template_Vector3->Set(String::New("UNIT_SCALE"), FunctionTemplate::New(Vector3_UNIT_SCALE)->GetFunction());
-    
+
     // Add the class to the parent
-    return parent->Set(String::New("Vector3"), FunctionTemplate::New(Vector3_New)->GetFunction());
+    if (!parent->Set(String::New("Vector3"), FunctionTemplate::New(Vector3_New)->GetFunction()))
+        return false;
+    
+    // Constants (can't be members of Vector3)
+    parent->SetAccessor(String::New("Vector3_ZERO"), Vector3_ZERO, 0);
+    parent->SetAccessor(String::New("Vector3_UNIT_X"), Vector3_UNIT_X, 0);
+    parent->SetAccessor(String::New("Vector3_UNIT_Y"), Vector3_UNIT_Y, 0);
+    parent->SetAccessor(String::New("Vector3_UNIT_Z"), Vector3_UNIT_Z, 0);
+    parent->SetAccessor(String::New("Vector3_NEGATIVE_UNIT_X"), Vector3_NEGATIVE_UNIT_X, 0);
+    parent->SetAccessor(String::New("Vector3_NEGATIVE_UNIT_Y"), Vector3_NEGATIVE_UNIT_Y, 0);
+    parent->SetAccessor(String::New("Vector3_NEGATIVE_UNIT_Z"), Vector3_NEGATIVE_UNIT_Z, 0);
+    parent->SetAccessor(String::New("Vector3_UNIT_SCALE"), Vector3_UNIT_SCALE, 0);
 }

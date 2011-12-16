@@ -27,7 +27,7 @@ set(JS_FILES Vector3_CreationWithXYZ.js
              Vector3_PositionEquals.js
              Vector3_PositionCloses.js
              Vector3_IsNaN.js
-#             Vector3_Constants.js
+             Vector3_Constants.js
 )
 
 
