@@ -205,15 +205,15 @@ namespace Math {
         static inline Real Ceil (Real fValue) { return Real(ceil(fValue)); }
         static inline Real Floor(Real fValue) { return Real(floor(fValue)); }
 
+        static Real Sign(Real fValue);
+        static inline Radian Sign(const Radian& rValue) { return Radian(Sign(rValue.valueRadians())); }
+        static inline Degree Sign(const Degree& dValue) { return Degree(Sign(dValue.valueDegrees())); }
+
         static inline Real Exp(Real fValue) { return Real(exp(fValue)); }
         static inline Real Log(Real fValue) { return Real(log(fValue)); }
         static inline Real Log2(Real fValue) { return Real(log(fValue)/LOG2); }
         static inline Real LogN(Real base, Real fValue) { return Real(log(fValue)/log(base)); }
         static inline Real Pow(Real fBase, Real fExponent) { return Real(pow(fBase,fExponent)); }
-
-        static Real Sign(Real fValue);
-        static inline Radian Sign(const Radian& rValue) { return Radian(Sign(rValue.valueRadians())); }
-        static inline Degree Sign(const Degree& dValue) { return Degree(Sign(dValue.valueDegrees())); }
 
         static inline Real Sqr(Real fValue) { return fValue * fValue; }
         static inline Real Sqrt(Real fValue) { return Real(sqrt(fValue)); }

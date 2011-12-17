@@ -4,6 +4,7 @@ xmake_import_search_paths(ATHENA_SCRIPTING)
 
 # List the source files
 set(SRCS module.cpp
+         MathUtils.cpp
          Vector3.cpp
 )
 

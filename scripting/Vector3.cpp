@@ -904,12 +904,12 @@ bool bind_Vector3(Handle<Object> parent)
         return false;
     
     // Constants (can't be members of Vector3)
-    parent->SetAccessor(String::New("Vector3_ZERO"), Vector3_ZERO, 0);
-    parent->SetAccessor(String::New("Vector3_UNIT_X"), Vector3_UNIT_X, 0);
-    parent->SetAccessor(String::New("Vector3_UNIT_Y"), Vector3_UNIT_Y, 0);
-    parent->SetAccessor(String::New("Vector3_UNIT_Z"), Vector3_UNIT_Z, 0);
-    parent->SetAccessor(String::New("Vector3_NEGATIVE_UNIT_X"), Vector3_NEGATIVE_UNIT_X, 0);
-    parent->SetAccessor(String::New("Vector3_NEGATIVE_UNIT_Y"), Vector3_NEGATIVE_UNIT_Y, 0);
-    parent->SetAccessor(String::New("Vector3_NEGATIVE_UNIT_Z"), Vector3_NEGATIVE_UNIT_Z, 0);
-    parent->SetAccessor(String::New("Vector3_UNIT_SCALE"), Vector3_UNIT_SCALE, 0);
+    return parent->SetAccessor(String::New("Vector3_ZERO"), Vector3_ZERO, 0) &&
+           parent->SetAccessor(String::New("Vector3_UNIT_X"), Vector3_UNIT_X, 0) &&
+           parent->SetAccessor(String::New("Vector3_UNIT_Y"), Vector3_UNIT_Y, 0) &&
+           parent->SetAccessor(String::New("Vector3_UNIT_Z"), Vector3_UNIT_Z, 0) &&
+           parent->SetAccessor(String::New("Vector3_NEGATIVE_UNIT_X"), Vector3_NEGATIVE_UNIT_X, 0) &&
+           parent->SetAccessor(String::New("Vector3_NEGATIVE_UNIT_Y"), Vector3_NEGATIVE_UNIT_Y, 0) &&
+           parent->SetAccessor(String::New("Vector3_NEGATIVE_UNIT_Z"), Vector3_NEGATIVE_UNIT_Z, 0) &&
+           parent->SetAccessor(String::New("Vector3_UNIT_SCALE"), Vector3_UNIT_SCALE, 0);
 }
