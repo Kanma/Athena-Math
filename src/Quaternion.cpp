@@ -242,7 +242,7 @@ Vector3 Quaternion::zAxis(void) const
 
 //-----------------------------------------------------------------------
 
-void Quaternion::ToAxes (Vector3& xaxis, Vector3& yaxis, Vector3& zaxis) const
+void Quaternion::ToAxes(Vector3& xaxis, Vector3& yaxis, Vector3& zaxis) const
 {
     Matrix3 kRot;
 

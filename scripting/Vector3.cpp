@@ -49,7 +49,7 @@ inline Persistent<Object> createJSVector3(Vector3* v)
 // Constructor
 Handle<Value> Vector3_New(const Arguments& args)
 {
-    Vector3* v;
+    Vector3* v = 0;
     
     if (args.Length() == 3)
     {

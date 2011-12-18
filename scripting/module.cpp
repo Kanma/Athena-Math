@@ -12,6 +12,7 @@ using namespace v8;
 /*********************************** EXTERNAL FUNCTIONS *********************************/
 
 extern bool bind_MathUtils(Handle<Object> parent);
+extern bool bind_Quaternion(Handle<Object> parent);
 extern bool bind_Vector3(Handle<Object> parent);
 
 
@@ -24,6 +25,7 @@ extern "C" {
         HandleScope handle_scope;
 
         return bind_MathUtils(parent) &&
+               bind_Quaternion(parent) &&
                bind_Vector3(parent);
     }
 }

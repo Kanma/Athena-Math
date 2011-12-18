@@ -28,6 +28,12 @@ set(JS_FILES # MathUtils
              MathUtils/SymmetricRandom.js
              MathUtils/UnitConversion.js
              
+             # Quaternion
+             Quaternion/CreationWithWXYZ.js
+             Quaternion/CreationWithAngleAxis.js
+             Quaternion/CreationWithAxes.js
+             Quaternion/AttributesAssignement.js
+             
              # Vector3
              Vector3/CreationWithXYZ.js
              Vector3/CreationWithScale.js
