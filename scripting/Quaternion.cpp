@@ -13,6 +13,25 @@ using namespace Athena::Scripting;
 using namespace v8;
 
 
+/**************************************** MACROS ***************************************/
+
+#define createJSQuaternion(q)                                                   \
+    createJSObject<Quaternion>(template_Quaternion, Quaternion_WeakCallback,    \
+                               new Quaternion(q),                               \
+                               sizeof(Quaternion), CLASSID_QUATERNION);
+
+#define createJSQuaternionFromPtr(q)                                            \
+    createJSObject<Quaternion>(template_Quaternion, Quaternion_WeakCallback,    \
+                               q, sizeof(Quaternion), CLASSID_QUATERNION);
+
+#define bindMethod(NAME, CALLBACK)                                              \
+    template_Quaternion->Set(String::New(NAME), FunctionTemplate::New(CALLBACK)->GetFunction());
+
+#define CastJSQuaternion(HANDLE) CastJSObject<Quaternion>(HANDLE, CLASSID_QUATERNION)
+
+#define CastJSVector3(HANDLE) CastJSObject<Vector3>(HANDLE, CLASSID_VECTOR3)
+
+
 /*************************************** GLOBALS ***************************************/
 
 Persistent<ObjectTemplate> template_Quaternion;
@@ -25,23 +44,9 @@ void Quaternion_WeakCallback(Persistent<Value> value, void* data)
 {
     if (value.IsNearDeath())
     {
-        Quaternion* v = CastJSObject<Quaternion>(value);
+        Quaternion* v = CastJSObject<Quaternion>(value, CLASSID_QUATERNION);
         delete v;
     }
-}
-
-//-----------------------------------------------------------------------
-
-// Helper function
-inline Persistent<Object> createJSQuaternion(Quaternion* q)
-{
-    Persistent<Object> jsQuaternion = Persistent<Object>::New(template_Quaternion->NewInstance());
-    jsQuaternion->SetInternalField(0, External::New(q));
-    jsQuaternion.MakeWeak(0, Quaternion_WeakCallback);
-    
-    V8::AdjustAmountOfExternalAllocatedMemory(sizeof(Quaternion));
-    
-    return jsQuaternion;
 }
 
 //-----------------------------------------------------------------------
@@ -53,41 +58,60 @@ Handle<Value> Quaternion_New(const Arguments& args)
     
     if (args.Length() == 4)
     {
-        q = new Quaternion(args[0]->IsNumber() ? (Real) args[0]->NumberValue() : 0.0f,
-                           args[1]->IsNumber() ? (Real) args[1]->NumberValue() : 0.0f,
-                           args[2]->IsNumber() ? (Real) args[2]->NumberValue() : 0.0f,
-                           args[3]->IsNumber() ? (Real) args[3]->NumberValue() : 0.0f);
+        if (!args[0]->IsNumber() || !args[1]->IsNumber() || !args[2]->IsNumber() || !args[3]->IsNumber())
+            return ThrowException(String::New("Invalid parameters, expected 4 numbers"));
+        
+        q = new Quaternion((Real) args[0]->NumberValue(),
+                           (Real) args[1]->NumberValue(),
+                           (Real) args[2]->NumberValue(),
+                           (Real) args[3]->NumberValue());
     }
     else if (args.Length() == 1)
     {
-        // Matrix
+        Quaternion* q2 = CastJSQuaternion(args[0]);
+        if (q2)
+        {
+            q = new Quaternion(*q2);
+        }
+        else
+        {
+            return ThrowException(String::New("Invalid parameter, expected a quaternion or a matrix"));
+        }
     }
     else if (args.Length() == 2)
     {
-        if (args[0]->IsNumber() && args[1]->IsObject())
-        {
-            Vector3* rkAxis = CastJSObject<Vector3>(args[1]);
-            if (rkAxis)
-                q = new Quaternion(Radian((Real) args[0]->NumberValue()), *rkAxis);
-        }
+        if (!args[0]->IsNumber() || !args[1]->IsObject())
+            return ThrowException(String::New("Invalid parameters, expected an angle and a vector"));
+
+        Vector3* rkAxis = CastJSVector3(args[1]);
+        if (!rkAxis)
+            return ThrowException(String::New("Invalid parameters, expected an angle and a vector"));
+        
+        q = new Quaternion(Radian((Real) args[0]->NumberValue()), *rkAxis);
     }
     else if (args.Length() == 3)
     {
-        if (args[0]->IsObject() && args[1]->IsObject() && args[2]->IsObject())
-        {
-            Vector3* xaxis = CastJSObject<Vector3>(args[0]);
-            Vector3* yaxis = CastJSObject<Vector3>(args[1]);
-            Vector3* zaxis = CastJSObject<Vector3>(args[2]);
+        if (!args[0]->IsObject() || !args[1]->IsObject() || !args[2]->IsObject())
+            return ThrowException(String::New("Invalid parameters, expected 3 vectors"));
 
-            if (xaxis && yaxis && zaxis)
-                q = new Quaternion(*xaxis, *yaxis, *zaxis);
-        }
+        Vector3* xaxis = CastJSVector3(args[0]);
+        Vector3* yaxis = CastJSVector3(args[1]);
+        Vector3* zaxis = CastJSVector3(args[2]);
+
+        if (!xaxis || !yaxis || !zaxis)
+            return ThrowException(String::New("Invalid parameters, expected 3 vectors"));
+
+        q = new Quaternion(*xaxis, *yaxis, *zaxis);
+    }
+    else if (args.Length() == 0)
+    {
+        q = new Quaternion();
     }
 
     if (!q)
-        q = new Quaternion();
+        return ThrowException(String::New("Invalid parameters"));
 
-    return createJSQuaternion(q);
+    return createJSQuaternionFromPtr(q);
 }
 
 
@@ -95,9 +119,9 @@ Handle<Value> Quaternion_New(const Arguments& args)
 
 Handle<Value> Quaternion_GetW(Local<String> property, const AccessorInfo &info)
 {
-    Quaternion* q = CastJSObject<Quaternion>(info.Holder());
+    Quaternion* q = CastJSQuaternion(info.Holder());
     if (!q)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
     
     return Number::New(q->w);
 }
@@ -106,18 +130,23 @@ Handle<Value> Quaternion_GetW(Local<String> property, const AccessorInfo &info)
 
 void Quaternion_SetW(Local<String> property, Local<Value> value, const AccessorInfo& info)
 {
-    Quaternion* q = CastJSObject<Quaternion>(info.Holder());
-    if (q)
-        q->w = (Real) value->NumberValue();
+    Quaternion* q = CastJSQuaternion(info.Holder());
+    if (!q)
+    {
+        ThrowException(String::New("'this' isn't a Vector3"));
+        return;
+    }
+
+    q->w = (Real) value->NumberValue();
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> Quaternion_GetX(Local<String> property, const AccessorInfo &info)
 {
-    Quaternion* q = CastJSObject<Quaternion>(info.Holder());
+    Quaternion* q = CastJSQuaternion(info.Holder());
     if (!q)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
     
     return Number::New(q->x);
 }
@@ -126,18 +155,23 @@ Handle<Value> Quaternion_GetX(Local<String> property, const AccessorInfo &info)
 
 void Quaternion_SetX(Local<String> property, Local<Value> value, const AccessorInfo& info)
 {
-    Quaternion* q = CastJSObject<Quaternion>(info.Holder());
-    if (q)
-        q->x = (Real) value->NumberValue();
+    Quaternion* q = CastJSQuaternion(info.Holder());
+    if (!q)
+    {
+        ThrowException(String::New("'this' isn't a Vector3"));
+        return;
+    }
+
+    q->x = (Real) value->NumberValue();
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> Quaternion_GetY(Local<String> property, const AccessorInfo &info)
 {
-    Quaternion* q = CastJSObject<Quaternion>(info.Holder());
+    Quaternion* q = CastJSQuaternion(info.Holder());
     if (!q)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     return Number::New(q->y);
 }
@@ -146,18 +180,23 @@ Handle<Value> Quaternion_GetY(Local<String> property, const AccessorInfo &info)
 
 void Quaternion_SetY(Local<String> property, Local<Value> value, const AccessorInfo& info)
 {
-    Quaternion* q = CastJSObject<Quaternion>(info.Holder());
-    if (q)
-        q->y = (Real) value->NumberValue();
+    Quaternion* q = CastJSQuaternion(info.Holder());
+    if (!q)
+    {
+        ThrowException(String::New("'this' isn't a Vector3"));
+        return;
+    }
+
+    q->y = (Real) value->NumberValue();
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> Quaternion_GetZ(Local<String> property, const AccessorInfo &info)
 {
-    Quaternion* q = CastJSObject<Quaternion>(info.Holder());
+    Quaternion* q = CastJSQuaternion(info.Holder());
     if (!q)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     return Number::New(q->z);
 }
@@ -166,9 +205,35 @@ Handle<Value> Quaternion_GetZ(Local<String> property, const AccessorInfo &info)
 
 void Quaternion_SetZ(Local<String> property, Local<Value> value, const AccessorInfo& info)
 {
-    Quaternion* q = CastJSObject<Quaternion>(info.Holder());
-    if (q)
-        q->z = (Real) value->NumberValue();
+    Quaternion* q = CastJSQuaternion(info.Holder());
+    if (!q)
+    {
+        ThrowException(String::New("'this' isn't a Vector3"));
+        return;
+    }
+
+    q->z = (Real) value->NumberValue();
+}
+
+
+/*********************************** VALUE ASSIGNATION **********************************/
+
+Handle<Value> Quaternion_Set(const Arguments& args)
+{
+    if (args.Length() != 1)
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
+
+    Quaternion* self = CastJSQuaternion(args.This());
+    if (!self)
+        return ThrowException(String::New("'this' isn't a Vector3"));
+
+    Quaternion* qref = CastJSQuaternion(args[0]);
+    if (!qref)
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
+
+    *self = *qref;
+    
+    return Handle<Value>();
 }
 
 
@@ -179,7 +244,7 @@ bool bind_Quaternion(Handle<Object> parent)
     // Create the object template
     template_Quaternion = Persistent<ObjectTemplate>::New(ObjectTemplate::New());
     template_Quaternion->SetCallAsFunctionHandler(Quaternion_New);
-    template_Quaternion->SetInternalFieldCount(1);
+    template_Quaternion->SetInternalFieldCount(2);
 
     // Accessors
     template_Quaternion->SetAccessor(String::New("w"), Quaternion_GetW, Quaternion_SetW);
@@ -187,52 +252,52 @@ bool bind_Quaternion(Handle<Object> parent)
     template_Quaternion->SetAccessor(String::New("y"), Quaternion_GetY, Quaternion_SetY);
     template_Quaternion->SetAccessor(String::New("z"), Quaternion_GetZ, Quaternion_SetZ);
 
-    // // Value assignation
-    // template_Vector3->Set(String::New("set"), FunctionTemplate::New(Vector3_Set)->GetFunction());
-    // 
+    // Value assignation
+    bindMethod("set", Quaternion_Set);
+    
     // // Comparison operations
-    // template_Vector3->Set(String::New("equals"), FunctionTemplate::New(Vector3_Equals)->GetFunction());
-    // template_Vector3->Set(String::New("notEquals"), FunctionTemplate::New(Vector3_NotEquals)->GetFunction());
-    // template_Vector3->Set(String::New("lesserThan"), FunctionTemplate::New(Vector3_LesserThan)->GetFunction());
-    // template_Vector3->Set(String::New("greaterThan"), FunctionTemplate::New(Vector3_GreaterThan)->GetFunction());
+    // bindMethod("equals", Vector3_Equals);
+    // bindMethod("notEquals", Vector3_NotEquals);
+    // bindMethod("lesserThan", Vector3_LesserThan);
+    // bindMethod("greaterThan", Vector3_GreaterThan);
     // 
     // // Arithmetic operations
-    // template_Vector3->Set(String::New("add"), FunctionTemplate::New(Vector3_Add)->GetFunction());
-    // template_Vector3->Set(String::New("sub"), FunctionTemplate::New(Vector3_Sub)->GetFunction());
-    // template_Vector3->Set(String::New("mul"), FunctionTemplate::New(Vector3_Mul)->GetFunction());
-    // template_Vector3->Set(String::New("divide"), FunctionTemplate::New(Vector3_Divide)->GetFunction());
-    // template_Vector3->Set(String::New("negate"), FunctionTemplate::New(Vector3_Negate)->GetFunction());
+    // bindMethod("add", Vector3_Add);
+    // bindMethod("sub", Vector3_Sub);
+    // bindMethod("mul", Vector3_Mul);
+    // bindMethod("divide", Vector3_Divide);
+    // bindMethod("negate", Vector3_Negate);
     // 
     // // Arithmetic updates
-    // template_Vector3->Set(String::New("iadd"), FunctionTemplate::New(Vector3_IAdd)->GetFunction());
-    // template_Vector3->Set(String::New("isub"), FunctionTemplate::New(Vector3_ISub)->GetFunction());
-    // template_Vector3->Set(String::New("imul"), FunctionTemplate::New(Vector3_IMul)->GetFunction());
-    // template_Vector3->Set(String::New("idivide"), FunctionTemplate::New(Vector3_IDivide)->GetFunction());
-    // template_Vector3->Set(String::New("inegate"), FunctionTemplate::New(Vector3_INegate)->GetFunction());
+    // bindMethod("iadd", Vector3_IAdd);
+    // bindMethod("isub", Vector3_ISub);
+    // bindMethod("imul", Vector3_IMul);
+    // bindMethod("idivide", Vector3_IDivide);
+    // bindMethod("inegate", Vector3_INegate);
     // 
     // // Methods
-    // template_Vector3->Set(String::New("length"), FunctionTemplate::New(Vector3_Length)->GetFunction());
-    // template_Vector3->Set(String::New("squaredLength"), FunctionTemplate::New(Vector3_SquaredLength)->GetFunction());
-    // template_Vector3->Set(String::New("isZeroLength"), FunctionTemplate::New(Vector3_IsZeroLength)->GetFunction());
-    // template_Vector3->Set(String::New("distance"), FunctionTemplate::New(Vector3_Distance)->GetFunction());
-    // template_Vector3->Set(String::New("squaredDistance"), FunctionTemplate::New(Vector3_SquaredDistance)->GetFunction());
-    // template_Vector3->Set(String::New("dot"), FunctionTemplate::New(Vector3_DotProduct)->GetFunction());
-    // template_Vector3->Set(String::New("absDot"), FunctionTemplate::New(Vector3_AbsDotProduct)->GetFunction());
-    // template_Vector3->Set(String::New("normalise"), FunctionTemplate::New(Vector3_Normalise)->GetFunction());
-    // template_Vector3->Set(String::New("normalisedCopy"), FunctionTemplate::New(Vector3_NormalisedCopy)->GetFunction());
-    // template_Vector3->Set(String::New("cross"), FunctionTemplate::New(Vector3_CrossProduct)->GetFunction());
-    // template_Vector3->Set(String::New("midPoint"), FunctionTemplate::New(Vector3_MidPoint)->GetFunction());
-    // template_Vector3->Set(String::New("makeFloor"), FunctionTemplate::New(Vector3_MakeFloor)->GetFunction());
-    // template_Vector3->Set(String::New("makeCeil"), FunctionTemplate::New(Vector3_MakeCeil)->GetFunction());
-    // template_Vector3->Set(String::New("perpendicular"), FunctionTemplate::New(Vector3_Perpendicular)->GetFunction());
+    // bindMethod("length", Vector3_Length);
+    // bindMethod("squaredLength", Vector3_SquaredLength);
+    // bindMethod("isZeroLength", Vector3_IsZeroLength);
+    // bindMethod("distance", Vector3_Distance);
+    // bindMethod("squaredDistance", Vector3_SquaredDistance);
+    // bindMethod("dot", Vector3_DotProduct);
+    // bindMethod("absDot", Vector3_AbsDotProduct);
+    // bindMethod("normalise", Vector3_Normalise);
+    // bindMethod("normalisedCopy", Vector3_NormalisedCopy);
+    // bindMethod("cross", Vector3_CrossProduct);
+    // bindMethod("midPoint", Vector3_MidPoint);
+    // bindMethod("makeFloor", Vector3_MakeFloor);
+    // bindMethod("makeCeil", Vector3_MakeCeil);
+    // bindMethod("perpendicular", Vector3_Perpendicular);
     // // MISSING: randomDeviant()
     // // MISSING: angleBetween()
     // // MISSING: getRotationTo()
-    // template_Vector3->Set(String::New("reflect"), FunctionTemplate::New(Vector3_Reflect)->GetFunction());
-    // template_Vector3->Set(String::New("positionEquals"), FunctionTemplate::New(Vector3_PositionEquals)->GetFunction());
-    // template_Vector3->Set(String::New("positionCloses"), FunctionTemplate::New(Vector3_PositionCloses)->GetFunction());
+    // bindMethod("reflect", Vector3_Reflect);
+    // bindMethod("positionEquals", Vector3_PositionEquals);
+    // bindMethod("positionCloses", Vector3_PositionCloses);
     // // MISSING: directionEquals()
-    // template_Vector3->Set(String::New("isNaN"), FunctionTemplate::New(Vector3_IsNaN)->GetFunction());
+    // bindMethod("isNaN", Vector3_IsNaN);
 
     // Add the class to the parent
     return parent->Set(String::New("Quaternion"), FunctionTemplate::New(Quaternion_New)->GetFunction());

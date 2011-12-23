@@ -8,6 +8,7 @@
 #define _ATHENA_MATH_PREREQUISITES_H_
 
 #include <Athena-Math/Declarations.h>
+#include <Athena-Math/Scripting.h>
 #include <limits>
 #include <algorithm>
 #include <cmath>

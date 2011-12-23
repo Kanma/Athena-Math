@@ -13,6 +13,21 @@ using namespace Athena::Scripting;
 using namespace v8;
 
 
+/**************************************** MACROS ***************************************/
+
+#define createJSVector3(v)                                          \
+    createJSObject<Vector3>(template_Vector3, Vector3_WeakCallback, \
+                            new Vector3(v),                         \
+                            sizeof(Vector3), CLASSID_VECTOR3);
+
+#define createJSVector3FromPtr(v)                                   \
+    createJSObject<Vector3>(template_Vector3, Vector3_WeakCallback, \
+                            v, sizeof(Vector3), CLASSID_VECTOR3);
+
+#define bindMethod(NAME, CALLBACK)                                  \
+    template_Vector3->Set(String::New(NAME), FunctionTemplate::New(CALLBACK)->GetFunction());
+
+
 /*************************************** GLOBALS ***************************************/
 
 Persistent<ObjectTemplate> template_Vector3;
@@ -25,23 +40,9 @@ void Vector3_WeakCallback(Persistent<Value> value, void* data)
 {
     if (value.IsNearDeath())
     {
-        Vector3* v = CastJSObject<Vector3>(value);
+        Vector3* v = CastJSObject<Vector3>(value, CLASSID_VECTOR3);
         delete v;
     }
-}
-
-//-----------------------------------------------------------------------
-
-// Helper function
-inline Persistent<Object> createJSVector3(Vector3* v)
-{
-    Persistent<Object> jsVector = Persistent<Object>::New(template_Vector3->NewInstance());
-    jsVector->SetInternalField(0, External::New(v));
-    jsVector.MakeWeak(0, Vector3_WeakCallback);
-    
-    V8::AdjustAmountOfExternalAllocatedMemory(sizeof(Vector3));
-    
-    return jsVector;
 }
 
 //-----------------------------------------------------------------------
@@ -65,7 +66,7 @@ Handle<Value> Vector3_New(const Arguments& args)
         }
         else if (args[0]->IsObject())
         {
-            Vector3* vref = CastJSObject<Vector3>(args[0]);
+            Vector3* vref = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
             if (vref)
                 v = new Vector3(*vref);
         }
@@ -78,7 +79,7 @@ Handle<Value> Vector3_New(const Arguments& args)
     if (!v)
         v = new Vector3();
 
-    return createJSVector3(v);
+    return createJSVector3FromPtr(v);
 }
 
 
@@ -86,7 +87,7 @@ Handle<Value> Vector3_New(const Arguments& args)
 
 Handle<Value> Vector3_GetX(Local<String> property, const AccessorInfo &info)
 {
-    Vector3* v = CastJSObject<Vector3>(info.Holder());
+    Vector3* v = CastJSObject<Vector3>(info.Holder(), CLASSID_VECTOR3);
     if (!v)
         return Handle<Value>();
     
@@ -97,7 +98,7 @@ Handle<Value> Vector3_GetX(Local<String> property, const AccessorInfo &info)
 
 void Vector3_SetX(Local<String> property, Local<Value> value, const AccessorInfo& info)
 {
-    Vector3* v = CastJSObject<Vector3>(info.Holder());
+    Vector3* v = CastJSObject<Vector3>(info.Holder(), CLASSID_VECTOR3);
     if (v)
         v->x = (Real) value->NumberValue();
 }
@@ -106,7 +107,7 @@ void Vector3_SetX(Local<String> property, Local<Value> value, const AccessorInfo
 
 Handle<Value> Vector3_GetY(Local<String> property, const AccessorInfo &info)
 {
-    Vector3* v = CastJSObject<Vector3>(info.Holder());
+    Vector3* v = CastJSObject<Vector3>(info.Holder(), CLASSID_VECTOR3);
     if (!v)
         return Handle<Value>();
 
@@ -117,7 +118,7 @@ Handle<Value> Vector3_GetY(Local<String> property, const AccessorInfo &info)
 
 void Vector3_SetY(Local<String> property, Local<Value> value, const AccessorInfo& info)
 {
-    Vector3* v = CastJSObject<Vector3>(info.Holder());
+    Vector3* v = CastJSObject<Vector3>(info.Holder(), CLASSID_VECTOR3);
     if (v)
         v->y = (Real) value->NumberValue();
 }
@@ -126,7 +127,7 @@ void Vector3_SetY(Local<String> property, Local<Value> value, const AccessorInfo
 
 Handle<Value> Vector3_GetZ(Local<String> property, const AccessorInfo &info)
 {
-    Vector3* v = CastJSObject<Vector3>(info.Holder());
+    Vector3* v = CastJSObject<Vector3>(info.Holder(), CLASSID_VECTOR3);
     if (!v)
         return Handle<Value>();
 
@@ -137,7 +138,7 @@ Handle<Value> Vector3_GetZ(Local<String> property, const AccessorInfo &info)
 
 void Vector3_SetZ(Local<String> property, Local<Value> value, const AccessorInfo& info)
 {
-    Vector3* v = CastJSObject<Vector3>(info.Holder());
+    Vector3* v = CastJSObject<Vector3>(info.Holder(), CLASSID_VECTOR3);
     if (v)
         v->z = (Real) value->NumberValue();
 }
@@ -150,7 +151,7 @@ Handle<Value> Vector3_Set(const Arguments& args)
     if (args.Length() != 1)
         return Handle<Value>();
 
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
@@ -160,7 +161,7 @@ Handle<Value> Vector3_Set(const Arguments& args)
     }
     else if (args[0]->IsObject())
     {
-        Vector3* vref = CastJSObject<Vector3>(args[0]);
+        Vector3* vref = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
 
         if (vref)
             *self = *vref;
@@ -177,11 +178,11 @@ Handle<Value> Vector3_Equals(const Arguments& args)
     if (args.Length() != 1)
         return Handle<Value>();
 
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
-    Vector3* rkVector = CastJSObject<Vector3>(args[0]);
+    Vector3* rkVector = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rkVector)
         return Handle<Value>();
 
@@ -195,11 +196,11 @@ Handle<Value> Vector3_NotEquals(const Arguments& args)
     if (args.Length() != 1)
         return Handle<Value>();
 
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
-    Vector3* rkVector = CastJSObject<Vector3>(args[0]);
+    Vector3* rkVector = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rkVector)
         return Handle<Value>();
 
@@ -213,11 +214,11 @@ Handle<Value> Vector3_LesserThan(const Arguments& args)
     if (args.Length() != 1)
         return Handle<Value>();
 
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
-    Vector3* rkVector = CastJSObject<Vector3>(args[0]);
+    Vector3* rkVector = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rkVector)
         return Handle<Value>();
 
@@ -231,11 +232,11 @@ Handle<Value> Vector3_GreaterThan(const Arguments& args)
     if (args.Length() != 1)
         return Handle<Value>();
 
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
-    Vector3* rkVector = CastJSObject<Vector3>(args[0]);
+    Vector3* rkVector = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rkVector)
         return Handle<Value>();
 
@@ -247,7 +248,7 @@ Handle<Value> Vector3_GreaterThan(const Arguments& args)
 
 Handle<Value> Vector3_Add(const Arguments& args)
 {
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
@@ -261,7 +262,7 @@ Handle<Value> Vector3_Add(const Arguments& args)
         }
         else
         {
-            Vector3* v = CastJSObject<Vector3>(args[i]);
+            Vector3* v = CastJSObject<Vector3>(args[i], CLASSID_VECTOR3);
             if (!v)
                 return Handle<Value>();
 
@@ -269,14 +270,14 @@ Handle<Value> Vector3_Add(const Arguments& args)
         }
     }
 
-    return createJSVector3(result);
+    return createJSVector3FromPtr(result);
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> Vector3_Sub(const Arguments& args)
 {
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
@@ -290,7 +291,7 @@ Handle<Value> Vector3_Sub(const Arguments& args)
         }
         else
         {
-            Vector3* v = CastJSObject<Vector3>(args[i]);
+            Vector3* v = CastJSObject<Vector3>(args[i], CLASSID_VECTOR3);
             if (!v)
                 return Handle<Value>();
 
@@ -298,14 +299,14 @@ Handle<Value> Vector3_Sub(const Arguments& args)
         }
     }
 
-    return createJSVector3(result);
+    return createJSVector3FromPtr(result);
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> Vector3_Mul(const Arguments& args)
 {
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
@@ -319,7 +320,7 @@ Handle<Value> Vector3_Mul(const Arguments& args)
         }
         else
         {
-            Vector3* v = CastJSObject<Vector3>(args[i]);
+            Vector3* v = CastJSObject<Vector3>(args[i], CLASSID_VECTOR3);
             if (!v)
                 return Handle<Value>();
 
@@ -327,14 +328,14 @@ Handle<Value> Vector3_Mul(const Arguments& args)
         }
     }
 
-    return createJSVector3(result);
+    return createJSVector3FromPtr(result);
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> Vector3_Divide(const Arguments& args)
 {
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
@@ -348,7 +349,7 @@ Handle<Value> Vector3_Divide(const Arguments& args)
         }
         else
         {
-            Vector3* v = CastJSObject<Vector3>(args[i]);
+            Vector3* v = CastJSObject<Vector3>(args[i], CLASSID_VECTOR3);
             if (!v)
                 return Handle<Value>();
 
@@ -356,20 +357,20 @@ Handle<Value> Vector3_Divide(const Arguments& args)
         }
     }
 
-    return createJSVector3(result);
+    return createJSVector3FromPtr(result);
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> Vector3_Negate(const Arguments& args)
 {
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
     Vector3* result = new Vector3(-(*self));
 
-    return createJSVector3(result);
+    return createJSVector3FromPtr(result);
 }
 
 
@@ -377,7 +378,7 @@ Handle<Value> Vector3_Negate(const Arguments& args)
 
 Handle<Value> Vector3_IAdd(const Arguments& args)
 {
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
@@ -389,7 +390,7 @@ Handle<Value> Vector3_IAdd(const Arguments& args)
         }
         else
         {
-            Vector3* v = CastJSObject<Vector3>(args[i]);
+            Vector3* v = CastJSObject<Vector3>(args[i], CLASSID_VECTOR3);
             if (!v)
                 return Handle<Value>();
 
@@ -404,7 +405,7 @@ Handle<Value> Vector3_IAdd(const Arguments& args)
 
 Handle<Value> Vector3_ISub(const Arguments& args)
 {
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
@@ -416,7 +417,7 @@ Handle<Value> Vector3_ISub(const Arguments& args)
         }
         else
         {
-            Vector3* v = CastJSObject<Vector3>(args[i]);
+            Vector3* v = CastJSObject<Vector3>(args[i], CLASSID_VECTOR3);
             if (!v)
                 return Handle<Value>();
 
@@ -431,7 +432,7 @@ Handle<Value> Vector3_ISub(const Arguments& args)
 
 Handle<Value> Vector3_IMul(const Arguments& args)
 {
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
@@ -443,7 +444,7 @@ Handle<Value> Vector3_IMul(const Arguments& args)
         }
         else
         {
-            Vector3* v = CastJSObject<Vector3>(args[i]);
+            Vector3* v = CastJSObject<Vector3>(args[i], CLASSID_VECTOR3);
             if (!v)
                 return Handle<Value>();
 
@@ -458,7 +459,7 @@ Handle<Value> Vector3_IMul(const Arguments& args)
 
 Handle<Value> Vector3_IDivide(const Arguments& args)
 {
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
@@ -470,7 +471,7 @@ Handle<Value> Vector3_IDivide(const Arguments& args)
         }
         else
         {
-            Vector3* v = CastJSObject<Vector3>(args[i]);
+            Vector3* v = CastJSObject<Vector3>(args[i], CLASSID_VECTOR3);
             if (!v)
                 return Handle<Value>();
 
@@ -485,7 +486,7 @@ Handle<Value> Vector3_IDivide(const Arguments& args)
 
 Handle<Value> Vector3_INegate(const Arguments& args)
 {
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
@@ -499,7 +500,7 @@ Handle<Value> Vector3_INegate(const Arguments& args)
 
 Handle<Value> Vector3_Length(const Arguments& args)
 {
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
@@ -510,7 +511,7 @@ Handle<Value> Vector3_Length(const Arguments& args)
 
 Handle<Value> Vector3_SquaredLength(const Arguments& args)
 {
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
@@ -521,7 +522,7 @@ Handle<Value> Vector3_SquaredLength(const Arguments& args)
 
 Handle<Value> Vector3_IsZeroLength(const Arguments& args)
 {
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
@@ -535,11 +536,11 @@ Handle<Value> Vector3_Distance(const Arguments& args)
     if (args.Length() != 1)
         return Handle<Value>();
 
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
-    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
         return Handle<Value>();
 
@@ -553,11 +554,11 @@ Handle<Value> Vector3_SquaredDistance(const Arguments& args)
     if (args.Length() != 1)
         return Handle<Value>();
 
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
-    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
         return Handle<Value>();
 
@@ -571,11 +572,11 @@ Handle<Value> Vector3_DotProduct(const Arguments& args)
     if (args.Length() != 1)
         return Handle<Value>();
 
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
-    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
         return Handle<Value>();
 
@@ -589,11 +590,11 @@ Handle<Value> Vector3_AbsDotProduct(const Arguments& args)
     if (args.Length() != 1)
         return Handle<Value>();
 
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
-    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
         return Handle<Value>();
 
@@ -604,7 +605,7 @@ Handle<Value> Vector3_AbsDotProduct(const Arguments& args)
 
 Handle<Value> Vector3_Normalise(const Arguments& args)
 {
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
@@ -615,11 +616,11 @@ Handle<Value> Vector3_Normalise(const Arguments& args)
 
 Handle<Value> Vector3_NormalisedCopy(const Arguments& args)
 {
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
-    return createJSVector3(new Vector3(self->normalisedCopy()));
+    return createJSVector3(self->normalisedCopy());
 }
 
 //-----------------------------------------------------------------------
@@ -629,15 +630,15 @@ Handle<Value> Vector3_CrossProduct(const Arguments& args)
     if (args.Length() != 1)
         return Handle<Value>();
 
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
-    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
         return Handle<Value>();
 
-    return createJSVector3(new Vector3(self->crossProduct(*rhs)));
+    return createJSVector3(self->crossProduct(*rhs));
 }
 
 //-----------------------------------------------------------------------
@@ -647,15 +648,15 @@ Handle<Value> Vector3_MidPoint(const Arguments& args)
     if (args.Length() != 1)
         return Handle<Value>();
 
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
-    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
         return Handle<Value>();
 
-    return createJSVector3(new Vector3(self->midPoint(*rhs)));
+    return createJSVector3(self->midPoint(*rhs));
 }
 
 //-----------------------------------------------------------------------
@@ -665,11 +666,11 @@ Handle<Value> Vector3_MakeFloor(const Arguments& args)
     if (args.Length() != 1)
         return Handle<Value>();
 
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
-    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
         return Handle<Value>();
 
@@ -685,11 +686,11 @@ Handle<Value> Vector3_MakeCeil(const Arguments& args)
     if (args.Length() != 1)
         return Handle<Value>();
 
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
-    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
         return Handle<Value>();
 
@@ -702,11 +703,11 @@ Handle<Value> Vector3_MakeCeil(const Arguments& args)
 
 Handle<Value> Vector3_Perpendicular(const Arguments& args)
 {
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
-    return createJSVector3(new Vector3(self->perpendicular()));
+    return createJSVector3(self->perpendicular());
 }
 
 //-----------------------------------------------------------------------
@@ -716,15 +717,15 @@ Handle<Value> Vector3_Reflect(const Arguments& args)
     if (args.Length() != 1)
         return Handle<Value>();
 
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
-    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
         return Handle<Value>();
 
-    return createJSVector3(new Vector3(self->reflect(*rhs)));
+    return createJSVector3(self->reflect(*rhs));
 }
 
 //-----------------------------------------------------------------------
@@ -734,11 +735,11 @@ Handle<Value> Vector3_PositionEquals(const Arguments& args)
     if (args.Length() != 2)
         return Handle<Value>();
 
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
-    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
         return Handle<Value>();
 
@@ -755,11 +756,11 @@ Handle<Value> Vector3_PositionCloses(const Arguments& args)
     if (args.Length() != 2)
         return Handle<Value>();
 
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
-    Vector3* rhs = CastJSObject<Vector3>(args[0]);
+    Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
         return Handle<Value>();
 
@@ -773,7 +774,7 @@ Handle<Value> Vector3_PositionCloses(const Arguments& args)
 
 Handle<Value> Vector3_IsNaN(const Arguments& args)
 {
-    Vector3* self = CastJSObject<Vector3>(args.This());
+    Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
         return Handle<Value>();
 
@@ -785,56 +786,56 @@ Handle<Value> Vector3_IsNaN(const Arguments& args)
 
 Handle<Value> Vector3_ZERO(Local<String> property, const AccessorInfo &info)
 {
-    return createJSVector3(new Vector3(Vector3::ZERO));
+    return createJSVector3(Vector3::ZERO);
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> Vector3_UNIT_X(Local<String> property, const AccessorInfo &info)
 {
-    return createJSVector3(new Vector3(Vector3::UNIT_X));
+    return createJSVector3(Vector3::UNIT_X);
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> Vector3_UNIT_Y(Local<String> property, const AccessorInfo &info)
 {
-    return createJSVector3(new Vector3(Vector3::UNIT_Y));
+    return createJSVector3(Vector3::UNIT_Y);
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> Vector3_UNIT_Z(Local<String> property, const AccessorInfo &info)
 {
-    return createJSVector3(new Vector3(Vector3::UNIT_Z));
+    return createJSVector3(Vector3::UNIT_Z);
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> Vector3_NEGATIVE_UNIT_X(Local<String> property, const AccessorInfo &info)
 {
-    return createJSVector3(new Vector3(Vector3::NEGATIVE_UNIT_X));
+    return createJSVector3(Vector3::NEGATIVE_UNIT_X);
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> Vector3_NEGATIVE_UNIT_Y(Local<String> property, const AccessorInfo &info)
 {
-    return createJSVector3(new Vector3(Vector3::NEGATIVE_UNIT_Y));
+    return createJSVector3(Vector3::NEGATIVE_UNIT_Y);
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> Vector3_NEGATIVE_UNIT_Z(Local<String> property, const AccessorInfo &info)
 {
-    return createJSVector3(new Vector3(Vector3::NEGATIVE_UNIT_Z));
+    return createJSVector3(Vector3::NEGATIVE_UNIT_Z);
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> Vector3_UNIT_SCALE(Local<String> property, const AccessorInfo &info)
 {
-    return createJSVector3(new Vector3(Vector3::UNIT_SCALE));
+    return createJSVector3(Vector3::UNIT_SCALE);
 }
 
 
@@ -845,7 +846,7 @@ bool bind_Vector3(Handle<Object> parent)
     // Create the object template
     template_Vector3 = Persistent<ObjectTemplate>::New(ObjectTemplate::New());
     template_Vector3->SetCallAsFunctionHandler(Vector3_New);
-    template_Vector3->SetInternalFieldCount(1);
+    template_Vector3->SetInternalFieldCount(2);
 
     // Accessors
     template_Vector3->SetAccessor(String::New("x"), Vector3_GetX, Vector3_SetX);
@@ -853,51 +854,51 @@ bool bind_Vector3(Handle<Object> parent)
     template_Vector3->SetAccessor(String::New("z"), Vector3_GetZ, Vector3_SetZ);
 
     // Value assignation
-    template_Vector3->Set(String::New("set"), FunctionTemplate::New(Vector3_Set)->GetFunction());
+    bindMethod("set", Vector3_Set);
     
     // Comparison operations
-    template_Vector3->Set(String::New("equals"), FunctionTemplate::New(Vector3_Equals)->GetFunction());
-    template_Vector3->Set(String::New("notEquals"), FunctionTemplate::New(Vector3_NotEquals)->GetFunction());
-    template_Vector3->Set(String::New("lesserThan"), FunctionTemplate::New(Vector3_LesserThan)->GetFunction());
-    template_Vector3->Set(String::New("greaterThan"), FunctionTemplate::New(Vector3_GreaterThan)->GetFunction());
+    bindMethod("equals", Vector3_Equals);
+    bindMethod("notEquals", Vector3_NotEquals);
+    bindMethod("lesserThan", Vector3_LesserThan);
+    bindMethod("greaterThan", Vector3_GreaterThan);
 
     // Arithmetic operations
-    template_Vector3->Set(String::New("add"), FunctionTemplate::New(Vector3_Add)->GetFunction());
-    template_Vector3->Set(String::New("sub"), FunctionTemplate::New(Vector3_Sub)->GetFunction());
-    template_Vector3->Set(String::New("mul"), FunctionTemplate::New(Vector3_Mul)->GetFunction());
-    template_Vector3->Set(String::New("divide"), FunctionTemplate::New(Vector3_Divide)->GetFunction());
-    template_Vector3->Set(String::New("negate"), FunctionTemplate::New(Vector3_Negate)->GetFunction());
+    bindMethod("add", Vector3_Add);
+    bindMethod("sub", Vector3_Sub);
+    bindMethod("mul", Vector3_Mul);
+    bindMethod("divide", Vector3_Divide);
+    bindMethod("negate", Vector3_Negate);
 
     // Arithmetic updates
-    template_Vector3->Set(String::New("iadd"), FunctionTemplate::New(Vector3_IAdd)->GetFunction());
-    template_Vector3->Set(String::New("isub"), FunctionTemplate::New(Vector3_ISub)->GetFunction());
-    template_Vector3->Set(String::New("imul"), FunctionTemplate::New(Vector3_IMul)->GetFunction());
-    template_Vector3->Set(String::New("idivide"), FunctionTemplate::New(Vector3_IDivide)->GetFunction());
-    template_Vector3->Set(String::New("inegate"), FunctionTemplate::New(Vector3_INegate)->GetFunction());
+    bindMethod("iadd", Vector3_IAdd);
+    bindMethod("isub", Vector3_ISub);
+    bindMethod("imul", Vector3_IMul);
+    bindMethod("idivide", Vector3_IDivide);
+    bindMethod("inegate", Vector3_INegate);
 
     // Methods
-    template_Vector3->Set(String::New("length"), FunctionTemplate::New(Vector3_Length)->GetFunction());
-    template_Vector3->Set(String::New("squaredLength"), FunctionTemplate::New(Vector3_SquaredLength)->GetFunction());
-    template_Vector3->Set(String::New("isZeroLength"), FunctionTemplate::New(Vector3_IsZeroLength)->GetFunction());
-    template_Vector3->Set(String::New("distance"), FunctionTemplate::New(Vector3_Distance)->GetFunction());
-    template_Vector3->Set(String::New("squaredDistance"), FunctionTemplate::New(Vector3_SquaredDistance)->GetFunction());
-    template_Vector3->Set(String::New("dot"), FunctionTemplate::New(Vector3_DotProduct)->GetFunction());
-    template_Vector3->Set(String::New("absDot"), FunctionTemplate::New(Vector3_AbsDotProduct)->GetFunction());
-    template_Vector3->Set(String::New("normalise"), FunctionTemplate::New(Vector3_Normalise)->GetFunction());
-    template_Vector3->Set(String::New("normalisedCopy"), FunctionTemplate::New(Vector3_NormalisedCopy)->GetFunction());
-    template_Vector3->Set(String::New("cross"), FunctionTemplate::New(Vector3_CrossProduct)->GetFunction());
-    template_Vector3->Set(String::New("midPoint"), FunctionTemplate::New(Vector3_MidPoint)->GetFunction());
-    template_Vector3->Set(String::New("makeFloor"), FunctionTemplate::New(Vector3_MakeFloor)->GetFunction());
-    template_Vector3->Set(String::New("makeCeil"), FunctionTemplate::New(Vector3_MakeCeil)->GetFunction());
-    template_Vector3->Set(String::New("perpendicular"), FunctionTemplate::New(Vector3_Perpendicular)->GetFunction());
+    bindMethod("length", Vector3_Length);
+    bindMethod("squaredLength", Vector3_SquaredLength);
+    bindMethod("isZeroLength", Vector3_IsZeroLength);
+    bindMethod("distance", Vector3_Distance);
+    bindMethod("squaredDistance", Vector3_SquaredDistance);
+    bindMethod("dot", Vector3_DotProduct);
+    bindMethod("absDot", Vector3_AbsDotProduct);
+    bindMethod("normalise", Vector3_Normalise);
+    bindMethod("normalisedCopy", Vector3_NormalisedCopy);
+    bindMethod("cross", Vector3_CrossProduct);
+    bindMethod("midPoint", Vector3_MidPoint);
+    bindMethod("makeFloor", Vector3_MakeFloor);
+    bindMethod("makeCeil", Vector3_MakeCeil);
+    bindMethod("perpendicular", Vector3_Perpendicular);
     // MISSING: randomDeviant()
     // MISSING: angleBetween()
     // MISSING: getRotationTo()
-    template_Vector3->Set(String::New("reflect"), FunctionTemplate::New(Vector3_Reflect)->GetFunction());
-    template_Vector3->Set(String::New("positionEquals"), FunctionTemplate::New(Vector3_PositionEquals)->GetFunction());
-    template_Vector3->Set(String::New("positionCloses"), FunctionTemplate::New(Vector3_PositionCloses)->GetFunction());
+    bindMethod("reflect", Vector3_Reflect);
+    bindMethod("positionEquals", Vector3_PositionEquals);
+    bindMethod("positionCloses", Vector3_PositionCloses);
     // MISSING: directionEquals()
-    template_Vector3->Set(String::New("isNaN"), FunctionTemplate::New(Vector3_IsNaN)->GetFunction());
+    bindMethod("isNaN", Vector3_IsNaN);
 
     // Add the class to the parent
     if (!parent->Set(String::New("Vector3"), FunctionTemplate::New(Vector3_New)->GetFunction()))
