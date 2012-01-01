@@ -3,26 +3,13 @@ set(JS_FILES # MathUtils
              MathUtils/ICeil.js
              MathUtils/IFloor.js
              MathUtils/ISign.js
-             MathUtils/Abs.js
-             MathUtils/Ceil.js
-             MathUtils/Floor.js
              MathUtils/Sign.js
-             MathUtils/Exp.js
-             MathUtils/Log.js
              MathUtils/Log2.js
              MathUtils/LogN.js
-             MathUtils/Pow.js
              MathUtils/Sqr.js
-             MathUtils/Sqrt.js
              MathUtils/InvSqrt.js
              MathUtils/Equals.js
              MathUtils/Clamp.js
-             MathUtils/ACos.js
-             MathUtils/ASin.js
-             MathUtils/ATan.js
-             MathUtils/Cos.js
-             MathUtils/Sin.js
-             MathUtils/Tan.js
              MathUtils/UnitRandom.js
              MathUtils/RangeRandom.js
              MathUtils/SymmetricRandom.js
