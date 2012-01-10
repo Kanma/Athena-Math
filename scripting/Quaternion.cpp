@@ -121,7 +121,7 @@ Handle<Value> Quaternion_GetW(Local<String> property, const AccessorInfo &info)
 {
     Quaternion* q = CastJSQuaternion(info.Holder());
     if (!q)
-        return ThrowException(String::New("'this' isn't a Vector3"));
+        return ThrowException(String::New("'this' isn't a Quaternion"));
     
     return Number::New(q->w);
 }
@@ -133,7 +133,7 @@ void Quaternion_SetW(Local<String> property, Local<Value> value, const AccessorI
     Quaternion* q = CastJSQuaternion(info.Holder());
     if (!q)
     {
-        ThrowException(String::New("'this' isn't a Vector3"));
+        ThrowException(String::New("'this' isn't a Quaternion"));
         return;
     }
 
@@ -146,7 +146,7 @@ Handle<Value> Quaternion_GetX(Local<String> property, const AccessorInfo &info)
 {
     Quaternion* q = CastJSQuaternion(info.Holder());
     if (!q)
-        return ThrowException(String::New("'this' isn't a Vector3"));
+        return ThrowException(String::New("'this' isn't a Quaternion"));
     
     return Number::New(q->x);
 }
@@ -158,7 +158,7 @@ void Quaternion_SetX(Local<String> property, Local<Value> value, const AccessorI
     Quaternion* q = CastJSQuaternion(info.Holder());
     if (!q)
     {
-        ThrowException(String::New("'this' isn't a Vector3"));
+        ThrowException(String::New("'this' isn't a Quaternion"));
         return;
     }
 
@@ -171,7 +171,7 @@ Handle<Value> Quaternion_GetY(Local<String> property, const AccessorInfo &info)
 {
     Quaternion* q = CastJSQuaternion(info.Holder());
     if (!q)
-        return ThrowException(String::New("'this' isn't a Vector3"));
+        return ThrowException(String::New("'this' isn't a Quaternion"));
 
     return Number::New(q->y);
 }
@@ -183,7 +183,7 @@ void Quaternion_SetY(Local<String> property, Local<Value> value, const AccessorI
     Quaternion* q = CastJSQuaternion(info.Holder());
     if (!q)
     {
-        ThrowException(String::New("'this' isn't a Vector3"));
+        ThrowException(String::New("'this' isn't a Quaternion"));
         return;
     }
 
@@ -196,7 +196,7 @@ Handle<Value> Quaternion_GetZ(Local<String> property, const AccessorInfo &info)
 {
     Quaternion* q = CastJSQuaternion(info.Holder());
     if (!q)
-        return ThrowException(String::New("'this' isn't a Vector3"));
+        return ThrowException(String::New("'this' isn't a Quaternion"));
 
     return Number::New(q->z);
 }
@@ -208,7 +208,7 @@ void Quaternion_SetZ(Local<String> property, Local<Value> value, const AccessorI
     Quaternion* q = CastJSQuaternion(info.Holder());
     if (!q)
     {
-        ThrowException(String::New("'this' isn't a Vector3"));
+        ThrowException(String::New("'this' isn't a Quaternion"));
         return;
     }
 
@@ -225,7 +225,7 @@ Handle<Value> Quaternion_Set(const Arguments& args)
 
     Quaternion* self = CastJSQuaternion(args.This());
     if (!self)
-        return ThrowException(String::New("'this' isn't a Vector3"));
+        return ThrowException(String::New("'this' isn't a Quaternion"));
 
     Quaternion* qref = CastJSQuaternion(args[0]);
     if (!qref)

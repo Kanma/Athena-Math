@@ -54,9 +54,12 @@ Handle<Value> Vector3_New(const Arguments& args)
     
     if (args.Length() == 3)
     {
-        v = new Vector3(args[0]->IsNumber() ? (Real) args[0]->NumberValue() : 0.0f,
-                        args[1]->IsNumber() ? (Real) args[1]->NumberValue() : 0.0f,
-                        args[2]->IsNumber() ? (Real) args[2]->NumberValue() : 0.0f);
+        if (!args[0]->IsNumber() || !args[1]->IsNumber() || !args[2]->IsNumber())
+            return ThrowException(String::New("Invalid parameters, expected 3 numbers"));
+        
+        v = new Vector3((Real) args[0]->NumberValue(),
+                        (Real) args[1]->NumberValue(),
+                        (Real) args[2]->NumberValue());
     }
     else if (args.Length() == 1)
     {
@@ -67,17 +70,23 @@ Handle<Value> Vector3_New(const Arguments& args)
         else if (args[0]->IsObject())
         {
             Vector3* vref = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
-            if (vref)
-                v = new Vector3(*vref);
+            if (!vref)
+                return ThrowException(String::New("Invalid parameter, expected a vector"));
+            
+            v = new Vector3(*vref);
         }
         else
         {
-            return Handle<Value>();
+            return ThrowException(String::New("Invalid parameter, expected a vector or a number"));
         }
+    }
+    else
+    {
+        v = new Vector3();
     }
 
     if (!v)
-        v = new Vector3();
+        return ThrowException(String::New("Invalid parameters"));
 
     return createJSVector3FromPtr(v);
 }
@@ -89,7 +98,7 @@ Handle<Value> Vector3_GetX(Local<String> property, const AccessorInfo &info)
 {
     Vector3* v = CastJSObject<Vector3>(info.Holder(), CLASSID_VECTOR3);
     if (!v)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
     
     return Number::New(v->x);
 }
@@ -99,8 +108,13 @@ Handle<Value> Vector3_GetX(Local<String> property, const AccessorInfo &info)
 void Vector3_SetX(Local<String> property, Local<Value> value, const AccessorInfo& info)
 {
     Vector3* v = CastJSObject<Vector3>(info.Holder(), CLASSID_VECTOR3);
-    if (v)
-        v->x = (Real) value->NumberValue();
+    if (!v)
+    {
+        ThrowException(String::New("'this' isn't a Vector3"));
+        return;
+    }
+
+    v->x = (Real) value->NumberValue();
 }
 
 //-----------------------------------------------------------------------
@@ -109,7 +123,7 @@ Handle<Value> Vector3_GetY(Local<String> property, const AccessorInfo &info)
 {
     Vector3* v = CastJSObject<Vector3>(info.Holder(), CLASSID_VECTOR3);
     if (!v)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     return Number::New(v->y);
 }
@@ -119,8 +133,13 @@ Handle<Value> Vector3_GetY(Local<String> property, const AccessorInfo &info)
 void Vector3_SetY(Local<String> property, Local<Value> value, const AccessorInfo& info)
 {
     Vector3* v = CastJSObject<Vector3>(info.Holder(), CLASSID_VECTOR3);
-    if (v)
-        v->y = (Real) value->NumberValue();
+    if (!v)
+    {
+        ThrowException(String::New("'this' isn't a Vector3"));
+        return;
+    }
+
+    v->y = (Real) value->NumberValue();
 }
 
 //-----------------------------------------------------------------------
@@ -129,7 +148,7 @@ Handle<Value> Vector3_GetZ(Local<String> property, const AccessorInfo &info)
 {
     Vector3* v = CastJSObject<Vector3>(info.Holder(), CLASSID_VECTOR3);
     if (!v)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     return Number::New(v->z);
 }
@@ -139,8 +158,13 @@ Handle<Value> Vector3_GetZ(Local<String> property, const AccessorInfo &info)
 void Vector3_SetZ(Local<String> property, Local<Value> value, const AccessorInfo& info)
 {
     Vector3* v = CastJSObject<Vector3>(info.Holder(), CLASSID_VECTOR3);
-    if (v)
-        v->z = (Real) value->NumberValue();
+    if (!v)
+    {
+        ThrowException(String::New("'this' isn't a Vector3"));
+        return;
+    }
+
+    v->z = (Real) value->NumberValue();
 }
 
 
@@ -149,11 +173,11 @@ void Vector3_SetZ(Local<String> property, Local<Value> value, const AccessorInfo
 Handle<Value> Vector3_Set(const Arguments& args)
 {
     if (args.Length() != 1)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3 or a number"));
 
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     if (args[0]->IsNumber())
     {
@@ -162,9 +186,10 @@ Handle<Value> Vector3_Set(const Arguments& args)
     else if (args[0]->IsObject())
     {
         Vector3* vref = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
+        if (!vref)
+            return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
-        if (vref)
-            *self = *vref;
+        *self = *vref;
     }
     
     return Handle<Value>();
@@ -176,15 +201,15 @@ Handle<Value> Vector3_Set(const Arguments& args)
 Handle<Value> Vector3_Equals(const Arguments& args)
 {
     if (args.Length() != 1)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     Vector3* rkVector = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rkVector)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     return Boolean::New((*self) == (*rkVector));
 }
@@ -194,15 +219,15 @@ Handle<Value> Vector3_Equals(const Arguments& args)
 Handle<Value> Vector3_NotEquals(const Arguments& args)
 {
     if (args.Length() != 1)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
-
+        return ThrowException(String::New("'this' isn't a Vector3"));
+        
     Vector3* rkVector = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rkVector)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     return Boolean::New((*self) != (*rkVector));
 }
@@ -212,15 +237,15 @@ Handle<Value> Vector3_NotEquals(const Arguments& args)
 Handle<Value> Vector3_LesserThan(const Arguments& args)
 {
     if (args.Length() != 1)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     Vector3* rkVector = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rkVector)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     return Boolean::New((*self) < (*rkVector));
 }
@@ -230,15 +255,15 @@ Handle<Value> Vector3_LesserThan(const Arguments& args)
 Handle<Value> Vector3_GreaterThan(const Arguments& args)
 {
     if (args.Length() != 1)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     Vector3* rkVector = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rkVector)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     return Boolean::New((*self) > (*rkVector));
 }
@@ -250,7 +275,7 @@ Handle<Value> Vector3_Add(const Arguments& args)
 {
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     Vector3* result = new Vector3(*self);
 
@@ -260,13 +285,17 @@ Handle<Value> Vector3_Add(const Arguments& args)
         {
             (*result) += (Real) args[i]->NumberValue();
         }
-        else
+        else if (args[0]->IsObject())
         {
             Vector3* v = CastJSObject<Vector3>(args[i], CLASSID_VECTOR3);
             if (!v)
-                return Handle<Value>();
+                return ThrowException(String::New("Invalid parameter, expected a Vector3 or a number"));
 
             (*result) += *v;
+        }
+        else
+        {
+            return ThrowException(String::New("Invalid parameter, expected a Vector3 or a number"));
         }
     }
 
@@ -279,7 +308,7 @@ Handle<Value> Vector3_Sub(const Arguments& args)
 {
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     Vector3* result = new Vector3(*self);
 
@@ -289,13 +318,17 @@ Handle<Value> Vector3_Sub(const Arguments& args)
         {
             (*result) -= (Real) args[i]->NumberValue();
         }
-        else
+        else if (args[i]->IsObject())
         {
             Vector3* v = CastJSObject<Vector3>(args[i], CLASSID_VECTOR3);
             if (!v)
-                return Handle<Value>();
+                return ThrowException(String::New("Invalid parameter, expected a Vector3 or a number"));
 
             (*result) -= *v;
+        }
+        else
+        {
+            return ThrowException(String::New("Invalid parameter, expected a Vector3 or a number"));
         }
     }
 
@@ -308,7 +341,7 @@ Handle<Value> Vector3_Mul(const Arguments& args)
 {
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     Vector3* result = new Vector3(*self);
 
@@ -318,13 +351,17 @@ Handle<Value> Vector3_Mul(const Arguments& args)
         {
             (*result) *= (Real) args[i]->NumberValue();
         }
-        else
+        else if (args[i]->IsObject())
         {
             Vector3* v = CastJSObject<Vector3>(args[i], CLASSID_VECTOR3);
             if (!v)
-                return Handle<Value>();
+                return ThrowException(String::New("Invalid parameter, expected a Vector3 or a number"));
 
             (*result) *= (*v);
+        }
+        else
+        {
+            return ThrowException(String::New("Invalid parameter, expected a Vector3 or a number"));
         }
     }
 
@@ -337,7 +374,7 @@ Handle<Value> Vector3_Divide(const Arguments& args)
 {
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     Vector3* result = new Vector3(*self);
 
@@ -347,13 +384,17 @@ Handle<Value> Vector3_Divide(const Arguments& args)
         {
             (*result) /= (Real) args[i]->NumberValue();
         }
-        else
+        else if (args[i]->IsObject())
         {
             Vector3* v = CastJSObject<Vector3>(args[i], CLASSID_VECTOR3);
             if (!v)
-                return Handle<Value>();
+                return ThrowException(String::New("Invalid parameter, expected a Vector3 or a number"));
 
             (*result) /= (*v);
+        }
+        else
+        {
+            return ThrowException(String::New("Invalid parameter, expected a Vector3 or a number"));
         }
     }
 
@@ -366,7 +407,7 @@ Handle<Value> Vector3_Negate(const Arguments& args)
 {
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     Vector3* result = new Vector3(-(*self));
 
@@ -380,7 +421,7 @@ Handle<Value> Vector3_IAdd(const Arguments& args)
 {
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     for (unsigned int i = 0; i < args.Length(); ++i)
     {
@@ -388,13 +429,17 @@ Handle<Value> Vector3_IAdd(const Arguments& args)
         {
             (*self) += (Real) args[i]->NumberValue();
         }
-        else
+        else if (args[i]->IsObject())
         {
             Vector3* v = CastJSObject<Vector3>(args[i], CLASSID_VECTOR3);
             if (!v)
-                return Handle<Value>();
+                return ThrowException(String::New("Invalid parameter, expected a Vector3 or a number"));
 
             (*self) += *v;
+        }
+        else
+        {
+            return ThrowException(String::New("Invalid parameter, expected a Vector3 or a number"));
         }
     }
 
@@ -407,7 +452,7 @@ Handle<Value> Vector3_ISub(const Arguments& args)
 {
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     for (unsigned int i = 0; i < args.Length(); ++i)
     {
@@ -415,13 +460,17 @@ Handle<Value> Vector3_ISub(const Arguments& args)
         {
             (*self) -= (Real) args[i]->NumberValue();
         }
-        else
+        else if (args[i]->IsObject())
         {
             Vector3* v = CastJSObject<Vector3>(args[i], CLASSID_VECTOR3);
             if (!v)
-                return Handle<Value>();
+                return ThrowException(String::New("Invalid parameter, expected a Vector3 or a number"));
 
             (*self) -= *v;
+        }
+        else
+        {
+            return ThrowException(String::New("Invalid parameter, expected a Vector3 or a number"));
         }
     }
 
@@ -434,7 +483,7 @@ Handle<Value> Vector3_IMul(const Arguments& args)
 {
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     for (unsigned int i = 0; i < args.Length(); ++i)
     {
@@ -442,13 +491,17 @@ Handle<Value> Vector3_IMul(const Arguments& args)
         {
             (*self) *= (Real) args[i]->NumberValue();
         }
-        else
+        else if (args[i]->IsObject())
         {
             Vector3* v = CastJSObject<Vector3>(args[i], CLASSID_VECTOR3);
             if (!v)
-                return Handle<Value>();
+                return ThrowException(String::New("Invalid parameter, expected a Vector3 or a number"));
 
             (*self) *= (*v);
+        }
+        else
+        {
+            return ThrowException(String::New("Invalid parameter, expected a Vector3 or a number"));
         }
     }
 
@@ -461,7 +514,7 @@ Handle<Value> Vector3_IDivide(const Arguments& args)
 {
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     for (unsigned int i = 0; i < args.Length(); ++i)
     {
@@ -469,13 +522,17 @@ Handle<Value> Vector3_IDivide(const Arguments& args)
         {
             (*self) /= (Real) args[i]->NumberValue();
         }
-        else
+        else if (args[i]->IsObject())
         {
             Vector3* v = CastJSObject<Vector3>(args[i], CLASSID_VECTOR3);
             if (!v)
-                return Handle<Value>();
+                return ThrowException(String::New("Invalid parameter, expected a Vector3 or a number"));
 
             (*self) /= (*v);
+        }
+        else
+        {
+            return ThrowException(String::New("Invalid parameter, expected a Vector3 or a number"));
         }
     }
 
@@ -488,7 +545,7 @@ Handle<Value> Vector3_INegate(const Arguments& args)
 {
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     (*self) = -(*self);
 
@@ -502,7 +559,7 @@ Handle<Value> Vector3_Length(const Arguments& args)
 {
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     return Number::New(self->length());
 }
@@ -513,7 +570,7 @@ Handle<Value> Vector3_SquaredLength(const Arguments& args)
 {
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     return Number::New(self->squaredLength());
 }
@@ -524,7 +581,7 @@ Handle<Value> Vector3_IsZeroLength(const Arguments& args)
 {
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     return Boolean::New(self->isZeroLength());
 }
@@ -534,15 +591,15 @@ Handle<Value> Vector3_IsZeroLength(const Arguments& args)
 Handle<Value> Vector3_Distance(const Arguments& args)
 {
     if (args.Length() != 1)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     return Number::New(self->distance(*rhs));
 }
@@ -552,15 +609,15 @@ Handle<Value> Vector3_Distance(const Arguments& args)
 Handle<Value> Vector3_SquaredDistance(const Arguments& args)
 {
     if (args.Length() != 1)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     return Number::New(self->squaredDistance(*rhs));
 }
@@ -570,15 +627,15 @@ Handle<Value> Vector3_SquaredDistance(const Arguments& args)
 Handle<Value> Vector3_DotProduct(const Arguments& args)
 {
     if (args.Length() != 1)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     return Number::New(self->dotProduct(*rhs));
 }
@@ -588,15 +645,15 @@ Handle<Value> Vector3_DotProduct(const Arguments& args)
 Handle<Value> Vector3_AbsDotProduct(const Arguments& args)
 {
     if (args.Length() != 1)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     return Number::New(self->absDotProduct(*rhs));
 }
@@ -607,7 +664,7 @@ Handle<Value> Vector3_Normalise(const Arguments& args)
 {
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     return Number::New(self->normalise());
 }
@@ -618,7 +675,7 @@ Handle<Value> Vector3_NormalisedCopy(const Arguments& args)
 {
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     return createJSVector3(self->normalisedCopy());
 }
@@ -628,15 +685,15 @@ Handle<Value> Vector3_NormalisedCopy(const Arguments& args)
 Handle<Value> Vector3_CrossProduct(const Arguments& args)
 {
     if (args.Length() != 1)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     return createJSVector3(self->crossProduct(*rhs));
 }
@@ -646,15 +703,15 @@ Handle<Value> Vector3_CrossProduct(const Arguments& args)
 Handle<Value> Vector3_MidPoint(const Arguments& args)
 {
     if (args.Length() != 1)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     return createJSVector3(self->midPoint(*rhs));
 }
@@ -664,15 +721,15 @@ Handle<Value> Vector3_MidPoint(const Arguments& args)
 Handle<Value> Vector3_MakeFloor(const Arguments& args)
 {
     if (args.Length() != 1)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     self->makeFloor(*rhs);
 
@@ -684,15 +741,15 @@ Handle<Value> Vector3_MakeFloor(const Arguments& args)
 Handle<Value> Vector3_MakeCeil(const Arguments& args)
 {
     if (args.Length() != 1)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     self->makeCeil(*rhs);
 
@@ -705,7 +762,7 @@ Handle<Value> Vector3_Perpendicular(const Arguments& args)
 {
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     return createJSVector3(self->perpendicular());
 }
@@ -715,15 +772,15 @@ Handle<Value> Vector3_Perpendicular(const Arguments& args)
 Handle<Value> Vector3_Reflect(const Arguments& args)
 {
     if (args.Length() != 1)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3"));
 
     return createJSVector3(self->reflect(*rhs));
 }
@@ -733,18 +790,18 @@ Handle<Value> Vector3_Reflect(const Arguments& args)
 Handle<Value> Vector3_PositionEquals(const Arguments& args)
 {
     if (args.Length() != 2)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3 and a number"));
 
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3 and a number"));
 
     if (!args[1]->IsNumber())
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3 and a number"));
 
     return Number::New(self->positionEquals(*rhs, args[1]->ToNumber()->Value()));
 }
@@ -754,18 +811,18 @@ Handle<Value> Vector3_PositionEquals(const Arguments& args)
 Handle<Value> Vector3_PositionCloses(const Arguments& args)
 {
     if (args.Length() != 2)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3 and a number"));
 
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     Vector3* rhs = CastJSObject<Vector3>(args[0], CLASSID_VECTOR3);
     if (!rhs)
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3 and a number"));
 
     if (!args[1]->IsNumber())
-        return Handle<Value>();
+        return ThrowException(String::New("Invalid parameter, expected a Vector3 and a number"));
 
     return Number::New(self->positionCloses(*rhs, args[1]->ToNumber()->Value()));
 }
@@ -776,7 +833,7 @@ Handle<Value> Vector3_IsNaN(const Arguments& args)
 {
     Vector3* self = CastJSObject<Vector3>(args.This(), CLASSID_VECTOR3);
     if (!self)
-        return Handle<Value>();
+        return ThrowException(String::New("'this' isn't a Vector3"));
 
     return Boolean::New(self->isNaN());
 }
