@@ -5,27 +5,44 @@
 */
 
 #include <v8.h>
+#include <Athena-Scripting/ScriptingManager.h>
+#include <string>
 
 using namespace v8;
+using namespace Athena::Scripting;
 
 
 /*********************************** EXTERNAL FUNCTIONS *********************************/
 
-extern bool bind_MathUtils(Handle<Object> parent);
 extern bool bind_Quaternion(Handle<Object> parent);
-extern bool bind_Vector3(Handle<Object> parent);
+
+
+/*************************************** FUNCTIONS *************************************/
+
+bool bind_MathUtils(Handle<Object> parent, const std::string& modulePath)
+{
+    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/MathUtils.js", Context::GetCurrent());
+    return !result.IsEmpty();
+}
+
+
+bool bind_Vector3(Handle<Object> parent, const std::string& modulePath)
+{
+    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/Vector3.js", Context::GetCurrent());
+    return !result.IsEmpty();
+}
 
 
 /****************************** INITIALISATION OF THE MODULE ****************************/
 
 extern "C" {
 
-    bool init_module(Handle<Object> parent)
+    bool init_module(Handle<Object> parent, const std::string& modulePath)
     {
         HandleScope handle_scope;
 
-        return bind_MathUtils(parent) &&
+        return bind_MathUtils(parent, modulePath) &&
                bind_Quaternion(parent) &&
-               bind_Vector3(parent);
+               bind_Vector3(parent, modulePath);
     }
 }
