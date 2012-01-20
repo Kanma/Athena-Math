@@ -7,6 +7,9 @@
 #ifndef _ATHENA_MATH_SCRIPTING_H_
 #define _ATHENA_MATH_SCRIPTING_H_
 
+#include <v8.h>
+#include <Athena-Math/Vector3.h>
+
 
 namespace Athena {
 namespace Math {
@@ -26,6 +29,17 @@ namespace Math {
         CLASSID_VECTOR3,
         CLASSID_VECTOR4,
     };
+    
+    
+    //------------------------------------------------------------------------------------
+    /// @brief	Create a C++ Vector3 from a JavaScript one
+    //------------------------------------------------------------------------------------
+    Vector3 fromJSVector3(v8::Handle<v8::Value> value);
+
+    //------------------------------------------------------------------------------------
+    /// @brief	Create a JavaScript Vector3 from a C++ one
+    //------------------------------------------------------------------------------------
+    v8::Handle<v8::Value> toJavaScript(const Vector3& value);
 }
 }
 

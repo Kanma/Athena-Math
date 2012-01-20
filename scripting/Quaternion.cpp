@@ -5,6 +5,7 @@
 */
 
 #include <Athena-Math/Quaternion.h>
+#include <Athena-Math/Scripting.h>
 #include <Athena-Scripting/Utils.h>
 #include <v8.h>
 
