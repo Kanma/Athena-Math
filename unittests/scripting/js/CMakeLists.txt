@@ -8,12 +8,15 @@ set(JS_FILES # MathUtils
              MathUtils/UnitConversion.js
              
              # Quaternion
-             # Quaternion/CreationWithWXYZ.js
-             # Quaternion/CreationWithAngleAxis.js
+             Quaternion/CreationWithWXYZ.js
+             Quaternion/CreationWithAngleAxis.js
              # Quaternion/CreationWithAxes.js
-             # Quaternion/CreationWithQuaternion.js
-             # Quaternion/AttributesAssignement.js
-             # Quaternion/Assignement.js
+             Quaternion/CreationWithQuaternion.js
+             Quaternion/AttributesAssignement.js
+             Quaternion/Assignement.js
+             Quaternion/Length.js
+             Quaternion/Normalize.js
+             Quaternion/IsNaN.js
              
              # Vector3
              Vector3/CreationWithXYZ.js

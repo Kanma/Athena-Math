@@ -4,10 +4,10 @@ xmake_import_search_paths(ATHENA_SCRIPTING)
 
 # List the source files
 set(SRCS module.cpp
-         Quaternion.cpp
 )
 
 set(JS_SRCS MathUtils.js
+            Quaternion.js
             Vector3.js
 )
 

@@ -14,14 +14,19 @@ using namespace Athena::Scripting;
 
 /*********************************** EXTERNAL FUNCTIONS *********************************/
 
-extern bool bind_Quaternion(Handle<Object> parent);
-
 
 /*************************************** FUNCTIONS *************************************/
 
 bool bind_MathUtils(Handle<Object> parent, const std::string& modulePath)
 {
     Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/MathUtils.js", Context::GetCurrent());
+    return !result.IsEmpty();
+}
+
+
+bool bind_Quaternion(Handle<Object> parent, const std::string& modulePath)
+{
+    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/Quaternion.js", Context::GetCurrent());
     return !result.IsEmpty();
 }
 
@@ -42,7 +47,7 @@ extern "C" {
         HandleScope handle_scope;
 
         return bind_MathUtils(parent, modulePath) &&
-               bind_Quaternion(parent) &&
+               bind_Quaternion(parent, modulePath) &&
                bind_Vector3(parent, modulePath);
     }
 }

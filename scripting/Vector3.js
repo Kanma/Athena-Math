@@ -7,7 +7,7 @@
             the C++ one results in faster code.
 */
 
-Athena.Math.Vector3 = function(x, y, z)
+Athena.Math.Vector3 = function()
 {
     if (arguments.length == 0)
     {
