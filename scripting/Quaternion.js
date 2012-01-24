@@ -81,7 +81,7 @@ Athena.Math.Quaternion.prototype.set = function()
     // else if (arguments.length == 3)
     // {
     // }
-    else if (arguments.length == 1)
+    else if ((arguments.length == 1) && (typeof(arguments[0]) === 'object'))
     {
         if (arguments[0].__classname__ == 'Athena.Math.Quaternion')
         {
@@ -226,6 +226,112 @@ Athena.Math.Quaternion.prototype.rotationFrom = function(quaternion)
 Athena.Math.Quaternion.prototype.isNaN = function()
 {
     return isNaN(this.x) || isNaN(this.y) || isNaN(this.z) || isNaN(this.w);
+}
+
+
+/********************************* ARITHMETIC OPERATIONS ********************************/
+
+Athena.Math.Quaternion.prototype.add = function()
+{
+    var q = new Athena.Math.Quaternion(this);
+    
+    for (var i = 0; i < arguments.length; i++)
+    {
+        if ((typeof(arguments[i]) === 'object') && (arguments[i].__classname__ == 'Athena.Math.Quaternion'))
+        {
+            q.w += arguments[i].w;
+            q.x += arguments[i].x;
+            q.y += arguments[i].y;  
+            q.z += arguments[i].z;
+        }
+    }
+
+    return q;
+}
+
+//-----------------------------------------------------------------------
+
+Athena.Math.Quaternion.prototype.sub = function()
+{
+    var q = new Athena.Math.Quaternion(this);
+    
+    for (var i = 0; i < arguments.length; i++)
+    {
+        if ((typeof(arguments[i]) === 'object') && (arguments[i].__classname__ == 'Athena.Math.Quaternion'))
+        {
+            q.w -= arguments[i].w;
+            q.x -= arguments[i].x;
+            q.y -= arguments[i].y;  
+            q.z -= arguments[i].z;
+        }
+    }
+
+    return q;
+}
+
+//-----------------------------------------------------------------------
+
+Athena.Math.Quaternion.prototype.mul = function()
+{
+    if ((arguments.length == 1) && (typeof(arguments[0]) === 'object') && (arguments[0].__classname__ == 'Athena.Math.Vector3'))
+    {
+        var qvec = new Athena.Math.Vector3(this.x, this.y, this.z);
+        var uv = qvec.cross(arguments[0]).mul(2.0 * this.w);
+        var uuv = qvec.cross(uv).mul(2.0);
+        
+        return arguments[0].add(uv, uuv);
+    }
+
+    var q = new Athena.Math.Quaternion(this);
+    
+    for (var i = 0; i < arguments.length; i++)
+    {
+        if (typeof(arguments[i]) === 'object')
+        {
+            if (arguments[i].__classname__ == 'Athena.Math.Quaternion')
+            {
+                q = new Athena.Math.Quaternion(
+                    q.w * arguments[i].w - q.x * arguments[i].x - q.y * arguments[i].y - q.z * arguments[i].z,
+                    q.w * arguments[i].x + q.x * arguments[i].w + q.y * arguments[i].z - q.z * arguments[i].y,
+                    q.w * arguments[i].y + q.y * arguments[i].w + q.z * arguments[i].x - q.x * arguments[i].z,
+                    q.w * arguments[i].z + q.z * arguments[i].w + q.x * arguments[i].y - q.y * arguments[i].x
+                );
+            }
+        }
+        else
+        {
+            q.w *= arguments[i];
+            q.x *= arguments[i];
+            q.y *= arguments[i];  
+            q.z *= arguments[i];
+        }
+    }
+
+    return q;
+}
+
+//-----------------------------------------------------------------------
+
+Athena.Math.Quaternion.prototype.negate = function()
+{
+    return new Athena.Math.Quaternion(-this.w, -this.x, -this.y, -this.z);
+}
+
+
+/********************************* COMPARISON OPERATIONS ********************************/
+
+Athena.Math.Quaternion.prototype.equals = function(quaternion)
+{
+    return (this.w == quaternion.w) && (this.x == quaternion.x) &&
+           (this.y == quaternion.y) && (this.z == quaternion.z);
+}
+
+//-----------------------------------------------------------------------
+
+Athena.Math.Quaternion.prototype.notEquals = function(quaternion)
+{
+    return (this.w != quaternion.w) || (this.x != quaternion.x) ||
+           (this.y != quaternion.y) || (this.z != quaternion.z);
 }
 
 

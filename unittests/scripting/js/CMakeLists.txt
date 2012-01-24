@@ -17,6 +17,12 @@ set(JS_FILES # MathUtils
              Quaternion/Length.js
              Quaternion/Normalize.js
              Quaternion/IsNaN.js
+             Quaternion/Add.js
+             Quaternion/Sub.js
+             Quaternion/Mul.js
+             Quaternion/Negate.js
+             Quaternion/Equals.js
+             Quaternion/NotEquals.js
              
              # Vector3
              Vector3/CreationWithXYZ.js
