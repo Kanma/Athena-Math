@@ -6,6 +6,18 @@ set(JS_FILES # MathUtils
              MathUtils/Equals.js
              MathUtils/Clamp.js
              MathUtils/UnitConversion.js
+
+             # Matrix4
+             Matrix4/CreationWithValues.js
+             Matrix4/CreationWithMatrix4.js
+             Matrix4/Assignement.js
+             Matrix4/Add.js
+             Matrix4/Sub.js
+             Matrix4/Mul.js
+             Matrix4/Equals.js
+             Matrix4/NotEquals.js
+             Matrix4/Transpose.js
+             Matrix4/Translation.js
              
              # Quaternion
              Quaternion/CreationWithWXYZ.js

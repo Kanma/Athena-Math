@@ -7,6 +7,7 @@ set(SRCS module.cpp
 )
 
 set(JS_SRCS MathUtils.js
+            Matrix4.js
             Quaternion.js
             Vector3.js
 )
