@@ -24,6 +24,13 @@ bool bind_MathUtils(Handle<Object> parent, const std::string& modulePath)
 }
 
 
+bool bind_Matrix3(Handle<Object> parent, const std::string& modulePath)
+{
+    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/Matrix3.js", Context::GetCurrent());
+    return !result.IsEmpty();
+}
+
+
 bool bind_Matrix4(Handle<Object> parent, const std::string& modulePath)
 {
     Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/Matrix4.js", Context::GetCurrent());
@@ -54,6 +61,7 @@ extern "C" {
         HandleScope handle_scope;
 
         return bind_MathUtils(parent, modulePath) &&
+               bind_Matrix3(parent, modulePath) &&
                bind_Matrix4(parent, modulePath) &&
                bind_Quaternion(parent, modulePath) &&
                bind_Vector3(parent, modulePath);

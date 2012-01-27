@@ -1,7 +1,7 @@
 import_module('Athena.Math');
 
 m1 = new Athena.Math.Matrix4();
-m2 = new Athena.Math.Matrix4(m1)
+m2 = new Athena.Math.Matrix4()
 
 m1.set(1, 2, 3, 4,
        5, 6, 7, 8,

@@ -47,7 +47,7 @@ Athena.Math.Matrix4 = function()
         this.m_3_2 = arguments[14];
         this.m_3_3 = arguments[15];
     }
-    else if (arguments.length == 1)
+    else if ((arguments.length == 1) && (typeof(arguments[0]) === 'object'))
     {
         if (arguments[0].__classname__ == 'Athena.Math.Matrix4')
         {
@@ -149,7 +149,7 @@ Athena.Math.Matrix4.prototype.set = function()
         this.m_3_2 = arguments[14];
         this.m_3_3 = arguments[15];
     }
-    else if (arguments.length == 1)
+    else if ((arguments.length == 1) && (typeof(arguments[0]) === 'object'))
     {
         if (arguments[0].__classname__ == 'Athena.Math.Matrix4')
         {

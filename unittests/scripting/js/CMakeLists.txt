@@ -7,6 +7,14 @@ set(JS_FILES # MathUtils
              MathUtils/Clamp.js
              MathUtils/UnitConversion.js
 
+             # Matrix3
+             Matrix3/CreationWithValues.js
+             Matrix3/CreationWithMatrix3.js
+             Matrix3/CreationWithVectors.js
+             Matrix3/Assignement.js
+             Matrix3/Equals.js
+             Matrix3/NotEquals.js
+
              # Matrix4
              Matrix4/CreationWithValues.js
              Matrix4/CreationWithMatrix4.js
