@@ -86,5 +86,75 @@ Handle<Value> toJavaScript(const Quaternion& value)
     return object;
 }
 
+//-----------------------------------------------------------------------
+
+Matrix4 fromJSMatrix4(Handle<Value> value)
+{
+    if (value->IsObject())
+    {
+        Handle<Object> object = value->ToObject();
+        Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
+        
+        if (std::string("Athena.Math.Matrix4") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
+        {
+            return Matrix4(object->Get(String::New("m_0_0"))->ToNumber()->NumberValue(),
+                           object->Get(String::New("m_0_1"))->ToNumber()->NumberValue(),
+                           object->Get(String::New("m_0_2"))->ToNumber()->NumberValue(),
+                           object->Get(String::New("m_0_3"))->ToNumber()->NumberValue(),
+
+                           object->Get(String::New("m_1_0"))->ToNumber()->NumberValue(),
+                           object->Get(String::New("m_1_1"))->ToNumber()->NumberValue(),
+                           object->Get(String::New("m_1_2"))->ToNumber()->NumberValue(),
+                           object->Get(String::New("m_1_3"))->ToNumber()->NumberValue(),
+
+                           object->Get(String::New("m_2_0"))->ToNumber()->NumberValue(),
+                           object->Get(String::New("m_2_1"))->ToNumber()->NumberValue(),
+                           object->Get(String::New("m_2_2"))->ToNumber()->NumberValue(),
+                           object->Get(String::New("m_2_3"))->ToNumber()->NumberValue(),
+
+                           object->Get(String::New("m_3_0"))->ToNumber()->NumberValue(),
+                           object->Get(String::New("m_3_1"))->ToNumber()->NumberValue(),
+                           object->Get(String::New("m_3_2"))->ToNumber()->NumberValue(),
+                           object->Get(String::New("m_3_3"))->ToNumber()->NumberValue()
+            );
+        }
+    }
+
+    return Quaternion::ZERO;
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> toJavaScript(const Matrix4& value)
+{
+    Handle<Value> constructor = Context::GetCurrent()->Global()->Get(String::New("Athena.Math.Matrix4"));
+    if (!constructor->IsFunction())
+        return ThrowException(String::New("Can't find the constructor function of Athena.Math.Matrix4"));
+
+    Local<Object> object = Handle<Function>::Cast(constructor)->NewInstance();
+
+    object->Set(String::New("m_0_0"), Number::New(value.m[0][0]));
+    object->Set(String::New("m_0_1"), Number::New(value.m[0][1]));
+    object->Set(String::New("m_0_2"), Number::New(value.m[0][2]));
+    object->Set(String::New("m_0_3"), Number::New(value.m[0][3]));
+
+    object->Set(String::New("m_1_0"), Number::New(value.m[1][0]));
+    object->Set(String::New("m_1_1"), Number::New(value.m[1][1]));
+    object->Set(String::New("m_1_2"), Number::New(value.m[1][2]));
+    object->Set(String::New("m_1_3"), Number::New(value.m[1][3]));
+
+    object->Set(String::New("m_2_0"), Number::New(value.m[2][0]));
+    object->Set(String::New("m_2_1"), Number::New(value.m[2][1]));
+    object->Set(String::New("m_2_2"), Number::New(value.m[2][2]));
+    object->Set(String::New("m_2_3"), Number::New(value.m[2][3]));
+
+    object->Set(String::New("m_3_0"), Number::New(value.m[3][0]));
+    object->Set(String::New("m_3_1"), Number::New(value.m[3][1]));
+    object->Set(String::New("m_3_2"), Number::New(value.m[3][2]));
+    object->Set(String::New("m_3_3"), Number::New(value.m[3][3]));
+    
+    return object;
+}
+
 }
 }

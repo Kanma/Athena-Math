@@ -10,6 +10,7 @@
 #include <v8.h>
 #include <Athena-Math/Vector3.h>
 #include <Athena-Math/Quaternion.h>
+#include <Athena-Math/Matrix4.h>
 
 
 namespace Athena {
@@ -52,6 +53,17 @@ namespace Math {
     /// @brief	Create a JavaScript Quaternion from a C++ one
     //------------------------------------------------------------------------------------
     v8::Handle<v8::Value> toJavaScript(const Quaternion& value);
+
+
+    //------------------------------------------------------------------------------------
+    /// @brief	Create a C++ Matrix4 from a JavaScript one
+    //------------------------------------------------------------------------------------
+    Matrix4 fromJSMatrix4(v8::Handle<v8::Value> value);
+
+    //------------------------------------------------------------------------------------
+    /// @brief	Create a JavaScript Matrix4 from a C++ one
+    //------------------------------------------------------------------------------------
+    v8::Handle<v8::Value> toJavaScript(const Matrix4& value);
 }
 }
 

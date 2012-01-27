@@ -53,4 +53,34 @@ SUITE(Conversions)
         CHECK_CLOSE(3.0f, quat.y, 1e-6f);
         CHECK_CLOSE(4.0f, quat.z, 1e-6f);
 	}
+
+
+	TEST_FIXTURE(ScriptingTestEnvironment, ConvertMatrix4FromJavaScript)
+	{
+        HandleScope handle_scope;
+
+		Handle<Value> result = pScriptingManager->execute("import_module('Athena.Math'); new Athena.Math.Matrix4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);");
+
+        Matrix4 mat = fromJSMatrix4(result);
+
+        CHECK_CLOSE(1.0f, mat[0][0], 1e-6f);
+        CHECK_CLOSE(2.0f, mat[0][1], 1e-6f);
+        CHECK_CLOSE(3.0f, mat[0][2], 1e-6f);
+        CHECK_CLOSE(4.0f, mat[0][3], 1e-6f);
+
+        CHECK_CLOSE(5.0f, mat[1][0], 1e-6f);
+        CHECK_CLOSE(6.0f, mat[1][1], 1e-6f);
+        CHECK_CLOSE(7.0f, mat[1][2], 1e-6f);
+        CHECK_CLOSE(8.0f, mat[1][3], 1e-6f);
+
+        CHECK_CLOSE(9.0f, mat[2][0], 1e-6f);
+        CHECK_CLOSE(10.0f, mat[2][1], 1e-6f);
+        CHECK_CLOSE(11.0f, mat[2][2], 1e-6f);
+        CHECK_CLOSE(12.0f, mat[2][3], 1e-6f);
+
+        CHECK_CLOSE(13.0f, mat[3][0], 1e-6f);
+        CHECK_CLOSE(14.0f, mat[3][1], 1e-6f);
+        CHECK_CLOSE(15.0f, mat[3][2], 1e-6f);
+        CHECK_CLOSE(16.0f, mat[3][3], 1e-6f);
+	}
 }
