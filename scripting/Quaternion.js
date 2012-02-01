@@ -32,10 +32,13 @@ Athena.Math.Quaternion = function()
         this.y = sin * arguments[1].y;
         this.z = sin * arguments[1].z;
     }
-    // TODO: From 3 axes
-    // else if (arguments.length == 3)
-    // {
-    // }
+    else if (arguments.length == 3)
+    {
+        var m = new Athena.Math.Matrix3(arguments[0].x, arguments[1].y, arguments[2].z,
+                                        arguments[0].x, arguments[1].y, arguments[2].z,
+                                        arguments[0].x, arguments[1].y, arguments[2].z);
+        this.set(m);
+    }
     else if (arguments.length == 1)
     {
         if (arguments[0].__classname__ == 'Athena.Math.Quaternion')
@@ -45,14 +48,63 @@ Athena.Math.Quaternion = function()
             this.y = arguments[0].y;  
             this.z = arguments[0].z;
         }
-        // TODO: From 1 matrix
-        // else
-        // {
-        // }
+        else if (arguments[0].__classname__ == 'Athena.Math.Matrix3')
+        {
+            var fTrace = arguments[0].m_0_0 + arguments[0].m_1_1 + arguments[0].m_2_2;
+
+            if (fTrace > 0.0)
+            {
+                // |w| > 1/2, may as well choose w > 1/2
+                var fRoot = Math.sqrt(fTrace + 1.0);  // 2w
+                this.w = 0.5 * fRoot;
+                fRoot = 0.5 / fRoot;  // 1/(4w)
+                this.x = (arguments[0].m_2_1 - arguments[0].m_1_2) * fRoot;
+                this.y = (arguments[0].m_0_2 - arguments[0].m_2_0) * fRoot;
+                this.z = (arguments[0].m_1_0 - arguments[0].m_0_1) * fRoot;
+            }
+            else
+            {
+                // |w| <= 1/2
+                var s_iNext = [ 1, 2, 0 ];
+                var i = 0;
+                if ( arguments[0].m_1_1 > arguments[0].m_0_0 )
+                    i = 1;
+                if ( arguments[0].m_2_2 > arguments[0]['m_' + i + '_' + i] )
+                    i = 2;
+                var j = s_iNext[i];
+                var k = s_iNext[j];
+
+                var fRoot = Math.sqrt(arguments[0]['m_' + i + '_' + i] - arguments[0]['m_' + j + '_' + j] - arguments[0]['m_' + k + '_' + k] + 1.0);
+                var apkQuat_i = 0.5 * fRoot;
+                fRoot = 0.5 / fRoot;
+                this.w = (arguments[0]['m_' + k + '_' + j] - arguments[0]['m_' + j + '_' + k]) * fRoot;
+                var apkQuat_j = (arguments[0]['m_' + j + '_' + i] + arguments[0]['m_' + i + '_' + j]) * fRoot;
+                var apkQuat_k = (arguments[0]['m_' + k + '_' + i] + arguments[0]['m_' + i + '_' + k]) * fRoot;
+
+                if (i == 0)
+                {
+                    this.x = apkQuat_i;
+                    this.y = apkQuat_j;
+                    this.z = apkQuat_k;
+                }
+                else if (i == 1)
+                {
+                    this.x = apkQuat_k;
+                    this.y = apkQuat_i;
+                    this.z = apkQuat_j;
+                }
+                else
+                {
+                    this.x = apkQuat_j;
+                    this.y = apkQuat_k;
+                    this.z = apkQuat_i;
+                }
+            }
+        }
     }
     else
     {
-        throw 'Invalid parameters, valid syntaxes:\nQuaternion()\nQuaternion(w, x, y, z)\nQuaternion(angle, axis)\nQuaternion(xaxis, yaxis, zaxis)\nQuaternion(matrix)';
+        throw 'Invalid parameters, valid syntaxes:\nQuaternion()\nQuaternion(w, x, y, z)\nQuaternion(angle, axis)\nQuaternion(xaxis, yaxis, zaxis)\nQuaternion(matrix3)';
     }
 }
 
@@ -77,10 +129,13 @@ Athena.Math.Quaternion.prototype.set = function()
         this.y = sin * arguments[1].y;
         this.z = sin * arguments[1].z;
     }
-    // TODO: From 3 axes
-    // else if (arguments.length == 3)
-    // {
-    // }
+    else if (arguments.length == 3)
+    {
+        var m = new Athena.Math.Matrix3(arguments[0].x, arguments[1].y, arguments[2].z,
+                                        arguments[0].x, arguments[1].y, arguments[2].z,
+                                        arguments[0].x, arguments[1].y, arguments[2].z);
+        this.set(m);
+    }
     else if ((arguments.length == 1) && (typeof(arguments[0]) === 'object'))
     {
         if (arguments[0].__classname__ == 'Athena.Math.Quaternion')
@@ -90,10 +145,59 @@ Athena.Math.Quaternion.prototype.set = function()
             this.y = arguments[0].y;  
             this.z = arguments[0].z;
         }
-        // TODO: From 1 matrix
-        // else
-        // {
-        // }
+        else if (arguments[0].__classname__ == 'Athena.Math.Matrix3')
+        {
+            var fTrace = arguments[0].m_0_0 + arguments[0].m_1_1 + arguments[0].m_2_2;
+
+            if (fTrace > 0.0)
+            {
+                // |w| > 1/2, may as well choose w > 1/2
+                var fRoot = Math.sqrt(fTrace + 1.0);  // 2w
+                this.w = 0.5 * fRoot;
+                fRoot = 0.5 / fRoot;  // 1/(4w)
+                this.x = (arguments[0].m_2_1 - arguments[0].m_1_2) * fRoot;
+                this.y = (arguments[0].m_0_2 - arguments[0].m_2_0) * fRoot;
+                this.z = (arguments[0].m_1_0 - arguments[0].m_0_1) * fRoot;
+            }
+            else
+            {
+                // |w| <= 1/2
+                var s_iNext = [ 1, 2, 0 ];
+                var i = 0;
+                if ( arguments[0].m_1_1 > arguments[0].m_0_0 )
+                    i = 1;
+                if ( arguments[0].m_2_2 > arguments[0]['m_' + i + '_' + i] )
+                    i = 2;
+                var j = s_iNext[i];
+                var k = s_iNext[j];
+
+                var fRoot = Math.sqrt(arguments[0]['m_' + i + '_' + i] - arguments[0]['m_' + j + '_' + j] - arguments[0]['m_' + k + '_' + k] + 1.0);
+                var apkQuat_i = 0.5 * fRoot;
+                fRoot = 0.5 / fRoot;
+                this.w = (arguments[0]['m_' + k + '_' + j] - arguments[0]['m_' + j + '_' + k]) * fRoot;
+                var apkQuat_j = (arguments[0]['m_' + j + '_' + i] + arguments[0]['m_' + i + '_' + j]) * fRoot;
+                var apkQuat_k = (arguments[0]['m_' + k + '_' + i] + arguments[0]['m_' + i + '_' + k]) * fRoot;
+
+                if (i == 0)
+                {
+                    this.x = apkQuat_i;
+                    this.y = apkQuat_j;
+                    this.z = apkQuat_k;
+                }
+                else if (i == 1)
+                {
+                    this.x = apkQuat_k;
+                    this.y = apkQuat_i;
+                    this.z = apkQuat_j;
+                }
+                else
+                {
+                    this.x = apkQuat_j;
+                    this.y = apkQuat_k;
+                    this.z = apkQuat_i;
+                }
+            }
+        }
     }
     else
     {
@@ -103,6 +207,62 @@ Athena.Math.Quaternion.prototype.set = function()
 
 
 /**************************************** METHODS ***************************************/
+
+Athena.Math.Quaternion.prototype.toRotationMatrix = function()
+{
+    var fTx  = 2.0 * this.x;
+    var fTy  = 2.0 * this.y;
+    var fTz  = 2.0 * this.z;
+    var fTwx = fTx * this.w;
+    var fTwy = fTy * this.w;
+    var fTwz = fTz * this.w;
+    var fTxx = fTx * this.x;
+    var fTxy = fTy * this.x;
+    var fTxz = fTz * this.x;
+    var fTyy = fTy * this.y;
+    var fTyz = fTz * this.y;
+    var fTzz = fTz * this.z;
+
+    return new Athena.Math.Matrix3(1.0 - (fTyy + fTzz), fTxy - fTwz, fTxz + fTwy,
+                                   fTxy + fTwz, 1.0 - (fTxx + fTzz), fTyz - fTwx,
+                                   fTxz - fTwy, fTyz + fTwx, 1.0 - (fTxx + fTyy));
+}
+
+//-----------------------------------------------------------------------
+
+Athena.Math.Quaternion.prototype.toAngleAxis = function()
+{
+    var fSqrLength = this.x * this.x + this.y * this.y + this.z * this.z;
+    if ( fSqrLength > 0.0 )
+    {
+        var angle = 2.0 * Athena.Math.acos(this.w);
+        var fInvLength = 1.0 / Math.sqrt(fSqrLength);
+        
+        var axis = new Athena.Math.Vector3(this.x * fInvLength,
+                                           this.y * fInvLength,
+                                           this.z * fInvLength);
+
+        return { angle: angle, axis: axis };
+    }
+    else
+    {
+        // angle is 0 (mod 2*pi), so any axis will do
+        return { angle: 0.0, axis: new Athena.Math.Vector3(1.0, 0.0, 0.0) };
+    }
+}
+
+//-----------------------------------------------------------------------
+
+Athena.Math.Quaternion.prototype.toAxes = function()
+{
+    var m = this.toRotationMatrix();
+    
+    return { xaxis: new Athena.Math.Vector3(m.m_0_0, m.m_1_0, m.m_2_0),
+             yaxis: new Athena.Math.Vector3(m.m_0_1, m.m_1_1, m.m_2_1),
+             zaxis: new Athena.Math.Vector3(m.m_0_2, m.m_1_2, m.m_2_2) };
+}
+
+//-----------------------------------------------------------------------
 
 Athena.Math.Quaternion.prototype.xAxis = function()
 {

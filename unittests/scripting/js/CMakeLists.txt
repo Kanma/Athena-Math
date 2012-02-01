@@ -42,8 +42,9 @@ set(JS_FILES # MathUtils
              # Quaternion
              Quaternion/CreationWithWXYZ.js
              Quaternion/CreationWithAngleAxis.js
-             # Quaternion/CreationWithAxes.js
+             Quaternion/CreationWithAxes.js
              Quaternion/CreationWithQuaternion.js
+             Quaternion/CreationWithMatrix3.js
              Quaternion/AttributesAssignement.js
              Quaternion/Assignement.js
              Quaternion/Length.js
