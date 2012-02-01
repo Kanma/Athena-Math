@@ -332,6 +332,462 @@ Athena.Math.Matrix3.prototype.notEquals = function(matrix)
 }
 
 
+/********************************* ARITHMETIC OPERATIONS ********************************/
+
+Athena.Math.Matrix3.prototype.add = function()
+{
+    var r = new Athena.Math.Matrix3(this);
+    
+    for (var i = 0; i < arguments.length; i++)
+    {
+        if ((typeof(arguments[i]) === 'object') && (arguments[i].__classname__ == 'Athena.Math.Matrix3'))
+        {
+            r.m_0_0 += arguments[i].m_0_0;
+            r.m_0_1 += arguments[i].m_0_1;  
+            r.m_0_2 += arguments[i].m_0_2;
+            r.m_1_0 += arguments[i].m_1_0;
+            r.m_1_1 += arguments[i].m_1_1;  
+            r.m_1_2 += arguments[i].m_1_2;
+            r.m_2_0 += arguments[i].m_2_0;
+            r.m_2_1 += arguments[i].m_2_1;  
+            r.m_2_2 += arguments[i].m_2_2;
+        }
+    }
+
+    return r;
+}
+
+//-----------------------------------------------------------------------
+
+Athena.Math.Matrix3.prototype.sub = function()
+{
+    var r = new Athena.Math.Matrix3(this);
+    
+    for (var i = 0; i < arguments.length; i++)
+    {
+        if ((typeof(arguments[i]) === 'object') && (arguments[i].__classname__ == 'Athena.Math.Matrix3'))
+        {
+            r.m_0_0 -= arguments[i].m_0_0;
+            r.m_0_1 -= arguments[i].m_0_1;  
+            r.m_0_2 -= arguments[i].m_0_2;
+            r.m_1_0 -= arguments[i].m_1_0;
+            r.m_1_1 -= arguments[i].m_1_1;  
+            r.m_1_2 -= arguments[i].m_1_2;
+            r.m_2_0 -= arguments[i].m_2_0;
+            r.m_2_1 -= arguments[i].m_2_1;  
+            r.m_2_2 -= arguments[i].m_2_2;
+        }
+    }
+
+    return r;
+}
+
+//-----------------------------------------------------------------------
+
+Athena.Math.Matrix3.prototype.mul = function()
+{
+    if ((arguments.length == 1) && (typeof(arguments[0]) === 'object'))
+    {
+        if (arguments[0].__classname__ == 'Athena.Math.Vector3')
+        {
+            return new Athena.Math.Vector3(
+                this.m_0_0 * arguments[0].x + this.m_0_1 * arguments[0].y + this.m_0_2 * arguments[0].z,
+                this.m_1_0 * arguments[0].x + this.m_1_1 * arguments[0].y + this.m_1_2 * arguments[0].z,
+                this.m_2_0 * arguments[0].x + this.m_2_1 * arguments[0].y + this.m_2_2 * arguments[0].z
+            );
+        }
+        else if (arguments[0].__classname__ == 'Athena.Math.Matrix3')
+        {
+            var r = new Athena.Math.Matrix3();
+        
+            r.m_0_0 += this.m_0_0 * arguments[0].m_0_0 + this.m_0_1 * arguments[0].m_1_0 + this.m_0_2 * arguments[0].m_2_0;
+            r.m_0_1 += this.m_0_0 * arguments[0].m_0_1 + this.m_0_1 * arguments[0].m_1_1 + this.m_0_2 * arguments[0].m_2_1;  
+            r.m_0_2 += this.m_0_0 * arguments[0].m_0_2 + this.m_0_1 * arguments[0].m_1_2 + this.m_0_2 * arguments[0].m_2_2;
+                                                                                                                    
+            r.m_1_0 += this.m_1_0 * arguments[0].m_0_0 + this.m_1_1 * arguments[0].m_1_0 + this.m_1_2 * arguments[0].m_2_0;
+            r.m_1_1 += this.m_1_0 * arguments[0].m_0_1 + this.m_1_1 * arguments[0].m_1_1 + this.m_1_2 * arguments[0].m_2_1;  
+            r.m_1_2 += this.m_1_0 * arguments[0].m_0_2 + this.m_1_1 * arguments[0].m_1_2 + this.m_1_2 * arguments[0].m_2_2;
+                                                                                                                    
+            r.m_2_0 += this.m_2_0 * arguments[0].m_0_0 + this.m_2_1 * arguments[0].m_1_0 + this.m_2_2 * arguments[0].m_2_0;
+            r.m_2_1 += this.m_2_0 * arguments[0].m_0_1 + this.m_2_1 * arguments[0].m_1_1 + this.m_2_2 * arguments[0].m_2_1;  
+            r.m_2_2 += this.m_2_0 * arguments[0].m_0_2 + this.m_2_1 * arguments[0].m_1_2 + this.m_2_2 * arguments[0].m_2_2;
+            
+            return r;
+        }
+    }
+
+    var r = new Athena.Math.Matrix3(this);
+
+    for (var i = 0; i < arguments.length; i++)
+    {
+        r.m_0_0 *= arguments[i];
+        r.m_0_1 *= arguments[i];
+        r.m_0_2 *= arguments[i];
+        r.m_1_0 *= arguments[i];
+        r.m_1_1 *= arguments[i];
+        r.m_1_2 *= arguments[i];
+        r.m_2_0 *= arguments[i];
+        r.m_2_1 *= arguments[i];
+        r.m_2_2 *= arguments[i];
+    }
+
+    return r;
+}
+
+//-----------------------------------------------------------------------
+
+Athena.Math.Matrix3.prototype.negate = function()
+{
+    return new Athena.Math.Matrix3(-this.m_0_0, -this.m_0_1, -this.m_0_2,
+                                   -this.m_1_0, -this.m_1_1, -this.m_1_2,
+                                   -this.m_2_0, -this.m_2_1, -this.m_2_2);
+}
+
+
+/**************************************** METHODS ***************************************/
+
+Athena.Math.Matrix3.prototype.transpose = function()
+{
+    return new Athena.Math.Matrix3(
+        this.m_0_0, this.m_1_0, this.m_2_0,
+        this.m_0_1, this.m_1_1, this.m_2_1,
+        this.m_0_2, this.m_1_2, this.m_2_2
+    );
+}
+
+//-----------------------------------------------------------------------
+
+Athena.Math.Matrix3.prototype.inverse = function()
+{
+    var tolerance = 1e-06;
+    if (arguments.length == 1)
+        tolerance = arguments[0];
+
+    var rkInverse = new Athena.Math.Matrix3();
+    
+    rkInverse.m_0_0 = this.m_1_1 * this.m_2_2 - this.m_1_2 * this.m_2_1;
+    rkInverse.m_0_1 = this.m_0_2 * this.m_2_1 - this.m_0_1 * this.m_2_2;
+    rkInverse.m_0_2 = this.m_0_1 * this.m_1_2 - this.m_0_2 * this.m_1_1;
+    rkInverse.m_1_0 = this.m_1_2 * this.m_2_0 - this.m_1_0 * this.m_2_2;
+    rkInverse.m_1_1 = this.m_0_0 * this.m_2_2 - this.m_0_2 * this.m_2_0;
+    rkInverse.m_1_2 = this.m_0_2 * this.m_1_0 - this.m_0_0 * this.m_1_2;
+    rkInverse.m_2_0 = this.m_1_0 * this.m_2_1 - this.m_1_1 * this.m_2_0;
+    rkInverse.m_2_1 = this.m_0_1 * this.m_2_0 - this.m_0_0 * this.m_2_1;
+    rkInverse.m_2_2 = this.m_0_0 * this.m_1_1 - this.m_0_1 * this.m_1_0;
+
+    var det = this.m_0_0 * rkInverse.m_0_0 + this.m_0_1 * rkInverse.m_1_0 + this.m_0_2 * rkInverse.m_2_0;
+
+    if (Math.abs(det) <= tolerance)
+        return new Athena.Math.Matrix3(Athena.Math.Matrix3_ZERO);
+
+    return rkInverse.mul(1.0 / det);
+}
+
+//-----------------------------------------------------------------------
+
+Athena.Math.Matrix3.prototype.determinant = function()
+{
+    var cofactor_0_0 = this.m_1_1 * this.m_2_2 - this.m_1_2 * this.m_2_1;
+    var cofactor_1_0 = this.m_1_2 * this.m_2_0 - this.m_1_0 * this.m_2_2;
+    var cofactor_2_0 = this.m_1_0 * this.m_2_1 - this.m_1_1 * this.m_2_0;
+
+    return this.m_0_0 * rkInverse.m_0_0 + this.m_0_1 * rkInverse.m_1_0 + this.m_0_2 * rkInverse.m_2_0;
+}
+
+//-----------------------------------------------------------------------
+
+Athena.Math.Matrix3.prototype.toAxisAngle = function()
+{
+    var axis = new Athena.Math.Vector3(Athena.Math.Vector3_UNIT_X);
+    var angle = 0.0;
+    
+    var fTrace = this.m_0_0 + this.m_1_1 + this.m_2_2;
+    var fCos = 0.5 * (fTrace - 1.0);
+    angle = Math.acos(fCos);  // in [0,PI]
+
+    if (angle > 0.0)
+    {
+        if (angle < Math.PI)
+        {
+            axis.x = this.m_2_1 - this.m_1_2;
+            axis.y = this.m_0_2 - this.m_2_0;
+            axis.z = this.m_1_0 - this.m_0_1;
+            axis.normalise();
+        }
+        else
+        {
+            // angle is PI
+            var fHalfInverse;
+            if (this.m_0_0 >= this.m_1_1)
+            {
+                // r00 >= r11
+                if (this.m_0_0 >= this.m_2_2)
+                {
+                    // r00 is maximum diagonal term
+                    axis.x = 0.5 * Math.sqrt(this.m_0_0 - this.m_1_1 - this.m_2_2 + 1.0);
+                    fHalfInverse = 0.5 / axis.x;
+                    axis.y = fHalfInverse * this.m_0_1;
+                    axis.z = fHalfInverse * this.m_0_2;
+                }
+                else
+                {
+                    // r22 is maximum diagonal term
+                    axis.z = 0.5 * Math.sqrt(this.m_2_2 - this.m_0_0 - this.m_1_1 + 1.0);
+                    fHalfInverse = 0.5 / axis.z;
+                    axis.x = fHalfInverse * this.m_0_2;
+                    axis.y = fHalfInverse * this.m_1_2;
+                }
+            }
+            else
+            {
+                // r11 > r00
+                if (this.m_1_1 >= this.m_2_2)
+                {
+                    // r11 is maximum diagonal term
+                    axis.y = 0.5 * Math.sqrt(this.m_1_1 - this.m_0_0 - this.m_2_2 + 1.0);
+                    fHalfInverse  = 0.5 / axis.y;
+                    axis.x = fHalfInverse * this.m_0_1;
+                    axis.z = fHalfInverse * this.m_1_2;
+                }
+                else
+                {
+                    // r22 is maximum diagonal term
+                    axis.z = 0.5 * Math.sqrt(this.m_2_2 - this.m_0_0 - this.m_1_1 + 1.0);
+                    fHalfInverse = 0.5 / axis.z;
+                    axis.x = fHalfInverse * this.m_0_2;
+                    axis.y = fHalfInverse * this.m_1_2;
+                }
+            }
+        }
+    }
+
+    return { axis: axis, angle: angle};
+}
+
+
+//-----------------------------------------------------------------------
+
+Athena.Math.Matrix3.prototype.toEulerAnglesXYZ = function()
+{
+    // rot =  cy*cz          -cy*sz           sy
+    //        cz*sx*sy+cx*sz  cx*cz-sx*sy*sz -cy*sx
+    //       -cx*cz*sy+sx*sz  cz*sx+cx*sy*sz  cx*cy
+
+    var pitch = Athena.Math.asin(this.m_0_2);
+
+    if (pitch < Math.PI * 0.5)
+    {
+        if (pitch > -Math.PI * 0.5)
+        {
+            var yaw = Math.atan2(-this.m_1_2, this.m_2_2);
+            var roll = Math.atan2(-this.m_0_1, this.m_0_0);
+            return { pitch: pitch, yaw: yaw, roll: roll };
+        }
+        else
+        {
+            // WARNING.  Not a unique solution.
+            var fRmY = Math.atan2(this.m_1_0, this.m_1_1);
+            var roll = 0.0;  // any angle works
+            var yaw = roll - fRmY;
+            return { pitch: pitch, yaw: yaw, roll: roll };
+        }
+    }
+    else
+    {
+        // WARNING.  Not a unique solution.
+        var fRpY = Math.atan2(this.m_1_0, this.m_1_1);
+        var roll = 0.0;  // any angle works
+        var yaw = fRpY - roll;
+        return { pitch: pitch, yaw: yaw, roll: roll };
+    }
+}
+
+//-----------------------------------------------------------------------
+
+Athena.Math.Matrix3.prototype.toEulerAnglesXZY = function()
+{
+    // rot =  cy*cz          -sz              cz*sy
+    //        sx*sy+cx*cy*sz  cx*cz          -cy*sx+cx*sy*sz
+    //       -cx*sy+cy*sx*sz  cz*sx           cx*cy+sx*sy*sz
+
+    var pitch = Athena.Math.asin(-this.m_0_1);
+
+    if (pitch < Math.PI * 0.5)
+    {
+        if (pitch > -Math.PI * 0.5)
+        {
+            var yaw = Math.atan2(this.m_2_1, this.m_1_1);
+            var roll = Math.atan2(this.m_0_2, this.m_0_0);
+            return { pitch: pitch, yaw: yaw, roll: roll };
+        }
+        else
+        {
+            // WARNING.  Not a unique solution.
+            var fRmY = Math.atan2(-this.m_2_0, this.m_2_2);
+            var roll = 0.0;  // any angle works
+            var yaw = roll - fRmY;
+            return { pitch: pitch, yaw: yaw, roll: roll };
+        }
+    }
+    else
+    {
+        // WARNING.  Not a unique solution.
+        var fRpY = Math.atan2(-this.m_2_0, this.m_2_2);
+        var roll = 0.0;  // any angle works
+        var yaw = fRpY - roll;
+        return { pitch: pitch, yaw: yaw, roll: roll };
+    }
+}
+
+//-----------------------------------------------------------------------
+
+Athena.Math.Matrix3.prototype.toEulerAnglesYXZ = function()
+{
+    // rot =  cy*cz+sx*sy*sz  cz*sx*sy-cy*sz  cx*sy
+    //        cx*sz           cx*cz          -sx
+    //       -cz*sy+cy*sx*sz  cy*cz*sx+sy*sz  cx*cy
+
+    var pitch = Athena.Math.asin(-this.m_1_2);
+
+    if (pitch < Math.PI * 0.5)
+    {
+        if (pitch > -Math.PI * 0.5)
+        {
+            var yaw = Math.atan2(this.m_0_2, this.m_2_2);
+            var roll = Math.atan2(this.m_1_0, this.m_1_1);
+            return { pitch: pitch, yaw: yaw, roll: roll };
+        }
+        else
+        {
+            // WARNING.  Not a unique solution.
+            var fRmY = Math.atan2(-this.m_0_1, this.m_0_0);
+            var roll = 0.0;  // any angle works
+            var yaw = roll - fRmY;
+            return { pitch: pitch, yaw: yaw, roll: roll };
+        }
+    }
+    else
+    {
+        // WARNING.  Not a unique solution.
+        var fRpY = Math.atan2(-this.m_0_1, this.m_0_0);
+        var roll = 0.0;  // any angle works
+        var yaw = fRpY - roll;
+        return { pitch: pitch, yaw: yaw, roll: roll };
+    }
+}
+
+//-----------------------------------------------------------------------
+
+Athena.Math.Matrix3.prototype.toEulerAnglesYZX = function()
+{
+    // rot =  cy*cz           sx*sy-cx*cy*sz  cx*sy+cy*sx*sz
+    //        sz              cx*cz          -cz*sx
+    //       -cz*sy           cy*sx+cx*sy*sz  cx*cy-sx*sy*sz
+
+    var pitch = Athena.Math.asin(this.m_1_0);
+
+    if (pitch < Math.PI * 0.5)
+    {
+        if (pitch > -Math.PI * 0.5)
+        {
+            var yaw = Math.atan2(-this.m_2_0, this.m_0_0);
+            var roll = Math.atan2(-this.m_1_2, this.m_1_1);
+            return { pitch: pitch, yaw: yaw, roll: roll };
+        }
+        else
+        {
+            // WARNING.  Not a unique solution.
+            var fRmY = Math.atan2(this.m_2_1, this.m_2_2);
+            var roll = 0.0;  // any angle works
+            var yaw = roll - fRmY;
+            return { pitch: pitch, yaw: yaw, roll: roll };
+        }
+    }
+    else
+    {
+        // WARNING.  Not a unique solution.
+        var fRpY = Math.atan2(this.m_2_1, this.m_2_2);
+        var roll = 0.0;  // any angle works
+        var yaw = fRpY - roll;
+        return { pitch: pitch, yaw: yaw, roll: roll };
+    }
+}
+
+//-----------------------------------------------------------------------
+
+Athena.Math.Matrix3.prototype.toEulerAnglesZXY = function()
+{
+    // rot =  cy*cz-sx*sy*sz -cx*sz           cz*sy+cy*sx*sz
+    //        cz*sx*sy+cy*sz  cx*cz          -cy*cz*sx+sy*sz
+    //       -cx*sy           sx              cx*cy
+
+    var pitch = Athena.Math.asin(this.m_2_1);
+
+    if (pitch < Math.PI * 0.5)
+    {
+        if (pitch > -Math.PI * 0.5)
+        {
+            var yaw = Math.atan2(-this.m_0_1, this.m_1_1);
+            var roll = Math.atan2(-this.m_2_0, this.m_2_2);
+            return { pitch: pitch, yaw: yaw, roll: roll };
+        }
+        else
+        {
+            // WARNING.  Not a unique solution.
+            var fRmY = Math.atan2(this.m_0_2, this.m_0_0);
+            var roll = 0.0;  // any angle works
+            var yaw = roll - fRmY;
+            return { pitch: pitch, yaw: yaw, roll: roll };
+        }
+    }
+    else
+    {
+        // WARNING.  Not a unique solution.
+        var fRpY = Math.atan2(this.m_0_2, this.m_0_0);
+        var roll = 0.0;  // any angle works
+        var yaw = fRpY - roll;
+        return { pitch: pitch, yaw: yaw, roll: roll };
+    }
+}
+
+//-----------------------------------------------------------------------
+
+Athena.Math.Matrix3.prototype.toEulerAnglesZYX = function()
+{
+    // rot =  cy*cz           cz*sx*sy-cx*sz  cx*cz*sy+sx*sz
+    //        cy*sz           cx*cz+sx*sy*sz -cz*sx+cx*sy*sz
+    //       -sy              cy*sx           cx*cy
+
+    var pitch = Athena.Math.asin(-this.m_2_0);
+
+    if (pitch < Math.PI * 0.5)
+    {
+        if (pitch > -Math.PI * 0.5)
+        {
+            var yaw = Math.atan2(this.m_1_0, this.m_0_0);
+            var roll = Math.atan2(this.m_2_1, this.m_2_2);
+            return { pitch: pitch, yaw: yaw, roll: roll };
+        }
+        else
+        {
+            // WARNING.  Not a unique solution.
+            var fRmY = Math.atan2(-this.m_0_1, this.m_0_2);
+            var roll = 0.0;  // any angle works
+            var yaw = roll - fRmY;
+            return { pitch: pitch, yaw: yaw, roll: roll };
+        }
+    }
+    else
+    {
+        // WARNING.  Not a unique solution.
+        var fRpY = Math.atan2(-this.m_0_1, this.m_0_2);
+        var roll = 0.0;  // any angle works
+        var yaw = fRpY - roll;
+        return { pitch: pitch, yaw: yaw, roll: roll };
+    }
+}
+
+
 /**************************************** OTHERS ***************************************/
 
 Athena.Math.Matrix3.prototype.__classname__ = 'Athena.Math.Matrix3';

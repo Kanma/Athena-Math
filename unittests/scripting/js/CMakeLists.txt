@@ -11,9 +11,21 @@ set(JS_FILES # MathUtils
              Matrix3/CreationWithValues.js
              Matrix3/CreationWithMatrix3.js
              Matrix3/CreationWithVectors.js
+             Matrix3/CreationWithAngleAndAxis.js
              Matrix3/Assignement.js
              Matrix3/Equals.js
              Matrix3/NotEquals.js
+             Matrix3/Add.js
+             Matrix3/Sub.js
+             Matrix3/Mul.js
+             Matrix3/Negate.js
+             Matrix3/Transpose.js
+             Matrix3/EulerAnglesXYZ.js
+             Matrix3/EulerAnglesXZY.js
+             Matrix3/EulerAnglesYXZ.js
+             Matrix3/EulerAnglesYZX.js
+             Matrix3/EulerAnglesZXY.js
+             Matrix3/EulerAnglesZYX.js
 
              # Matrix4
              Matrix4/CreationWithValues.js

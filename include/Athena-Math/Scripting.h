@@ -64,6 +64,17 @@ namespace Math {
     /// @brief	Create a JavaScript Matrix4 from a C++ one
     //------------------------------------------------------------------------------------
     v8::Handle<v8::Value> toJavaScript(const Matrix4& value);
+
+
+    //------------------------------------------------------------------------------------
+    /// @brief	Create a C++ Matrix3 from a JavaScript one
+    //------------------------------------------------------------------------------------
+    Matrix3 fromJSMatrix3(v8::Handle<v8::Value> value);
+
+    //------------------------------------------------------------------------------------
+    /// @brief	Create a JavaScript Matrix3 from a C++ one
+    //------------------------------------------------------------------------------------
+    v8::Handle<v8::Value> toJavaScript(const Matrix3& value);
 }
 }
 

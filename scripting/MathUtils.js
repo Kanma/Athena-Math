@@ -70,3 +70,37 @@ Athena.Math.radToDeg = function(v)
 {
     return v * 180.0 / Math.PI;
 }
+
+//-----------------------------------------------------------------------
+
+Athena.Math.acos = function(v)
+{
+    if (-1.0 < v)
+    {
+        if (v < 1.0)
+            return Math.acos(v);
+        else
+            return 0.0;
+    }
+    else
+    {
+        return Math.PI;
+    }
+}
+
+//-----------------------------------------------------------------------
+
+Athena.Math.asin = function(v)
+{
+    if (-1.0 < v)
+    {
+        if (v < 1.0)
+            return Math.asin(v);
+        else
+            return Math.PI * 0.5;
+    }
+    else
+    {
+        return -Math.PI * 0.5;
+    }
+}
