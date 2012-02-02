@@ -8,9 +8,10 @@
 #define _ATHENA_MATH_SCRIPTING_H_
 
 #include <v8.h>
-#include <Athena-Math/Vector3.h>
-#include <Athena-Math/Quaternion.h>
 #include <Athena-Math/Matrix4.h>
+#include <Athena-Math/Quaternion.h>
+#include <Athena-Math/Vector2.h>
+#include <Athena-Math/Vector3.h>
 
 
 namespace Athena {
@@ -34,25 +35,14 @@ namespace Math {
     
     
     //------------------------------------------------------------------------------------
-    /// @brief	Create a C++ Vector3 from a JavaScript one
+    /// @brief	Create a C++ Matrix3 from a JavaScript one
     //------------------------------------------------------------------------------------
-    Vector3 fromJSVector3(v8::Handle<v8::Value> value);
+    Matrix3 fromJSMatrix3(v8::Handle<v8::Value> value);
 
     //------------------------------------------------------------------------------------
-    /// @brief	Create a JavaScript Vector3 from a C++ one
+    /// @brief	Create a JavaScript Matrix3 from a C++ one
     //------------------------------------------------------------------------------------
-    v8::Handle<v8::Value> toJavaScript(const Vector3& value);
-
-
-    //------------------------------------------------------------------------------------
-    /// @brief	Create a C++ Quaternion from a JavaScript one
-    //------------------------------------------------------------------------------------
-    Quaternion fromJSQuaternion(v8::Handle<v8::Value> value);
-
-    //------------------------------------------------------------------------------------
-    /// @brief	Create a JavaScript Quaternion from a C++ one
-    //------------------------------------------------------------------------------------
-    v8::Handle<v8::Value> toJavaScript(const Quaternion& value);
+    v8::Handle<v8::Value> toJavaScript(const Matrix3& value);
 
 
     //------------------------------------------------------------------------------------
@@ -67,14 +57,36 @@ namespace Math {
 
 
     //------------------------------------------------------------------------------------
-    /// @brief	Create a C++ Matrix3 from a JavaScript one
+    /// @brief	Create a C++ Quaternion from a JavaScript one
     //------------------------------------------------------------------------------------
-    Matrix3 fromJSMatrix3(v8::Handle<v8::Value> value);
+    Quaternion fromJSQuaternion(v8::Handle<v8::Value> value);
 
     //------------------------------------------------------------------------------------
-    /// @brief	Create a JavaScript Matrix3 from a C++ one
+    /// @brief	Create a JavaScript Quaternion from a C++ one
     //------------------------------------------------------------------------------------
-    v8::Handle<v8::Value> toJavaScript(const Matrix3& value);
+    v8::Handle<v8::Value> toJavaScript(const Quaternion& value);
+
+
+    //------------------------------------------------------------------------------------
+    /// @brief	Create a C++ Vector2 from a JavaScript one
+    //------------------------------------------------------------------------------------
+    Vector2 fromJSVector2(v8::Handle<v8::Value> value);
+
+    //------------------------------------------------------------------------------------
+    /// @brief	Create a JavaScript Vector2 from a C++ one
+    //------------------------------------------------------------------------------------
+    v8::Handle<v8::Value> toJavaScript(const Vector2& value);
+
+
+    //------------------------------------------------------------------------------------
+    /// @brief	Create a C++ Vector3 from a JavaScript one
+    //------------------------------------------------------------------------------------
+    Vector3 fromJSVector3(v8::Handle<v8::Value> value);
+
+    //------------------------------------------------------------------------------------
+    /// @brief	Create a JavaScript Vector3 from a C++ one
+    //------------------------------------------------------------------------------------
+    v8::Handle<v8::Value> toJavaScript(const Vector3& value);
 }
 }
 

@@ -26,32 +26,25 @@ struct ScriptingTestEnvironment
 
 SUITE(Conversions)
 {
-	TEST_FIXTURE(ScriptingTestEnvironment, ConvertVector3FromJavaScript)
+	TEST_FIXTURE(ScriptingTestEnvironment, ConvertMatrix3FromJavaScript)
 	{
         HandleScope handle_scope;
 
-		Handle<Value> result = pScriptingManager->execute("import_module('Athena.Math'); new Athena.Math.Vector3(1, 2, 3);");
+		Handle<Value> result = pScriptingManager->execute("import_module('Athena.Math'); new Athena.Math.Matrix3(1, 2, 3, 4, 5, 6, 7, 8, 9);");
 
-        Vector3 vector = fromJSVector3(result);
+        Matrix3 mat = fromJSMatrix3(result);
 
-        CHECK_CLOSE(1.0f, vector.x, 1e-6f);
-        CHECK_CLOSE(2.0f, vector.y, 1e-6f);
-        CHECK_CLOSE(3.0f, vector.z, 1e-6f);
-	}
+        CHECK_CLOSE(1.0f, mat[0][0], 1e-6f);
+        CHECK_CLOSE(2.0f, mat[0][1], 1e-6f);
+        CHECK_CLOSE(3.0f, mat[0][2], 1e-6f);
 
+        CHECK_CLOSE(4.0f, mat[1][0], 1e-6f);
+        CHECK_CLOSE(5.0f, mat[1][1], 1e-6f);
+        CHECK_CLOSE(6.0f, mat[1][2], 1e-6f);
 
-	TEST_FIXTURE(ScriptingTestEnvironment, ConvertQuaternionFromJavaScript)
-	{
-        HandleScope handle_scope;
-
-		Handle<Value> result = pScriptingManager->execute("import_module('Athena.Math'); new Athena.Math.Quaternion(1, 2, 3, 4);");
-
-        Quaternion quat = fromJSQuaternion(result);
-
-        CHECK_CLOSE(1.0f, quat.w, 1e-6f);
-        CHECK_CLOSE(2.0f, quat.x, 1e-6f);
-        CHECK_CLOSE(3.0f, quat.y, 1e-6f);
-        CHECK_CLOSE(4.0f, quat.z, 1e-6f);
+        CHECK_CLOSE(7.0f, mat[2][0], 1e-6f);
+        CHECK_CLOSE(8.0f, mat[2][1], 1e-6f);
+        CHECK_CLOSE(9.0f, mat[2][2], 1e-6f);
 	}
 
 
@@ -85,24 +78,44 @@ SUITE(Conversions)
 	}
 
 
-	TEST_FIXTURE(ScriptingTestEnvironment, ConvertMatrix3FromJavaScript)
+	TEST_FIXTURE(ScriptingTestEnvironment, ConvertQuaternionFromJavaScript)
 	{
         HandleScope handle_scope;
 
-		Handle<Value> result = pScriptingManager->execute("import_module('Athena.Math'); new Athena.Math.Matrix3(1, 2, 3, 4, 5, 6, 7, 8, 9);");
+		Handle<Value> result = pScriptingManager->execute("import_module('Athena.Math'); new Athena.Math.Quaternion(1, 2, 3, 4);");
 
-        Matrix3 mat = fromJSMatrix3(result);
+        Quaternion quat = fromJSQuaternion(result);
 
-        CHECK_CLOSE(1.0f, mat[0][0], 1e-6f);
-        CHECK_CLOSE(2.0f, mat[0][1], 1e-6f);
-        CHECK_CLOSE(3.0f, mat[0][2], 1e-6f);
+        CHECK_CLOSE(1.0f, quat.w, 1e-6f);
+        CHECK_CLOSE(2.0f, quat.x, 1e-6f);
+        CHECK_CLOSE(3.0f, quat.y, 1e-6f);
+        CHECK_CLOSE(4.0f, quat.z, 1e-6f);
+	}
 
-        CHECK_CLOSE(4.0f, mat[1][0], 1e-6f);
-        CHECK_CLOSE(5.0f, mat[1][1], 1e-6f);
-        CHECK_CLOSE(6.0f, mat[1][2], 1e-6f);
 
-        CHECK_CLOSE(7.0f, mat[2][0], 1e-6f);
-        CHECK_CLOSE(8.0f, mat[2][1], 1e-6f);
-        CHECK_CLOSE(9.0f, mat[2][2], 1e-6f);
+	TEST_FIXTURE(ScriptingTestEnvironment, ConvertVector2FromJavaScript)
+	{
+        HandleScope handle_scope;
+
+		Handle<Value> result = pScriptingManager->execute("import_module('Athena.Math'); new Athena.Math.Vector2(1, 2);");
+
+        Vector2 vector = fromJSVector2(result);
+
+        CHECK_CLOSE(1.0f, vector.x, 1e-6f);
+        CHECK_CLOSE(2.0f, vector.y, 1e-6f);
+	}
+
+
+	TEST_FIXTURE(ScriptingTestEnvironment, ConvertVector3FromJavaScript)
+	{
+        HandleScope handle_scope;
+
+		Handle<Value> result = pScriptingManager->execute("import_module('Athena.Math'); new Athena.Math.Vector3(1, 2, 3);");
+
+        Vector3 vector = fromJSVector3(result);
+
+        CHECK_CLOSE(1.0f, vector.x, 1e-6f);
+        CHECK_CLOSE(2.0f, vector.y, 1e-6f);
+        CHECK_CLOSE(3.0f, vector.z, 1e-6f);
 	}
 }

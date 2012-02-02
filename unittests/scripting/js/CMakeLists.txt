@@ -60,6 +60,40 @@ set(JS_FILES # MathUtils
              Quaternion/Equals.js
              Quaternion/NotEquals.js
              
+             # Vector2
+             Vector2/CreationWithXY.js
+             Vector2/CreationWithScale.js
+             Vector2/CreationWithVector2.js
+             Vector2/AttributesAssignement.js
+             Vector2/AssignementUsingVector2.js
+             Vector2/AssignementUsingScalar.js
+             Vector2/Equals.js
+             Vector2/NotEquals.js
+             Vector2/LesserGreater.js
+             Vector2/Add.js
+             Vector2/Sub.js
+             Vector2/Mul.js
+             Vector2/Divide.js
+             Vector2/Negate.js
+             Vector2/IAdd.js
+             Vector2/ISub.js
+             Vector2/IMul.js
+             Vector2/IDivide.js
+             Vector2/Length.js
+             Vector2/Distance.js
+             Vector2/DotProduct.js
+             Vector2/Normalise.js
+             Vector2/CrossProduct.js
+             Vector2/MidPoint.js
+             Vector2/FloorCeil.js
+             Vector2/Perpendicular.js
+             Vector2/RandomDeviant.js
+             Vector2/AngleBetween.js
+             Vector2/PositionEquals.js
+             Vector2/PositionCloses.js
+             Vector2/IsNaN.js
+             Vector2/Constants.js
+
              # Vector3
              Vector3/CreationWithXYZ.js
              Vector3/CreationWithScale.js
