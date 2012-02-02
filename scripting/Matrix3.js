@@ -787,6 +787,24 @@ Athena.Math.Matrix3.prototype.toEulerAnglesZYX = function()
     }
 }
 
+//-----------------------------------------------------------------------
+
+Athena.Math.Matrix3.prototype.print = function()
+{
+    print('[');
+    
+    for (var row = 0; row < 3; ++row)
+    {
+        for (var col = 0; col < 3; ++col)
+            print(this.get(row, col) + ' ');
+        
+        if (row == 2)
+            print(']');
+        
+        print('\n');
+    }
+}
+
 
 /**************************************** OTHERS ***************************************/
 

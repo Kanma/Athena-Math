@@ -87,25 +87,27 @@ Athena.Math.Matrix4 = function()
             this.m_3_2 = 0.0;
             this.m_3_3 = 1.0;
         }
-        // else if (arguments[0].__classname__ == 'Athena.Math.Quaternion')
-        // {
-        //     this.m_0_0 = arguments[0].m_0_0;
-        //     this.m_0_1 = arguments[0].m_0_1;  
-        //     this.m_0_2 = arguments[0].m_0_2;
-        //     this.m_0_3 = 0.0;
-        //     this.m_1_0 = arguments[0].m_1_0;
-        //     this.m_1_1 = arguments[0].m_1_1;  
-        //     this.m_1_2 = arguments[0].m_1_2;
-        //     this.m_1_3 = 0.0;
-        //     this.m_2_0 = arguments[0].m_2_0;
-        //     this.m_2_1 = arguments[0].m_2_1;  
-        //     this.m_2_2 = arguments[0].m_2_2;
-        //     this.m_2_3 = 0.0;
-        //     this.m_3_0 = 0.0;
-        //     this.m_3_1 = 0.0;  
-        //     this.m_3_2 = 0.0;
-        //     this.m_3_3 = 1.0;
-        // }
+        else if (arguments[0].__classname__ == 'Athena.Math.Quaternion')
+        {
+            var m3x3 = arguments[0].toRotationMatrix();
+            
+            this.m_0_0 = m3x3.m_0_0;
+            this.m_0_1 = m3x3.m_0_1;  
+            this.m_0_2 = m3x3.m_0_2;
+            this.m_0_3 = 0.0;
+            this.m_1_0 = m3x3.m_1_0;
+            this.m_1_1 = m3x3.m_1_1;  
+            this.m_1_2 = m3x3.m_1_2;
+            this.m_1_3 = 0.0;
+            this.m_2_0 = m3x3.m_2_0;
+            this.m_2_1 = m3x3.m_2_1;  
+            this.m_2_2 = m3x3.m_2_2;
+            this.m_2_3 = 0.0;
+            this.m_3_0 = 0.0;
+            this.m_3_1 = 0.0;  
+            this.m_3_2 = 0.0;
+            this.m_3_3 = 1.0;
+        }
         else
         {
             throw 'Invalid parameters, valid syntaxes:\nMatrix4()\nMatrix4(<16 * numbers>)\nMatrix4(matrix3)\nMatrix4(matrix4)\nMatrix4(quaternion)';
@@ -191,17 +193,19 @@ Athena.Math.Matrix4.prototype.set = function()
         }
         else if (arguments[0].__classname__ == 'Athena.Math.Quaternion')
         {
-            this.m_0_0 = arguments[0].m_0_0;
-            this.m_0_1 = arguments[0].m_0_1;  
-            this.m_0_2 = arguments[0].m_0_2;
+            var m3x3 = arguments[0].toRotationMatrix();
+            
+            this.m_0_0 = m3x3.m_0_0;
+            this.m_0_1 = m3x3.m_0_1;  
+            this.m_0_2 = m3x3.m_0_2;
             this.m_0_3 = 0.0;
-            this.m_1_0 = arguments[0].m_1_0;
-            this.m_1_1 = arguments[0].m_1_1;  
-            this.m_1_2 = arguments[0].m_1_2;
+            this.m_1_0 = m3x3.m_1_0;
+            this.m_1_1 = m3x3.m_1_1;  
+            this.m_1_2 = m3x3.m_1_2;
             this.m_1_3 = 0.0;
-            this.m_2_0 = arguments[0].m_2_0;
-            this.m_2_1 = arguments[0].m_2_1;  
-            this.m_2_2 = arguments[0].m_2_2;
+            this.m_2_0 = m3x3.m_2_0;
+            this.m_2_1 = m3x3.m_2_1;  
+            this.m_2_2 = m3x3.m_2_2;
             this.m_2_3 = 0.0;
             this.m_3_0 = 0.0;
             this.m_3_1 = 0.0;  
@@ -221,11 +225,63 @@ Athena.Math.Matrix4.prototype.set = function()
 
 //-----------------------------------------------------------------------
 
-// TODO: makeTransform
+Athena.Math.Matrix4.prototype.makeTransform = function(position, scale, orientation)
+{
+    // Ordering:
+    //    1. Scale
+    //    2. Rotate
+    //    3. Translate
+
+    var rot3x3 = orientation.toRotationMatrix();
+
+    var scale3x3 = new Athena.Math.Matrix3();
+    scale3x3.m_0_0 = scale.x;
+    scale3x3.m_1_1 = scale.y;
+    scale3x3.m_2_2 = scale.z;
+
+    // Set up final matrix with scale, rotation and translation
+    this.set(rot3x3.mul(scale3x3));
+    this.setTranslation(position);
+
+    // No projection term
+    this.m_3_0 = 0.0;
+    this.m_3_1 = 0.0;
+    this.m_3_2 = 0.0;
+    this.m_3_3 = 1.0;
+}
 
 //-----------------------------------------------------------------------
 
-// TODO: makeInverseTransform
+Athena.Math.Matrix4.prototype.makeInverseTransform = function(position, scale, orientation)
+{
+    // Invert the parameters
+    var invTranslate = position.negate();
+    var invScale = new Athena.Math.Vector3(1.0 / scale.x, 1.0 / scale.y, 1.0 / scale.z);
+    var invRot = orientation.inverse();
+
+    // Because we're inverting, order is translation, rotation, scale
+    // So make translation relative to scale & rotation
+    invTranslate = invTranslate.mul(invScale); // scale
+    invTranslate = invRot.mul(invTranslate); // rotate
+
+    // Next, make a 3x3 rotation matrix and apply inverse scale
+    var rot3x3 = invRot.toRotationMatrix();
+
+    var scale3x3 = new Athena.Math.Matrix3();
+    scale3x3.m_0_0 = invScale.x;
+    scale3x3.m_1_1 = invScale.y;
+    scale3x3.m_2_2 = invScale.z;
+
+    // Set up final matrix with scale, rotation and translation
+    this.set(scale3x3.mul(rot3x3));
+    this.setTranslation(invTranslate);
+
+    // No projection term
+    this.m_3_0 = 0.0;
+    this.m_3_1 = 0.0;
+    this.m_3_2 = 0.0;
+    this.m_3_3 = 1.0;
+}
 
 
 /********************************* ARITHMETIC OPERATIONS ********************************/
@@ -413,11 +469,22 @@ Athena.Math.Matrix4.prototype.transpose = function()
 
 //-----------------------------------------------------------------------
 
-// TODO: extract3x3Matrix
+Athena.Math.Matrix4.prototype.extract3x3Matrix = function()
+{
+    return new Athena.Math.Matrix3(
+        this.m_0_0, this.m_0_1, this.m_0_2,
+        this.m_1_0, this.m_1_1, this.m_1_2,
+        this.m_2_0, this.m_2_1, this.m_2_2
+    );
+}
 
 //-----------------------------------------------------------------------
 
-// TODO: extractQuaternion
+Athena.Math.Matrix4.prototype.extractQuaternion = function()
+{
+    var m = this.extract3x3Matrix();
+    return new Athena.Math.Quaternion(m);
+}
 
 //-----------------------------------------------------------------------
 
@@ -565,6 +632,24 @@ Athena.Math.Matrix4.prototype.inverse = function()
                                    d10, d11, d12, d13,
                                    d20, d21, d22, d23,
                                    d30, d31, d32, d33);
+}
+
+//-----------------------------------------------------------------------
+
+Athena.Math.Matrix4.prototype.print = function()
+{
+    print('[');
+    
+    for (var row = 0; row < 4; ++row)
+    {
+        for (var col = 0; col < 4; ++col)
+            print(this.get(row, col) + ' ');
+        
+        if (row == 3)
+            print(']');
+        
+        print('\n');
+    }
 }
 
 

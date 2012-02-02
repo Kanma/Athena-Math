@@ -30,7 +30,10 @@ set(JS_FILES # MathUtils
              # Matrix4
              Matrix4/CreationWithValues.js
              Matrix4/CreationWithMatrix4.js
+             Matrix4/CreationWithMatrix3.js
+             Matrix4/CreationWithQuaternion.js
              Matrix4/Assignement.js
+             Matrix4/MakeTransform.js
              Matrix4/Add.js
              Matrix4/Sub.js
              Matrix4/Mul.js
