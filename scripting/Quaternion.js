@@ -436,8 +436,11 @@ Athena.Math.Quaternion.prototype.mul = function()
     if ((arguments.length == 1) && (typeof(arguments[0]) === 'object') && (arguments[0].__classname__ == 'Athena.Math.Vector3'))
     {
         var qvec = new Athena.Math.Vector3(this.x, this.y, this.z);
-        var uv = qvec.cross(arguments[0]).mul(2.0 * this.w);
-        var uuv = qvec.cross(uv).mul(2.0);
+        var uv = qvec.cross(arguments[0]);
+        var uuv = qvec.cross(uv);
+
+        uv = uv.mul(2.0 * this.w);
+        uuv = uuv.mul(2.0);
         
         return arguments[0].add(uv, uuv);
     }

@@ -436,13 +436,30 @@ Athena.Math.Vector3.prototype.perpendicular = function()
 
 //-----------------------------------------------------------------------
 
-// TODO: randomDeviant()
+// 'up' can be undefined
+Athena.Math.Vector3.prototype.randomDeviant = function(angle, up)
+{
+    var newUp;
+    
+    if ((up === undefined) || (up.equals(Athena.Math.Vector3_ZERO)))
+        newUp = this.perpendicular();
+    else
+        newUp = new Athena.Math.Vector3(up);
+
+    // Rotate up vector by random amount around this
+    var q = new Athena.Math.Quaternion(Math.random() * 2 * Math.PI, this);
+    newUp = q.mul(newUp);
+
+    // Finally rotate this by given angle around randomised up
+    q.set(angle, newUp);
+    return q.mul(this);
+}
 
 //-----------------------------------------------------------------------
 
 Athena.Math.Vector3.prototype.angleBetween = function(vector)
 {
-	var lenProduct = Math.sqrt(this.squaredLength() * vector.squaredLength());
+    var lenProduct = Math.sqrt(this.squaredLength() * vector.squaredLength());
 
 	// Divide by zero check
 	if (lenProduct < 1e-6)
@@ -456,7 +473,57 @@ Athena.Math.Vector3.prototype.angleBetween = function(vector)
 
 //-----------------------------------------------------------------------
 
-// TODO: getRotationTo()
+// 'fallbackAxis' can be undefined
+Athena.Math.Vector3.prototype.getRotationTo = function(dest, fallbackAxis)
+{
+    if (fallbackAxis === undefined)
+        fallbackAxis = new Athena.Math.Vector3(Athena.Math.Vector3_ZERO);
+
+    var v0 = this.normalisedCopy();
+    var v1 = dest.normalisedCopy();
+
+    var d = v0.dot(v1);
+
+    // If dot == 1, vectors are the same
+    if (d >= 1.0)
+        return Athena.Math.Quaternion_IDENTITY;
+
+    var q = new Athena.Math.Quaternion();
+
+	if (d < (1e-6 - 1.0))
+	{
+		if ((fallbackAxis !== undefined) && !fallbackAxis.equals(Athena.Math.Vector3_ZERO))
+		{
+			// rotate 180 degrees about the fallback axis
+			q.set(Math.PI, fallbackAxis);
+		}
+		else
+		{
+			// Generate an axis
+			var axis = Athena.Math.Vector3_UNIT_X.cross(this);
+			if (axis.isZeroLength()) // pick another if colinear
+				axis = Athena.Math.Vector3_UNIT_Y.cross(this);
+			axis.normalise();
+			q.set(Math.PI, axis);
+		}
+	}
+	else
+	{
+        var s = Math.sqrt((1 + d) * 2);
+        var invs = 1.0 / s;
+
+		var c = v0.cross(v1);
+
+        q.x = c.x * invs;
+	    q.y = c.y * invs;
+    	q.z = c.z * invs;
+    	q.w = s * 0.5;
+
+		q.normalise();
+	}
+	
+    return q;
+}
 
 //-----------------------------------------------------------------------
 
@@ -467,7 +534,12 @@ Athena.Math.Vector3.prototype.reflect = function(normal)
 
 //-----------------------------------------------------------------------
 
-// TODO: positionEquals()
+Athena.Math.Vector3.prototype.positionEquals = function(vector, tolerance)
+{
+	return Athena.Math.equals(this.x, vector.x, tolerance) &&
+		   Athena.Math.equals(this.y, vector.y, tolerance) &&
+		   Athena.Math.equals(this.z, vector.z, tolerance);
+}
 
 //-----------------------------------------------------------------------
 

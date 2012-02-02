@@ -84,8 +84,10 @@ set(JS_FILES # MathUtils
              Vector3/MidPoint.js
              Vector3/FloorCeil.js
              Vector3/Perpendicular.js
+             Vector3/RandomDeviant.js
              Vector3/AngleBetween.js
-             #Vector3/PositionEquals.js
+             Vector3/GetRotationTo.js
+             Vector3/PositionEquals.js
              Vector3/PositionCloses.js
              Vector3/IsNaN.js
              Vector3/Constants.js
