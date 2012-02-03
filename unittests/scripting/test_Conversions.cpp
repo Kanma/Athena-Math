@@ -118,4 +118,19 @@ SUITE(Conversions)
         CHECK_CLOSE(2.0f, vector.y, 1e-6f);
         CHECK_CLOSE(3.0f, vector.z, 1e-6f);
 	}
+
+
+	TEST_FIXTURE(ScriptingTestEnvironment, ConvertVector4FromJavaScript)
+	{
+        HandleScope handle_scope;
+
+		Handle<Value> result = pScriptingManager->execute("import_module('Athena.Math'); new Athena.Math.Vector4(1, 2, 3, 4);");
+
+        Vector4 vector = fromJSVector4(result);
+
+        CHECK_CLOSE(1.0f, vector.x, 1e-6f);
+        CHECK_CLOSE(2.0f, vector.y, 1e-6f);
+        CHECK_CLOSE(3.0f, vector.z, 1e-6f);
+        CHECK_CLOSE(4.0f, vector.w, 1e-6f);
+	}
 }

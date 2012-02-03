@@ -128,6 +128,38 @@ set(JS_FILES # MathUtils
              Vector3/PositionCloses.js
              Vector3/IsNaN.js
              Vector3/Constants.js
+
+             # Vector4
+             Vector4/CreationWithXYZW.js
+             Vector4/CreationWithScale.js
+             Vector4/CreationWithVector4.js
+             Vector4/CreationWithVector3.js
+             Vector4/AttributesAssignement.js
+             Vector4/AssignementUsingVector4.js
+             Vector4/AssignementUsingVector3.js
+             Vector4/AssignementUsingScalar.js
+             Vector4/Equals.js
+             Vector4/NotEquals.js
+             Vector4/LesserGreater.js
+             Vector4/Add.js
+             Vector4/Sub.js
+             Vector4/Mul.js
+             Vector4/Divide.js
+             Vector4/Negate.js
+             Vector4/IAdd.js
+             Vector4/ISub.js
+             Vector4/IMul.js
+             Vector4/IDivide.js
+             Vector4/Length.js
+             Vector4/Distance.js
+             Vector4/DotProduct.js
+             Vector4/Normalise.js
+             Vector4/MidPoint.js
+             Vector4/FloorCeil.js
+             Vector4/PositionEquals.js
+             Vector4/PositionCloses.js
+             Vector4/IsNaN.js
+             Vector4/Constants.js
 )
 
 

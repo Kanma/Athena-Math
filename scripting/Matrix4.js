@@ -364,10 +364,15 @@ Athena.Math.Matrix4.prototype.mul = function()
                 ( this.m_2_0 * arguments[0].x + this.m_2_1 * arguments[0].y + this.m_2_2 * arguments[0].z + this.m_2_3 ) * invW
             );
         }
-        // else if (arguments[0].__classname__ == 'Athena.Math.Vector4')
-        // {
-            // TODO
-        // }
+        else if (arguments[0].__classname__ == 'Athena.Math.Vector4')
+        {
+            return new Athena.Math.Vector4(
+                this.m_0_0 * arguments[0].x + this.m_0_1 * arguments[0].y + this.m_0_2 * arguments[0].z + this.m_0_3 * arguments[0].w,
+                this.m_1_0 * arguments[0].x + this.m_1_1 * arguments[0].y + this.m_1_2 * arguments[0].z + this.m_1_3 * arguments[0].w,
+                this.m_2_0 * arguments[0].x + this.m_2_1 * arguments[0].y + this.m_2_2 * arguments[0].z + this.m_2_3 * arguments[0].w,
+                this.m_3_0 * arguments[0].x + this.m_3_1 * arguments[0].y + this.m_3_2 * arguments[0].z + this.m_3_3 * arguments[0].w
+            );
+        }
         // else if (arguments[0].__classname__ == 'Athena.Math.Plane')
         // {
             // TODO
@@ -858,10 +863,15 @@ Athena.Math.Matrix4.prototype.transformAffine = function(vector)
             this.m_2_0 * arguments[0].x + this.m_2_1 * arguments[0].y + this.m_2_2 * arguments[0].z + this.m_2_3
         );
     }
-    // else if (vector.__classname__ == 'Athena.Math.Vector4')
-    // {
-        // TODO
-    // }
+    else if (vector.__classname__ == 'Athena.Math.Vector4')
+    {
+        return new Athena.Math.Vector4(
+            this.m_0_0 * arguments[0].x + this.m_0_1 * arguments[0].y + this.m_0_2 * arguments[0].z + this.m_0_3 * arguments[0].w,
+            this.m_1_0 * arguments[0].x + this.m_1_1 * arguments[0].y + this.m_1_2 * arguments[0].z + this.m_1_3 * arguments[0].w,
+            this.m_2_0 * arguments[0].x + this.m_2_1 * arguments[0].y + this.m_2_2 * arguments[0].z + this.m_2_3 * arguments[0].w,
+            arguments[0].w
+        );
+    }
     else
     {
         throw 'Invalid parameter, valid syntaxes:\ntransformAffine(vector3)\ntransformAffine(vector4)';

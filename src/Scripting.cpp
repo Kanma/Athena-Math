@@ -245,5 +245,43 @@ Handle<Value> toJavaScript(const Vector3& value)
     return object;
 }
 
+//-----------------------------------------------------------------------
+
+Vector4 fromJSVector4(Handle<Value> value)
+{
+    if (value->IsObject())
+    {
+        Handle<Object> object = value->ToObject();
+        Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
+        
+        if (std::string("Athena.Math.Vector4") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
+        {
+            return Vector4(object->Get(String::New("x"))->ToNumber()->NumberValue(),
+                           object->Get(String::New("y"))->ToNumber()->NumberValue(),
+                           object->Get(String::New("z"))->ToNumber()->NumberValue(),
+                           object->Get(String::New("w"))->ToNumber()->NumberValue());
+        }
+    }
+
+    return Vector4::ZERO;
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> toJavaScript(const Vector4& value)
+{
+    Handle<Value> constructor = Context::GetCurrent()->Global()->Get(String::New("Athena.Math.Vector4"));
+    if (!constructor->IsFunction())
+        return ThrowException(String::New("Can't find the constructor function of Athena.Math.Vector4"));
+
+    Local<Object> object = Handle<Function>::Cast(constructor)->NewInstance();
+    object->Set(String::New("x"), Number::New(value.x));
+    object->Set(String::New("y"), Number::New(value.y));
+    object->Set(String::New("z"), Number::New(value.z));
+    object->Set(String::New("w"), Number::New(value.w));
+    
+    return object;
+}
+
 }
 }

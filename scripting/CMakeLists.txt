@@ -12,6 +12,7 @@ set(JS_SRCS MathUtils.js
             Quaternion.js
             Vector2.js
             Vector3.js
+            Vector4.js
 )
 
 

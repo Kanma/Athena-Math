@@ -87,6 +87,17 @@ namespace Math {
     /// @brief	Create a JavaScript Vector3 from a C++ one
     //------------------------------------------------------------------------------------
     v8::Handle<v8::Value> toJavaScript(const Vector3& value);
+
+
+    //------------------------------------------------------------------------------------
+    /// @brief	Create a C++ Vector4 from a JavaScript one
+    //------------------------------------------------------------------------------------
+    Vector4 fromJSVector4(v8::Handle<v8::Value> value);
+
+    //------------------------------------------------------------------------------------
+    /// @brief	Create a JavaScript Vector4 from a C++ one
+    //------------------------------------------------------------------------------------
+    v8::Handle<v8::Value> toJavaScript(const Vector4& value);
 }
 }
 
