@@ -93,6 +93,21 @@ SUITE(Conversions)
 	}
 
 
+	TEST_FIXTURE(ScriptingTestEnvironment, ConvertSphereFromJavaScript)
+	{
+        HandleScope handle_scope;
+
+		Handle<Value> result = pScriptingManager->execute("import_module('Athena.Math'); new Athena.Math.Sphere(new Athena.Math.Vector3(2, 3, 4), 1);");
+
+        Sphere sphere = fromJSSphere(result);
+
+        CHECK_CLOSE(1.0f, sphere.getRadius(), 1e-6f);
+        CHECK_CLOSE(2.0f, sphere.getCenter().x, 1e-6f);
+        CHECK_CLOSE(3.0f, sphere.getCenter().y, 1e-6f);
+        CHECK_CLOSE(4.0f, sphere.getCenter().z, 1e-6f);
+	}
+
+
 	TEST_FIXTURE(ScriptingTestEnvironment, ConvertVector2FromJavaScript)
 	{
         HandleScope handle_scope;

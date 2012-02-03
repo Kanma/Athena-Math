@@ -177,6 +177,40 @@ Handle<Value> toJavaScript(const Quaternion& value)
 
 //-----------------------------------------------------------------------
 
+Sphere fromJSSphere(Handle<Value> value)
+{
+    if (value->IsObject())
+    {
+        Handle<Object> object = value->ToObject();
+        Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
+        
+        if (std::string("Athena.Math.Sphere") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
+        {
+            return Sphere(fromJSVector3(object->Get(String::New("center"))),
+                          object->Get(String::New("radius"))->ToNumber()->NumberValue());
+        }
+    }
+
+    return Sphere();
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> toJavaScript(const Sphere& value)
+{
+    Handle<Value> constructor = Context::GetCurrent()->Global()->Get(String::New("Athena.Math.Sphere"));
+    if (!constructor->IsFunction())
+        return ThrowException(String::New("Can't find the constructor function of Athena.Math.Sphere"));
+
+    Local<Object> object = Handle<Function>::Cast(constructor)->NewInstance();
+    object->Set(String::New("center"), toJavaScript(value.getCenter()));
+    object->Set(String::New("radius"), Number::New(value.getRadius()));
+    
+    return object;
+}
+
+//-----------------------------------------------------------------------
+
 Vector2 fromJSVector2(Handle<Value> value)
 {
     if (value->IsObject())
