@@ -373,10 +373,17 @@ Athena.Math.Matrix4.prototype.mul = function()
                 this.m_3_0 * arguments[0].x + this.m_3_1 * arguments[0].y + this.m_3_2 * arguments[0].z + this.m_3_3 * arguments[0].w
             );
         }
-        // else if (arguments[0].__classname__ == 'Athena.Math.Plane')
-        // {
-            // TODO
-        // }
+        else if (arguments[0].__classname__ == 'Athena.Math.Plane')
+        {
+			var invTrans = this.inverse().transpose();
+			var v4 = new Athena.Math.Vector4(arguments[0].normal.x, arguments[0].normal.y, arguments[0].normal.z, arguments[0].d);
+			v4 = invTrans.mul(v4);
+			
+			var normal = new Athena.Math.Vector3(v4.x, v4.y, v4.z);
+			var length = normal.normalise();
+			
+			return new Athena.Math.Plane(normal, v4.w / length);
+        }
     }
 
     var r = new Athena.Math.Matrix4(this);
