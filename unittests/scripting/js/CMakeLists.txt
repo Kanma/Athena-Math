@@ -42,6 +42,18 @@ set(JS_FILES # MathUtils
              Matrix4/Transpose.js
              Matrix4/Translation.js
              
+             # Plane
+             Plane/ConstructionWithoutParameters.js
+             Plane/ConstructionWithPlane.js
+             Plane/ConstructionWithVector3AndConstant.js
+             Plane/ConstructionWithScalars.js
+             Plane/ConstructionWithNormalAndPoint.js
+             Plane/ConstructionWith3Points.js
+             Plane/GetSideOfPoint.js
+             Plane/GetSideOfBox.js
+             Plane/ProjectVector.js
+             Plane/GetDistance.js
+             
              # Quaternion
              Quaternion/CreationWithWXYZ.js
              Quaternion/CreationWithAngleAxis.js

@@ -9,6 +9,7 @@
 
 #include <v8.h>
 #include <Athena-Math/Matrix4.h>
+#include <Athena-Math/Plane.h>
 #include <Athena-Math/Quaternion.h>
 #include <Athena-Math/Sphere.h>
 #include <Athena-Math/Vector2.h>
@@ -56,6 +57,17 @@ namespace Math {
     /// @brief	Create a JavaScript Matrix4 from a C++ one
     //------------------------------------------------------------------------------------
     v8::Handle<v8::Value> toJavaScript(const Matrix4& value);
+
+
+    //------------------------------------------------------------------------------------
+    /// @brief	Create a C++ Plane from a JavaScript one
+    //------------------------------------------------------------------------------------
+    Plane fromJSPlane(v8::Handle<v8::Value> value);
+
+    //------------------------------------------------------------------------------------
+    /// @brief	Create a JavaScript Plane from a C++ one
+    //------------------------------------------------------------------------------------
+    v8::Handle<v8::Value> toJavaScript(const Plane& value);
 
 
     //------------------------------------------------------------------------------------

@@ -139,6 +139,40 @@ Handle<Value> toJavaScript(const Matrix4& value)
 
 //-----------------------------------------------------------------------
 
+Plane fromJSPlane(Handle<Value> value)
+{
+    if (value->IsObject())
+    {
+        Handle<Object> object = value->ToObject();
+        Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
+        
+        if (std::string("Athena.Math.Plane") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
+        {
+            return Plane(fromJSVector3(object->Get(String::New("normal"))),
+                         object->Get(String::New("d"))->ToNumber()->NumberValue());
+        }
+    }
+
+    return Plane();
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> toJavaScript(const Plane& value)
+{
+    Handle<Value> constructor = Context::GetCurrent()->Global()->Get(String::New("Athena.Math.Plane"));
+    if (!constructor->IsFunction())
+        return ThrowException(String::New("Can't find the constructor function of Athena.Math.Plane"));
+
+    Local<Object> object = Handle<Function>::Cast(constructor)->NewInstance();
+    object->Set(String::New("normal"), toJavaScript(value.normal));
+    object->Set(String::New("d"), Number::New(value.d));
+    
+    return object;
+}
+
+//-----------------------------------------------------------------------
+
 Quaternion fromJSQuaternion(Handle<Value> value)
 {
     if (value->IsObject())

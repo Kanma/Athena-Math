@@ -78,6 +78,21 @@ SUITE(Conversions)
 	}
 
 
+	TEST_FIXTURE(ScriptingTestEnvironment, ConvertPlaneFromJavaScript)
+	{
+        HandleScope handle_scope;
+
+		Handle<Value> result = pScriptingManager->execute("import_module('Athena.Math'); new Athena.Math.Plane(new Athena.Math.Vector3(2, 3, 4), 1);");
+
+        Plane plane = fromJSPlane(result);
+
+        CHECK_CLOSE(1.0f, plane.d, 1e-6f);
+        CHECK_CLOSE(2.0f, plane.normal.x, 1e-6f);
+        CHECK_CLOSE(3.0f, plane.normal.y, 1e-6f);
+        CHECK_CLOSE(4.0f, plane.normal.z, 1e-6f);
+	}
+
+
 	TEST_FIXTURE(ScriptingTestEnvironment, ConvertQuaternionFromJavaScript)
 	{
         HandleScope handle_scope;

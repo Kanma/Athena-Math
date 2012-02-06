@@ -38,6 +38,13 @@ bool bind_Matrix4(Handle<Object> parent, const std::string& modulePath)
 }
 
 
+bool bind_Plane(Handle<Object> parent, const std::string& modulePath)
+{
+    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/Plane.js", Context::GetCurrent());
+    return !result.IsEmpty();
+}
+
+
 bool bind_Quaternion(Handle<Object> parent, const std::string& modulePath)
 {
     Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/Quaternion.js", Context::GetCurrent());
@@ -84,6 +91,7 @@ extern "C" {
         return bind_MathUtils(parent, modulePath) &&
                bind_Matrix3(parent, modulePath) &&
                bind_Matrix4(parent, modulePath) &&
+               bind_Plane(parent, modulePath) &&
                bind_Quaternion(parent, modulePath) &&
                bind_Sphere(parent, modulePath) &&
                bind_Vector2(parent, modulePath) &&

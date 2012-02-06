@@ -9,6 +9,7 @@ set(SRCS module.cpp
 set(JS_SRCS MathUtils.js
             Matrix3.js
             Matrix4.js
+            Plane.js
             Quaternion.js
             Sphere.js
             Vector2.js
