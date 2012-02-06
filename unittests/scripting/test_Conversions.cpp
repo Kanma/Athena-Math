@@ -26,6 +26,48 @@ struct ScriptingTestEnvironment
 
 SUITE(Conversions)
 {
+	TEST_FIXTURE(ScriptingTestEnvironment, ConvertNullAxisAlignedBoxFromJavaScript)
+	{
+        HandleScope handle_scope;
+
+		Handle<Value> result = pScriptingManager->execute("import_module('Athena.Math'); new Athena.Math.AxisAlignedBox(Athena.Math.AxisAlignedBox_EXTENT_NULL);");
+
+        AxisAlignedBox aab = fromJSAxisAlignedBox(result);
+
+        CHECK(aab.isNull());
+	}
+
+
+	TEST_FIXTURE(ScriptingTestEnvironment, ConvertInfiniteAxisAlignedBoxFromJavaScript)
+	{
+        HandleScope handle_scope;
+
+		Handle<Value> result = pScriptingManager->execute("import_module('Athena.Math'); new Athena.Math.AxisAlignedBox(Athena.Math.AxisAlignedBox_EXTENT_INFINITE);");
+
+        AxisAlignedBox aab = fromJSAxisAlignedBox(result);
+
+        CHECK(aab.isInfinite());
+	}
+
+
+	TEST_FIXTURE(ScriptingTestEnvironment, ConvertFiniteAxisAlignedBoxFromJavaScript)
+	{
+        HandleScope handle_scope;
+
+		Handle<Value> result = pScriptingManager->execute("import_module('Athena.Math'); new Athena.Math.AxisAlignedBox(1, 2, 3, 4, 5, 6);");
+
+        AxisAlignedBox aab = fromJSAxisAlignedBox(result);
+
+        CHECK(aab.isFinite());
+        CHECK_CLOSE(1.0f, aab.getMinimum().x, 1e-6f);
+        CHECK_CLOSE(2.0f, aab.getMinimum().y, 1e-6f);
+        CHECK_CLOSE(3.0f, aab.getMinimum().z, 1e-6f);
+        CHECK_CLOSE(4.0f, aab.getMaximum().x, 1e-6f);
+        CHECK_CLOSE(5.0f, aab.getMaximum().y, 1e-6f);
+        CHECK_CLOSE(6.0f, aab.getMaximum().z, 1e-6f);
+	}
+
+
 	TEST_FIXTURE(ScriptingTestEnvironment, ConvertColorFromJavaScript)
 	{
         HandleScope handle_scope;

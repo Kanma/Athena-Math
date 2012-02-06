@@ -15,6 +15,61 @@ namespace Athena {
 namespace Math {
 
 
+AxisAlignedBox fromJSAxisAlignedBox(Handle<Value> value)
+{
+    if (value->IsObject())
+    {
+        Handle<Object> object = value->ToObject();
+        Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
+
+        if (std::string("Athena.Math.AxisAlignedBox") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
+        {
+            unsigned int t = object->Get(String::New("extent"))->ToNumber()->NumberValue();
+            
+            if (t == 0)
+                return AxisAlignedBox(AxisAlignedBox::EXTENT_NULL);
+
+            if (t == 2)
+                return AxisAlignedBox(AxisAlignedBox::EXTENT_INFINITE);
+            
+            return AxisAlignedBox(fromJSVector3(object->Get(String::New("minimum"))),
+                                  fromJSVector3(object->Get(String::New("maximum"))));
+        }
+    }
+
+    return AxisAlignedBox();
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> toJavaScript(const AxisAlignedBox& value)
+{
+    Handle<Value> constructor = Context::GetCurrent()->Global()->Get(String::New("Athena.Math.AxisAlignedBox"));
+    if (!constructor->IsFunction())
+        return ThrowException(String::New("Can't find the constructor function of Athena.Math.AxisAlignedBox"));
+
+    Local<Object> object = Handle<Function>::Cast(constructor)->NewInstance();
+
+    if (value.isNull())
+    {
+        object->Set(String::New("extent"), Number::New(0));
+    }
+    else if (value.isInfinite())
+    {
+        object->Set(String::New("extent"), Number::New(2));
+    }
+    else
+    {
+        object->Set(String::New("minimum"), toJavaScript(value.getMinimum()));
+        object->Set(String::New("maximum"), toJavaScript(value.getMaximum()));
+        object->Set(String::New("extent"), Number::New(1));
+    }
+
+    return object;
+}
+
+//-----------------------------------------------------------------------
+
 Color fromJSColor(Handle<Value> value)
 {
     if (value->IsObject())

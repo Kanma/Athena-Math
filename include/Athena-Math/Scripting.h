@@ -8,6 +8,7 @@
 #define _ATHENA_MATH_SCRIPTING_H_
 
 #include <v8.h>
+#include <Athena-Math/AxisAlignedBox.h>
 #include <Athena-Math/Color.h>
 #include <Athena-Math/Matrix4.h>
 #include <Athena-Math/Plane.h>
@@ -36,8 +37,19 @@ namespace Math {
         CLASSID_VECTOR3,
         CLASSID_VECTOR4,
     };
-    
-    
+
+
+    //------------------------------------------------------------------------------------
+    /// @brief	Create a C++ AxisAlignedBox from a JavaScript one
+    //------------------------------------------------------------------------------------
+    AxisAlignedBox fromJSAxisAlignedBox(v8::Handle<v8::Value> value);
+
+    //------------------------------------------------------------------------------------
+    /// @brief	Create a JavaScript AxisAlignedBox from a C++ one
+    //------------------------------------------------------------------------------------
+    v8::Handle<v8::Value> toJavaScript(const AxisAlignedBox& value);
+
+
     //------------------------------------------------------------------------------------
     /// @brief	Create a C++ Color from a JavaScript one
     //------------------------------------------------------------------------------------

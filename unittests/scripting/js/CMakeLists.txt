@@ -1,4 +1,15 @@
-set(JS_FILES # Color
+set(JS_FILES # AxisAlignedBox
+             AxisAlignedBox/Null.js
+             AxisAlignedBox/Infinite.js
+             AxisAlignedBox/CreationWithPoints.js
+             AxisAlignedBox/CreationWithScalars.js
+             AxisAlignedBox/Equals.js
+             AxisAlignedBox/NotEquals.js
+             AxisAlignedBox/GetCorner.js
+             AxisAlignedBox/MergeBox.js
+             AxisAlignedBox/MergePoint.js
+
+             # Color
              Color/ConstructionWithoutParameters.js
              Color/ConstructionWithRGB.js
              Color/ConstructionWithRGBA.js

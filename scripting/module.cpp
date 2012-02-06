@@ -17,6 +17,13 @@ using namespace Athena::Scripting;
 
 /*************************************** FUNCTIONS *************************************/
 
+bool bind_AxisAlignedBox(Handle<Object> parent, const std::string& modulePath)
+{
+    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/AxisAlignedBox.js", Context::GetCurrent());
+    return !result.IsEmpty();
+}
+
+
 bool bind_Color(Handle<Object> parent, const std::string& modulePath)
 {
     Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/Color.js", Context::GetCurrent());
@@ -104,6 +111,7 @@ extern "C" {
                bind_Sphere(parent, modulePath) &&
                bind_Vector2(parent, modulePath) &&
                bind_Vector3(parent, modulePath) &&
-               bind_Vector4(parent, modulePath);
+               bind_Vector4(parent, modulePath) &&
+               bind_AxisAlignedBox(parent, modulePath);
     }
 }

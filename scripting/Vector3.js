@@ -567,6 +567,14 @@ Athena.Math.Vector3.prototype.isNaN = function()
 }
 
 
+//-----------------------------------------------------------------------
+
+Athena.Math.Vector3.prototype.print = function()
+{
+    print('[' + this.x + ', ' + this.y + ', ' + this.z + ']\n');
+}
+
+
 /**************************************** OTHERS ***************************************/
 
 Athena.Math.Vector3.prototype.__classname__ = 'Athena.Math.Vector3';
