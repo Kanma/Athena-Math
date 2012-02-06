@@ -15,6 +15,44 @@ namespace Athena {
 namespace Math {
 
 
+Color fromJSColor(Handle<Value> value)
+{
+    if (value->IsObject())
+    {
+        Handle<Object> object = value->ToObject();
+        Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
+        
+        if (std::string("Athena.Math.Color") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
+        {
+            return Color(object->Get(String::New("r"))->ToNumber()->NumberValue(),
+                         object->Get(String::New("g"))->ToNumber()->NumberValue(),
+                         object->Get(String::New("b"))->ToNumber()->NumberValue(),
+                         object->Get(String::New("a"))->ToNumber()->NumberValue());
+        }
+    }
+
+    return Color();
+}
+
+//-----------------------------------------------------------------------
+
+Handle<Value> toJavaScript(const Color& value)
+{
+    Handle<Value> constructor = Context::GetCurrent()->Global()->Get(String::New("Athena.Math.Color"));
+    if (!constructor->IsFunction())
+        return ThrowException(String::New("Can't find the constructor function of Athena.Math.Color"));
+
+    Local<Object> object = Handle<Function>::Cast(constructor)->NewInstance();
+    object->Set(String::New("r"), Number::New(value.r));
+    object->Set(String::New("g"), Number::New(value.g));
+    object->Set(String::New("b"), Number::New(value.b));
+    object->Set(String::New("a"), Number::New(value.a));
+    
+    return object;
+}
+
+//-----------------------------------------------------------------------
+
 Matrix3 fromJSMatrix3(Handle<Value> value)
 {
     if (value->IsObject())

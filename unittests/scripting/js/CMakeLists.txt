@@ -1,4 +1,14 @@
-set(JS_FILES # MathUtils
+set(JS_FILES # Color
+             Color/ConstructionWithoutParameters.js
+             Color/ConstructionWithRGB.js
+             Color/ConstructionWithRGBA.js
+             Color/ConstructionWithPlane.js
+             Color/Equals.js
+             Color/NotEquals.js
+             Color/Saturate.js
+             Color/HSB.js
+
+             # MathUtils
              MathUtils/Sign.js
              MathUtils/Log2.js
              MathUtils/LogN.js

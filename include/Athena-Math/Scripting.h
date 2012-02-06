@@ -8,6 +8,7 @@
 #define _ATHENA_MATH_SCRIPTING_H_
 
 #include <v8.h>
+#include <Athena-Math/Color.h>
 #include <Athena-Math/Matrix4.h>
 #include <Athena-Math/Plane.h>
 #include <Athena-Math/Quaternion.h>
@@ -37,6 +38,17 @@ namespace Math {
     };
     
     
+    //------------------------------------------------------------------------------------
+    /// @brief	Create a C++ Color from a JavaScript one
+    //------------------------------------------------------------------------------------
+    Color fromJSColor(v8::Handle<v8::Value> value);
+
+    //------------------------------------------------------------------------------------
+    /// @brief	Create a JavaScript Color from a C++ one
+    //------------------------------------------------------------------------------------
+    v8::Handle<v8::Value> toJavaScript(const Color& value);
+
+
     //------------------------------------------------------------------------------------
     /// @brief	Create a C++ Matrix3 from a JavaScript one
     //------------------------------------------------------------------------------------

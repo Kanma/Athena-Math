@@ -17,6 +17,13 @@ using namespace Athena::Scripting;
 
 /*************************************** FUNCTIONS *************************************/
 
+bool bind_Color(Handle<Object> parent, const std::string& modulePath)
+{
+    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/Color.js", Context::GetCurrent());
+    return !result.IsEmpty();
+}
+
+
 bool bind_MathUtils(Handle<Object> parent, const std::string& modulePath)
 {
     Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/MathUtils.js", Context::GetCurrent());
@@ -88,7 +95,8 @@ extern "C" {
     {
         HandleScope handle_scope;
 
-        return bind_MathUtils(parent, modulePath) &&
+        return bind_Color(parent, modulePath) &&
+               bind_MathUtils(parent, modulePath) &&
                bind_Matrix3(parent, modulePath) &&
                bind_Matrix4(parent, modulePath) &&
                bind_Plane(parent, modulePath) &&

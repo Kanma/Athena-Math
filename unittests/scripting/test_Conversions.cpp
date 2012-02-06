@@ -26,6 +26,21 @@ struct ScriptingTestEnvironment
 
 SUITE(Conversions)
 {
+	TEST_FIXTURE(ScriptingTestEnvironment, ConvertColorFromJavaScript)
+	{
+        HandleScope handle_scope;
+
+		Handle<Value> result = pScriptingManager->execute("import_module('Athena.Math'); new Athena.Math.Color(0.1, 0.2, 0.3, 0.4);");
+
+        Color color = fromJSColor(result);
+
+        CHECK_CLOSE(0.1f, color.r, 1e-6f);
+        CHECK_CLOSE(0.2f, color.g, 1e-6f);
+        CHECK_CLOSE(0.3f, color.b, 1e-6f);
+        CHECK_CLOSE(0.4f, color.a, 1e-6f);
+	}
+
+
 	TEST_FIXTURE(ScriptingTestEnvironment, ConvertMatrix3FromJavaScript)
 	{
         HandleScope handle_scope;

@@ -6,7 +6,8 @@ xmake_import_search_paths(ATHENA_SCRIPTING)
 set(SRCS module.cpp
 )
 
-set(JS_SRCS MathUtils.js
+set(JS_SRCS Color.js
+            MathUtils.js
             Matrix3.js
             Matrix4.js
             Plane.js
