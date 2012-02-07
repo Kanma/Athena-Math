@@ -41,6 +41,13 @@ Athena.Math.Sphere.prototype.set = function()
     }
 }
 
+//-----------------------------------------------------------------------
+
+Athena.Math.Sphere.prototype.toString = function()
+{
+    return '{ center: ' + this.center.toString() + ', radius: ' + this.radius + ' }';
+}
+
 
 /**************************************** OTHERS ***************************************/
 

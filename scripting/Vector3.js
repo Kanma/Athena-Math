@@ -569,9 +569,9 @@ Athena.Math.Vector3.prototype.isNaN = function()
 
 //-----------------------------------------------------------------------
 
-Athena.Math.Vector3.prototype.print = function()
+Athena.Math.Vector3.prototype.toString = function()
 {
-    print('[' + this.x + ', ' + this.y + ', ' + this.z + ']\n');
+    return '[' + this.x + ', ' + this.y + ', ' + this.z + ']';
 }
 
 

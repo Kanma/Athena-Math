@@ -199,6 +199,13 @@ Athena.Math.Plane.prototype.normalise = function()
     return length;
 }
 
+//-----------------------------------------------------------------------
+
+Athena.Math.Plane.prototype.toString = function()
+{
+    return '{ normal: ' + this.normal.toString() + ', d: ' + this.d + ' }';
+}
+
 
 /**************************************** OTHERS ****************************************/
 

@@ -426,6 +426,19 @@ Athena.Math.AxisAlignedBox.prototype.contains = function()
     }
 }
 
+//-----------------------------------------------------------------------
+
+Athena.Math.AxisAlignedBox.prototype.toString = function()
+{
+    if (this.isNull())
+        return '{ null }';
+
+    if (this.isInfinite())
+        return '{ infinite }';
+
+    return '{ minimum: ' + this.minimum.toString() + ', maximum: ' + this.maximum.toString() + ' }';
+}
+
 
 /**************************************** OTHERS ***************************************/
 

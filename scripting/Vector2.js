@@ -450,6 +450,13 @@ Athena.Math.Vector2.prototype.isNaN = function()
     return isNaN(this.x) || isNaN(this.y);
 }
 
+//-----------------------------------------------------------------------
+
+Athena.Math.Vector2.prototype.toString = function()
+{
+    return '[' + this.x + ', ' + this.y + ']';
+}
+
 
 /**************************************** OTHERS ***************************************/
 

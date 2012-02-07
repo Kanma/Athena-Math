@@ -806,6 +806,31 @@ Athena.Math.Matrix3.prototype.print = function()
 }
 
 
+//-----------------------------------------------------------------------
+
+Athena.Math.Matrix3.prototype.toString = function()
+{
+    var s = '[';
+    
+    for (var row = 0; row < 3; ++row)
+    {
+        for (var col = 0; col < 3; ++col)
+        {
+            s += this.get(row, col);
+            if (s < 2)
+                s += ' ';
+        }
+        
+        if (row == 2)
+            s += ']';
+        else
+            s += '\n';
+    }
+
+    return s;
+}
+
+
 /**************************************** OTHERS ***************************************/
 
 Athena.Math.Matrix3.prototype.__classname__ = 'Athena.Math.Matrix3';

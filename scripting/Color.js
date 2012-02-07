@@ -125,6 +125,13 @@ Athena.Math.Color.prototype.saturateCopy = function()
     return color;
 }
 
+//-----------------------------------------------------------------------
+
+Athena.Math.Color.prototype.toString = function()
+{
+    return '[' + this.r + ', ' + this.g + ', ' + this.b + ', ' + this.a + ']';
+}
+
 
 /********************************* ARITHMETIC OPERATIONS ********************************/
 

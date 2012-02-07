@@ -388,6 +388,13 @@ Athena.Math.Quaternion.prototype.isNaN = function()
     return isNaN(this.x) || isNaN(this.y) || isNaN(this.z) || isNaN(this.w);
 }
 
+//-----------------------------------------------------------------------
+
+Athena.Math.Quaternion.prototype.toString = function()
+{
+    return '[' + this.w + ', ' + this.x + ', ' + this.y + ', ' + this.z + ']';
+}
+
 
 /********************************* ARITHMETIC OPERATIONS ********************************/
 

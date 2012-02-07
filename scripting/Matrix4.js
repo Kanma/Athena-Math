@@ -648,20 +648,26 @@ Athena.Math.Matrix4.prototype.inverse = function()
 
 //-----------------------------------------------------------------------
 
-Athena.Math.Matrix4.prototype.print = function()
+Athena.Math.Matrix4.prototype.toString = function()
 {
-    print('[');
+    var s = '[';
     
     for (var row = 0; row < 4; ++row)
     {
         for (var col = 0; col < 4; ++col)
-            print(this.get(row, col) + ' ');
+        {
+            s += this.get(row, col);
+            if (s < 3)
+                s += ' ';
+        }
         
         if (row == 3)
-            print(']');
-        
-        print('\n');
+            s += ']';
+        else
+            s += '\n';
     }
+
+    return s;
 }
 
 

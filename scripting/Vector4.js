@@ -483,6 +483,13 @@ Athena.Math.Vector4.prototype.isNaN = function()
     return isNaN(this.x) || isNaN(this.y) || isNaN(this.z) || isNaN(this.w);
 }
 
+//-----------------------------------------------------------------------
+
+Athena.Math.Vector4.prototype.toString = function()
+{
+    return '[' + this.x + ', ' + this.y + ', ' + this.z + ', ' + this.w + ']';
+}
+
 
 /**************************************** OTHERS ***************************************/
 
