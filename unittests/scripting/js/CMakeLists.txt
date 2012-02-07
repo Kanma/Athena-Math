@@ -8,6 +8,15 @@ set(JS_FILES # AxisAlignedBox
              AxisAlignedBox/GetCorner.js
              AxisAlignedBox/MergeBox.js
              AxisAlignedBox/MergePoint.js
+             AxisAlignedBox/Transform.js
+             AxisAlignedBox/Intersection.js
+             AxisAlignedBox/Volume.js
+             AxisAlignedBox/Scale.js
+             AxisAlignedBox/GetCenter.js
+             AxisAlignedBox/GetSize.js
+             AxisAlignedBox/GetHalfSize.js
+             AxisAlignedBox/ContainsBox.js
+             AxisAlignedBox/ContainsPoint.js
 
              # Color
              Color/ConstructionWithoutParameters.js
