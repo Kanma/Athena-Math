@@ -81,6 +81,7 @@ set(JS_FILES # AxisAlignedBox
              Plane/ConstructionWith3Points.js
              Plane/GetSideOfPoint.js
              Plane/GetSideOfBox.js
+             Plane/GetSideOfBox2.js
              Plane/ProjectVector.js
              Plane/GetDistance.js
              

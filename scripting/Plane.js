@@ -133,7 +133,17 @@ Athena.Math.Plane.prototype.getSide = function()
 
         return Athena.Math.Plane_NO_SIDE;
     }
-    // TODO: getSide(aab)
+    else if ((arguments.length == 1) &&
+             (typeof(arguments[0]) === 'object') && (arguments[0].__classname__ == 'Athena.Math.AxisAlignedBox'))
+    {
+        if (arguments[0].isNull())
+            return Athena.Math.Plane_NO_SIDE;
+
+        if (arguments[0].isInfinite())
+            return Athena.Math.Plane_BOTH_SIDE;
+
+        return this.getSide(arguments[0].getCenter(), arguments[0].getHalfSize());
+    }
     else if ((arguments.length == 2) &&
              (typeof(arguments[0]) === 'object') && (arguments[0].__classname__ == 'Athena.Math.Vector3') &&
              (typeof(arguments[1]) === 'object') && (arguments[1].__classname__ == 'Athena.Math.Vector3'))
@@ -152,7 +162,7 @@ Athena.Math.Plane.prototype.getSide = function()
     }
     else
     {
-        throw 'Invalid parameters, valid syntaxes:\ngetSide(point)\ngetSide(centre, half_size)\nset(axis_aligned_box)';
+        throw 'Invalid parameters, valid syntaxes:\ngetSide(point)\ngetSide(centre, half_size)\ngetSide(axis_aligned_box)';
     }
 }
 
