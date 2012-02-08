@@ -1,8 +1,8 @@
 /** @file   Vector4.h
     @author Philip Abbet
-    
+
     Declaration of the class Athena::Math::Vector4
-    
+
     @note   This is based on the corresponding class from
             <a href="http://www.ogre3d.org/">Ogre3D</a>.
 */
@@ -18,17 +18,17 @@
 namespace Athena {
 namespace Math {
 
-	/** \addtogroup Math
-	*  @{
-	*/
-	
-	//------------------------------------------------------------------------------------
-	/// @brief  4-dimensional homogeneous vector
-	//------------------------------------------------------------------------------------
-	class ATHENA_SYMBOL Vector4
-	{
+    /** \addtogroup Math
+    *  @{
+    */
+
+    //------------------------------------------------------------------------------------
+    /// @brief  4-dimensional homogeneous vector
+    //------------------------------------------------------------------------------------
+    class ATHENA_SYMBOL Vector4
+    {
         //_____ Construction / Destruction __________
-	public:
+    public:
         inline Vector4()
         {
         }
@@ -66,17 +66,17 @@ namespace Math {
         {
         }
 
-	
+
         //_____ Value retrieval __________
     public:
-		inline Real operator[](const size_t i) const
+        inline Real operator[](const size_t i) const
         {
             assert(i < 4);
 
             return *(&x+i);
         }
 
-		inline Real& operator[](const size_t i)
+        inline Real& operator[](const size_t i)
         {
             assert(i < 4);
 
@@ -84,21 +84,21 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Pointer accessor for direct copying
+        /// @brief  Pointer accessor for direct copying
         //--------------------------------------------------------------------------------
-		inline Real* ptr()
-		{
-			return &x;
-		}
+        inline Real* ptr()
+        {
+            return &x;
+        }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Pointer accessor for direct copying
+        /// @brief  Pointer accessor for direct copying
         //--------------------------------------------------------------------------------
-		inline const Real* ptr() const
-		{
-			return &x;
-		}
-		
+        inline const Real* ptr() const
+        {
+            return &x;
+        }
+
 
         //_____ Value assignation __________
     public:
@@ -112,14 +112,14 @@ namespace Math {
             return *this;
         }
 
-		inline Vector4& operator=(const Real fScalar)
-		{
-			x = fScalar;
-			y = fScalar;
-			z = fScalar;
-			w = fScalar;
-			return *this;
-		}
+        inline Vector4& operator=(const Real fScalar)
+        {
+            x = fScalar;
+            y = fScalar;
+            z = fScalar;
+            w = fScalar;
+            return *this;
+        }
 
         inline Vector4& operator=(const Vector3& rhs)
         {
@@ -131,15 +131,15 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Exchange the contents of this vector with another
+        /// @brief  Exchange the contents of this vector with another
         //--------------------------------------------------------------------------------
-		inline void swap(Vector4& other)
-		{
-			std::swap(x, other.x);
-			std::swap(y, other.y);
-			std::swap(z, other.z);
-			std::swap(w, other.w);
-		}
+        inline void swap(Vector4& other)
+        {
+            std::swap(x, other.x);
+            std::swap(y, other.y);
+            std::swap(z, other.z);
+            std::swap(w, other.w);
+        }
 
 
         //_____ Comparison operations __________
@@ -367,8 +367,8 @@ namespace Math {
         //_____ Methods __________
     public:
         //--------------------------------------------------------------------------------
-		/// @brief  Calculates the dot (scalar) product of this vector with another
-		///
+        /// @brief  Calculates the dot (scalar) product of this vector with another
+        ///
         /// @param  vec     Vector with which to calculate the dot product (together with
         ///                 this one)
         /// @return         A real representing the dot product value
@@ -379,13 +379,13 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Check whether this vector contains valid values
+        /// @brief  Check whether this vector contains valid values
         //--------------------------------------------------------------------------------
-		inline bool isNaN() const
-		{
-			return MathUtils::isNaN(x) || MathUtils::isNaN(y) || MathUtils::isNaN(z) ||
-			       MathUtils::isNaN(w);
-		}
+        inline bool isNaN() const
+        {
+            return MathUtils::isNaN(x) || MathUtils::isNaN(y) || MathUtils::isNaN(z) ||
+                   MathUtils::isNaN(w);
+        }
 
 
         //_____ Constants __________
@@ -398,8 +398,8 @@ namespace Math {
         Real x, y, z, w;
     };
 
-	/** @} */
-	/** @} */
+    /** @} */
+    /** @} */
 }
 }
 

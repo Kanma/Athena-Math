@@ -1,8 +1,8 @@
 /** @file   Vector2.cpp
     @author Philip Abbet
-    
+
     Implementation of the class Athena::Math::Vector2
-    
+
     @note   This is based on the corresponding class from
             <a href="http://www.ogre3d.org/">Ogre3D</a>.
 */

@@ -1,8 +1,8 @@
 /** @file   AxisAlignedBox.js
     @author Philip Abbet
-    
+
     Declaration of the class Athena.Math.AxisAlignedBox
-    
+
     @note   Using a pure JavaScript class here instead of a binding over
             the C++ one results in faster code.
 */
@@ -90,7 +90,7 @@ Athena.Math.AxisAlignedBox.prototype.equals = function(aab)
 
     if (!this.isFinite())
         return true;
-    
+
     return this.minimum.equals(aab.minimum) && this.maximum.equals(aab.maximum);
 }
 
@@ -187,50 +187,50 @@ Athena.Math.AxisAlignedBox.prototype.transform = function(matrix)
     // Do nothing if current null or infinite
     if (this.extent != Athena.Math.AxisAlignedBox_EXTENT_FINITE)
         return;
-    
+
     // Getting the old values so that we can use the existing merge method.
     var oldMin = new Athena.Math.Vector3(this.minimum);
     var oldMax = new Athena.Math.Vector3(this.maximum);
-    
+
     // Reset
     this.setNull();
-    
+
     // We sequentially compute the corners in the following order :
     // 0, 6, 5, 1, 2, 4 ,7 , 3
     // This sequence allows us to only change one member at a time to get at all corners.
-    
+
     // For each one, we transform it using the matrix
     // Which gives the resulting point and merge the resulting point.
-    
-    // First corner 
+
+    // First corner
     // min min min
     var currentCorner = new Athena.Math.Vector3(oldMin);
     this.merge(matrix.mul(currentCorner));
-    
+
     // min,min,max
     currentCorner.z = oldMax.z;
     this.merge(matrix.mul(currentCorner));
-    
+
     // min max max
     currentCorner.y = oldMax.y;
     this.merge(matrix.mul(currentCorner));
-    
+
     // min max min
     currentCorner.z = oldMin.z;
     this.merge(matrix.mul(currentCorner));
-    
+
     // max max min
     currentCorner.x = oldMax.x;
     this.merge(matrix.mul(currentCorner));
-    
+
     // max max max
     currentCorner.z = oldMax.z;
     this.merge(matrix.mul(currentCorner));
-    
+
     // max min max
     currentCorner.y = oldMin.y;
     this.merge(matrix.mul(currentCorner));
-    
+
     // max min min
     currentCorner.z = oldMin.z;
     this.merge(matrix.mul(currentCorner));
@@ -243,17 +243,17 @@ Athena.Math.AxisAlignedBox.prototype.transformAffine = function(matrix)
     // Do nothing if current null or infinite
     if (this.extent != Athena.Math.AxisAlignedBox_EXTENT_FINITE)
         return;
-    
+
     var center = this.getCenter();
     var halfSize = this.getHalfSize();
-    
+
     var newCenter = matrix.transformAffine(center);
     var newHalfSize = new Athena.Math.Vector3(
         Math.abs(matrix.m_0_0) * halfSize.x + Math.abs(matrix.m_0_1) * halfSize.y + Math.abs(matrix.m_0_2) * halfSize.z,
         Math.abs(matrix.m_1_0) * halfSize.x + Math.abs(matrix.m_1_1) * halfSize.y + Math.abs(matrix.m_1_2) * halfSize.z,
         Math.abs(matrix.m_2_0) * halfSize.x + Math.abs(matrix.m_2_1) * halfSize.y + Math.abs(matrix.m_2_2) * halfSize.z
     );
-    
+
     this.set(newCenter.sub(newHalfSize), newCenter.add(newHalfSize));
 }
 
@@ -328,13 +328,13 @@ Athena.Math.AxisAlignedBox.prototype.volume = function()
     {
         case Athena.Math.AxisAlignedBox_EXTENT_NULL:
             return 0.0;
-    
+
         case Athena.Math.AxisAlignedBox_EXTENT_FINITE:
         {
             var diff = this.maximum.sub(this.minimum);
             return diff.x * diff.y * diff.z;
         }
-       
+
         case Athena.Math.AxisAlignedBox_EXTENT_INFINITE:
             return Infinity;
     }
@@ -390,10 +390,10 @@ Athena.Math.AxisAlignedBox.prototype.getHalfSize = function()
     {
     case Athena.Math.AxisAlignedBox_EXTENT_NULL:
         return new Athena.Math.Vector3(Athena.Math.Vector3_ZERO);
-    
+
     case Athena.Math.AxisAlignedBox_EXTENT_FINITE:
         return this.maximum.sub(this.minimum).mul(0.5);
-    
+
     case Athena.Math.AxisAlignedBox_EXTENT_INFINITE:
         return new Athena.Math.Vector3(Infinity);
     }
@@ -407,7 +407,7 @@ Athena.Math.AxisAlignedBox.prototype.contains = function()
     {
         if (this.isNull())
              return false;
-     
+
         if (this.isInfinite())
              return true;
 
@@ -417,7 +417,7 @@ Athena.Math.AxisAlignedBox.prototype.contains = function()
     {
         if (arguments[0].isNull() || this.isInfinite())
              return true;
-     
+
         if (this.isNull() || arguments[0].isInfinite())
              return false;
 

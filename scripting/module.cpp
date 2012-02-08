@@ -1,6 +1,6 @@
 /** @file   module.cpp
     @author Philip Abbet
-    
+
     Entry point of the Javascript module of Athena::Math
 */
 

@@ -11,7 +11,7 @@ function time(f)
     var diff = (new Date).getTime() - start;
 
     print(diff + 'ms\n');
-    
+
     return diff;
 }
 
@@ -20,13 +20,13 @@ function Vector3(x, y, z)
 {
     this.__classname__ = 'Vector3';
     this.x = x;
-    this.y = y;  
+    this.y = y;
     this.z = z;
 }
 
 Vector3.prototype.add = function(v)
 {
-    return new Vector3(this.x + v.x, this.y + v.y, this.z + v.z);  
+    return new Vector3(this.x + v.x, this.y + v.y, this.z + v.z);
 }
 
 

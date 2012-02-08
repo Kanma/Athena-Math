@@ -1,8 +1,8 @@
 /** @file   Vector2.js
     @author Philip Abbet
-    
+
     Declaration of the class Athena.Math.Vector2
-    
+
     @note   Using a pure JavaScript class here instead of a binding over
             the C++ one results in faster code.
 */
@@ -102,18 +102,18 @@ Athena.Math.Vector2.prototype.greaterThan = function(vector)
 Athena.Math.Vector2.prototype.add = function()
 {
     var v = new Athena.Math.Vector2(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if (typeof(arguments[i]) === 'object')
         {
             v.x += arguments[i].x;
-            v.y += arguments[i].y;  
+            v.y += arguments[i].y;
         }
         else
         {
             v.x += arguments[i];
-            v.y += arguments[i];  
+            v.y += arguments[i];
         }
     }
 
@@ -125,18 +125,18 @@ Athena.Math.Vector2.prototype.add = function()
 Athena.Math.Vector2.prototype.sub = function()
 {
     var v = new Athena.Math.Vector2(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if (typeof(arguments[i]) === 'object')
         {
             v.x -= arguments[i].x;
-            v.y -= arguments[i].y;  
+            v.y -= arguments[i].y;
         }
         else
         {
             v.x -= arguments[i];
-            v.y -= arguments[i];  
+            v.y -= arguments[i];
         }
     }
 
@@ -148,18 +148,18 @@ Athena.Math.Vector2.prototype.sub = function()
 Athena.Math.Vector2.prototype.mul = function()
 {
     var v = new Athena.Math.Vector2(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if (typeof(arguments[i]) === 'object')
         {
             v.x *= arguments[i].x;
-            v.y *= arguments[i].y;  
+            v.y *= arguments[i].y;
         }
         else
         {
             v.x *= arguments[i];
-            v.y *= arguments[i];  
+            v.y *= arguments[i];
         }
     }
 
@@ -171,18 +171,18 @@ Athena.Math.Vector2.prototype.mul = function()
 Athena.Math.Vector2.prototype.divide = function()
 {
     var v = new Athena.Math.Vector2(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if (typeof(arguments[i]) === 'object')
         {
             v.x /= arguments[i].x;
-            v.y /= arguments[i].y;  
+            v.y /= arguments[i].y;
         }
         else
         {
             v.x /= arguments[i];
-            v.y /= arguments[i];  
+            v.y /= arguments[i];
         }
     }
 
@@ -206,12 +206,12 @@ Athena.Math.Vector2.prototype.iadd = function()
         if (typeof(arguments[i]) === 'object')
         {
             this.x += arguments[i].x;
-            this.y += arguments[i].y;  
+            this.y += arguments[i].y;
         }
         else
         {
             this.x += arguments[i];
-            this.y += arguments[i];  
+            this.y += arguments[i];
         }
     }
 }
@@ -225,12 +225,12 @@ Athena.Math.Vector2.prototype.isub = function()
         if (typeof(arguments[i]) === 'object')
         {
             this.x -= arguments[i].x;
-            this.y -= arguments[i].y;  
+            this.y -= arguments[i].y;
         }
         else
         {
             this.x -= arguments[i];
-            this.y -= arguments[i];  
+            this.y -= arguments[i];
         }
     }
 }
@@ -244,12 +244,12 @@ Athena.Math.Vector2.prototype.imul = function()
         if (typeof(arguments[i]) === 'object')
         {
             this.x *= arguments[i].x;
-            this.y *= arguments[i].y;  
+            this.y *= arguments[i].y;
         }
         else
         {
             this.x *= arguments[i];
-            this.y *= arguments[i];  
+            this.y *= arguments[i];
         }
     }
 }
@@ -263,12 +263,12 @@ Athena.Math.Vector2.prototype.idivide = function()
         if (typeof(arguments[i]) === 'object')
         {
             this.x /= arguments[i].x;
-            this.y /= arguments[i].y;  
+            this.y /= arguments[i].y;
         }
         else
         {
             this.x /= arguments[i];
-            this.y /= arguments[i];  
+            this.y /= arguments[i];
         }
     }
 }
@@ -336,14 +336,14 @@ Athena.Math.Vector2.prototype.absDot = function(vector)
 Athena.Math.Vector2.prototype.normalise = function()
 {
     var length = this.length();
-    
+
     if (length > 1e-08)
     {
         inverse = 1.0 / length;
         this.x *= inverse;
         this.y *= inverse;
     }
-    
+
     return length;
 }
 
@@ -410,14 +410,14 @@ Athena.Math.Vector2.prototype.angleBetween = function(vector)
 {
     var lenProduct = Math.sqrt(this.squaredLength() * vector.squaredLength());
 
-	// Divide by zero check
-	if (lenProduct < 1e-6)
-		lenProduct = 1e-6;
+    // Divide by zero check
+    if (lenProduct < 1e-6)
+        lenProduct = 1e-6;
 
-	var f = this.dot(vector) / lenProduct;
+    var f = this.dot(vector) / lenProduct;
 
-	f = Athena.Math.clamp(f, -1.0, 1.0);
-	return Math.acos(f);
+    f = Athena.Math.clamp(f, -1.0, 1.0);
+    return Math.acos(f);
 }
 
 //-----------------------------------------------------------------------
@@ -431,8 +431,8 @@ Athena.Math.Vector2.prototype.reflect = function(normal)
 
 Athena.Math.Vector2.prototype.positionEquals = function(vector, tolerance)
 {
-	return Athena.Math.equals(this.x, vector.x, tolerance) &&
-		   Athena.Math.equals(this.y, vector.y, tolerance);
+    return Athena.Math.equals(this.x, vector.x, tolerance) &&
+           Athena.Math.equals(this.y, vector.y, tolerance);
 }
 
 //-----------------------------------------------------------------------

@@ -1,8 +1,8 @@
 /** @file   Matrix3.js
     @author Philip Abbet
-    
+
     Declaration of the class Athena.Math.Matrix3
-    
+
     @note   Using a pure JavaScript class here instead of a binding over
             the C++ one results in faster code.
 */
@@ -186,12 +186,12 @@ Athena.Math.Matrix3.prototype.fromEulerAnglesXYZ = function(yaw, pitch, roll)
 {
     var fCos = Math.cos(yaw);
     var fSin = Math.sin(yaw);
-    
+
     var kXMat = new Athena.Math.Matrix3(1.0,0.0,0.0,0.0,fCos,-fSin,0.0,fSin,fCos);
 
     fCos =  Math.cos(pitch);
     fSin =  Math.sin(pitch);
-    
+
     var kYMat = new Athena.Math.Matrix3(fCos,0.0,fSin,0.0,1.0,0.0,-fSin,0.0,fCos);
 
     fCos =  Math.cos(roll);
@@ -208,12 +208,12 @@ Athena.Math.Matrix3.prototype.fromEulerAnglesXZY = function(yaw, pitch, roll)
 {
     var fCos = Math.cos(yaw);
     var fSin = Math.sin(yaw);
-    
+
     var kXMat = new Athena.Math.Matrix3(1.0,0.0,0.0,0.0,fCos,-fSin,0.0,fSin,fCos);
 
     fCos =  Math.cos(pitch);
     fSin =  Math.sin(pitch);
-    
+
     var kYMat = new Athena.Math.Matrix3(fCos,-fSin,0.0,fSin,fCos,0.0,0.0,0.0,1.0);
 
     fCos =  Math.cos(roll);
@@ -230,12 +230,12 @@ Athena.Math.Matrix3.prototype.fromEulerAnglesYXZ = function(yaw, pitch, roll)
 {
     var fCos = Math.cos(yaw);
     var fSin = Math.sin(yaw);
-    
+
     var kXMat = new Athena.Math.Matrix3(fCos,0.0,fSin,0.0,1.0,0.0,-fSin,0.0,fCos);
 
     fCos =  Math.cos(pitch);
     fSin =  Math.sin(pitch);
-    
+
     var kYMat = new Athena.Math.Matrix3(1.0,0.0,0.0,0.0,fCos,-fSin,0.0,fSin,fCos);
 
     fCos =  Math.cos(roll);
@@ -252,12 +252,12 @@ Athena.Math.Matrix3.prototype.fromEulerAnglesYZX = function(yaw, pitch, roll)
 {
     var fCos = Math.cos(yaw);
     var fSin = Math.sin(yaw);
-    
+
     var kXMat = new Athena.Math.Matrix3(fCos,0.0,fSin,0.0,1.0,0.0,-fSin,0.0,fCos);
 
     fCos =  Math.cos(pitch);
     fSin =  Math.sin(pitch);
-    
+
     var kYMat = new Athena.Math.Matrix3(fCos,-fSin,0.0,fSin,fCos,0.0,0.0,0.0,1.0);
 
     fCos =  Math.cos(roll);
@@ -274,12 +274,12 @@ Athena.Math.Matrix3.prototype.fromEulerAnglesZXY = function(yaw, pitch, roll)
 {
     var fCos = Math.cos(yaw);
     var fSin = Math.sin(yaw);
-    
+
     var kXMat = new Athena.Math.Matrix3(fCos,-fSin,0.0,fSin,fCos,0.0,0.0,0.0,1.0);
 
     fCos =  Math.cos(pitch);
     fSin =  Math.sin(pitch);
-    
+
     var kYMat = new Athena.Math.Matrix3(1.0,0.0,0.0,0.0,fCos,-fSin,0.0,fSin,fCos);
 
     fCos =  Math.cos(roll);
@@ -296,12 +296,12 @@ Athena.Math.Matrix3.prototype.fromEulerAnglesZYX = function(yaw, pitch, roll)
 {
     var fCos = Math.cos(yaw);
     var fSin = Math.sin(yaw);
-    
+
     var kXMat = new Athena.Math.Matrix3(fCos,-fSin,0.0,fSin,fCos,0.0,0.0,0.0,1.0);
 
     fCos =  Math.cos(pitch);
     fSin =  Math.sin(pitch);
-    
+
     var kYMat = new Athena.Math.Matrix3(fCos,0.0,fSin,0.0,1.0,0.0,-fSin,0.0,fCos);
 
     fCos =  Math.cos(roll);
@@ -337,19 +337,19 @@ Athena.Math.Matrix3.prototype.notEquals = function(matrix)
 Athena.Math.Matrix3.prototype.add = function()
 {
     var r = new Athena.Math.Matrix3(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if ((typeof(arguments[i]) === 'object') && (arguments[i].__classname__ == 'Athena.Math.Matrix3'))
         {
             r.m_0_0 += arguments[i].m_0_0;
-            r.m_0_1 += arguments[i].m_0_1;  
+            r.m_0_1 += arguments[i].m_0_1;
             r.m_0_2 += arguments[i].m_0_2;
             r.m_1_0 += arguments[i].m_1_0;
-            r.m_1_1 += arguments[i].m_1_1;  
+            r.m_1_1 += arguments[i].m_1_1;
             r.m_1_2 += arguments[i].m_1_2;
             r.m_2_0 += arguments[i].m_2_0;
-            r.m_2_1 += arguments[i].m_2_1;  
+            r.m_2_1 += arguments[i].m_2_1;
             r.m_2_2 += arguments[i].m_2_2;
         }
     }
@@ -362,19 +362,19 @@ Athena.Math.Matrix3.prototype.add = function()
 Athena.Math.Matrix3.prototype.sub = function()
 {
     var r = new Athena.Math.Matrix3(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if ((typeof(arguments[i]) === 'object') && (arguments[i].__classname__ == 'Athena.Math.Matrix3'))
         {
             r.m_0_0 -= arguments[i].m_0_0;
-            r.m_0_1 -= arguments[i].m_0_1;  
+            r.m_0_1 -= arguments[i].m_0_1;
             r.m_0_2 -= arguments[i].m_0_2;
             r.m_1_0 -= arguments[i].m_1_0;
-            r.m_1_1 -= arguments[i].m_1_1;  
+            r.m_1_1 -= arguments[i].m_1_1;
             r.m_1_2 -= arguments[i].m_1_2;
             r.m_2_0 -= arguments[i].m_2_0;
-            r.m_2_1 -= arguments[i].m_2_1;  
+            r.m_2_1 -= arguments[i].m_2_1;
             r.m_2_2 -= arguments[i].m_2_2;
         }
     }
@@ -399,19 +399,19 @@ Athena.Math.Matrix3.prototype.mul = function()
         else if (arguments[0].__classname__ == 'Athena.Math.Matrix3')
         {
             var r = new Athena.Math.Matrix3();
-        
+
             r.m_0_0 += this.m_0_0 * arguments[0].m_0_0 + this.m_0_1 * arguments[0].m_1_0 + this.m_0_2 * arguments[0].m_2_0;
-            r.m_0_1 += this.m_0_0 * arguments[0].m_0_1 + this.m_0_1 * arguments[0].m_1_1 + this.m_0_2 * arguments[0].m_2_1;  
+            r.m_0_1 += this.m_0_0 * arguments[0].m_0_1 + this.m_0_1 * arguments[0].m_1_1 + this.m_0_2 * arguments[0].m_2_1;
             r.m_0_2 += this.m_0_0 * arguments[0].m_0_2 + this.m_0_1 * arguments[0].m_1_2 + this.m_0_2 * arguments[0].m_2_2;
-                                                                                                                    
+
             r.m_1_0 += this.m_1_0 * arguments[0].m_0_0 + this.m_1_1 * arguments[0].m_1_0 + this.m_1_2 * arguments[0].m_2_0;
-            r.m_1_1 += this.m_1_0 * arguments[0].m_0_1 + this.m_1_1 * arguments[0].m_1_1 + this.m_1_2 * arguments[0].m_2_1;  
+            r.m_1_1 += this.m_1_0 * arguments[0].m_0_1 + this.m_1_1 * arguments[0].m_1_1 + this.m_1_2 * arguments[0].m_2_1;
             r.m_1_2 += this.m_1_0 * arguments[0].m_0_2 + this.m_1_1 * arguments[0].m_1_2 + this.m_1_2 * arguments[0].m_2_2;
-                                                                                                                    
+
             r.m_2_0 += this.m_2_0 * arguments[0].m_0_0 + this.m_2_1 * arguments[0].m_1_0 + this.m_2_2 * arguments[0].m_2_0;
-            r.m_2_1 += this.m_2_0 * arguments[0].m_0_1 + this.m_2_1 * arguments[0].m_1_1 + this.m_2_2 * arguments[0].m_2_1;  
+            r.m_2_1 += this.m_2_0 * arguments[0].m_0_1 + this.m_2_1 * arguments[0].m_1_1 + this.m_2_2 * arguments[0].m_2_1;
             r.m_2_2 += this.m_2_0 * arguments[0].m_0_2 + this.m_2_1 * arguments[0].m_1_2 + this.m_2_2 * arguments[0].m_2_2;
-            
+
             return r;
         }
     }
@@ -464,7 +464,7 @@ Athena.Math.Matrix3.prototype.inverse = function()
         tolerance = arguments[0];
 
     var rkInverse = new Athena.Math.Matrix3();
-    
+
     rkInverse.m_0_0 = this.m_1_1 * this.m_2_2 - this.m_1_2 * this.m_2_1;
     rkInverse.m_0_1 = this.m_0_2 * this.m_2_1 - this.m_0_1 * this.m_2_2;
     rkInverse.m_0_2 = this.m_0_1 * this.m_1_2 - this.m_0_2 * this.m_1_1;
@@ -500,7 +500,7 @@ Athena.Math.Matrix3.prototype.toAxisAngle = function()
 {
     var axis = new Athena.Math.Vector3(Athena.Math.Vector3_UNIT_X);
     var angle = 0.0;
-    
+
     var fTrace = this.m_0_0 + this.m_1_1 + this.m_2_2;
     var fCos = 0.5 * (fTrace - 1.0);
     angle = Math.acos(fCos);  // in [0,PI]
@@ -792,15 +792,15 @@ Athena.Math.Matrix3.prototype.toEulerAnglesZYX = function()
 Athena.Math.Matrix3.prototype.print = function()
 {
     print('[');
-    
+
     for (var row = 0; row < 3; ++row)
     {
         for (var col = 0; col < 3; ++col)
             print(this.get(row, col) + ' ');
-        
+
         if (row == 2)
             print(']');
-        
+
         print('\n');
     }
 }
@@ -811,7 +811,7 @@ Athena.Math.Matrix3.prototype.print = function()
 Athena.Math.Matrix3.prototype.toString = function()
 {
     var s = '[';
-    
+
     for (var row = 0; row < 3; ++row)
     {
         for (var col = 0; col < 3; ++col)
@@ -820,7 +820,7 @@ Athena.Math.Matrix3.prototype.toString = function()
             if (s < 2)
                 s += ' ';
         }
-        
+
         if (row == 2)
             s += ']';
         else

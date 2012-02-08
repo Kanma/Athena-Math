@@ -1,6 +1,6 @@
 /** @file   Scripting.cpp
     @author Philip Abbet
-    
+
     Implementation of the scripting-related functions of the Athena-Math module
 */
 
@@ -25,13 +25,13 @@ AxisAlignedBox fromJSAxisAlignedBox(Handle<Value> value)
         if (std::string("Athena.Math.AxisAlignedBox") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
         {
             unsigned int t = object->Get(String::New("extent"))->ToNumber()->NumberValue();
-            
+
             if (t == 0)
                 return AxisAlignedBox(AxisAlignedBox::EXTENT_NULL);
 
             if (t == 2)
                 return AxisAlignedBox(AxisAlignedBox::EXTENT_INFINITE);
-            
+
             return AxisAlignedBox(fromJSVector3(object->Get(String::New("minimum"))),
                                   fromJSVector3(object->Get(String::New("maximum"))));
         }
@@ -76,7 +76,7 @@ Color fromJSColor(Handle<Value> value)
     {
         Handle<Object> object = value->ToObject();
         Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
-        
+
         if (std::string("Athena.Math.Color") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
         {
             return Color(object->Get(String::New("r"))->ToNumber()->NumberValue(),
@@ -102,7 +102,7 @@ Handle<Value> toJavaScript(const Color& value)
     object->Set(String::New("g"), Number::New(value.g));
     object->Set(String::New("b"), Number::New(value.b));
     object->Set(String::New("a"), Number::New(value.a));
-    
+
     return object;
 }
 
@@ -114,7 +114,7 @@ Matrix3 fromJSMatrix3(Handle<Value> value)
     {
         Handle<Object> object = value->ToObject();
         Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
-        
+
         if (std::string("Athena.Math.Matrix3") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
         {
             return Matrix3(object->Get(String::New("m_0_0"))->ToNumber()->NumberValue(),
@@ -156,7 +156,7 @@ Handle<Value> toJavaScript(const Matrix3& value)
     object->Set(String::New("m_2_0"), Number::New(value.m[2][0]));
     object->Set(String::New("m_2_1"), Number::New(value.m[2][1]));
     object->Set(String::New("m_2_2"), Number::New(value.m[2][2]));
-    
+
     return object;
 }
 
@@ -168,7 +168,7 @@ Matrix4 fromJSMatrix4(Handle<Value> value)
     {
         Handle<Object> object = value->ToObject();
         Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
-        
+
         if (std::string("Athena.Math.Matrix4") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
         {
             return Matrix4(object->Get(String::New("m_0_0"))->ToNumber()->NumberValue(),
@@ -226,7 +226,7 @@ Handle<Value> toJavaScript(const Matrix4& value)
     object->Set(String::New("m_3_1"), Number::New(value.m[3][1]));
     object->Set(String::New("m_3_2"), Number::New(value.m[3][2]));
     object->Set(String::New("m_3_3"), Number::New(value.m[3][3]));
-    
+
     return object;
 }
 
@@ -238,7 +238,7 @@ Plane fromJSPlane(Handle<Value> value)
     {
         Handle<Object> object = value->ToObject();
         Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
-        
+
         if (std::string("Athena.Math.Plane") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
         {
             return Plane(fromJSVector3(object->Get(String::New("normal"))),
@@ -260,7 +260,7 @@ Handle<Value> toJavaScript(const Plane& value)
     Local<Object> object = Handle<Function>::Cast(constructor)->NewInstance();
     object->Set(String::New("normal"), toJavaScript(value.normal));
     object->Set(String::New("d"), Number::New(value.d));
-    
+
     return object;
 }
 
@@ -272,7 +272,7 @@ Quaternion fromJSQuaternion(Handle<Value> value)
     {
         Handle<Object> object = value->ToObject();
         Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
-        
+
         if (std::string("Athena.Math.Quaternion") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
         {
             return Quaternion(object->Get(String::New("w"))->ToNumber()->NumberValue(),
@@ -298,7 +298,7 @@ Handle<Value> toJavaScript(const Quaternion& value)
     object->Set(String::New("x"), Number::New(value.x));
     object->Set(String::New("y"), Number::New(value.y));
     object->Set(String::New("z"), Number::New(value.z));
-    
+
     return object;
 }
 
@@ -310,7 +310,7 @@ Sphere fromJSSphere(Handle<Value> value)
     {
         Handle<Object> object = value->ToObject();
         Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
-        
+
         if (std::string("Athena.Math.Sphere") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
         {
             return Sphere(fromJSVector3(object->Get(String::New("center"))),
@@ -332,7 +332,7 @@ Handle<Value> toJavaScript(const Sphere& value)
     Local<Object> object = Handle<Function>::Cast(constructor)->NewInstance();
     object->Set(String::New("center"), toJavaScript(value.getCenter()));
     object->Set(String::New("radius"), Number::New(value.getRadius()));
-    
+
     return object;
 }
 
@@ -344,7 +344,7 @@ Vector2 fromJSVector2(Handle<Value> value)
     {
         Handle<Object> object = value->ToObject();
         Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
-        
+
         if (std::string("Athena.Math.Vector2") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
         {
             return Vector2(object->Get(String::New("x"))->ToNumber()->NumberValue(),
@@ -366,7 +366,7 @@ Handle<Value> toJavaScript(const Vector2& value)
     Local<Object> object = Handle<Function>::Cast(constructor)->NewInstance();
     object->Set(String::New("x"), Number::New(value.x));
     object->Set(String::New("y"), Number::New(value.y));
-    
+
     return object;
 }
 
@@ -378,7 +378,7 @@ Vector3 fromJSVector3(Handle<Value> value)
     {
         Handle<Object> object = value->ToObject();
         Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
-        
+
         if (std::string("Athena.Math.Vector3") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
         {
             return Vector3(object->Get(String::New("x"))->ToNumber()->NumberValue(),
@@ -402,7 +402,7 @@ Handle<Value> toJavaScript(const Vector3& value)
     object->Set(String::New("x"), Number::New(value.x));
     object->Set(String::New("y"), Number::New(value.y));
     object->Set(String::New("z"), Number::New(value.z));
-    
+
     return object;
 }
 
@@ -414,7 +414,7 @@ Vector4 fromJSVector4(Handle<Value> value)
     {
         Handle<Object> object = value->ToObject();
         Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
-        
+
         if (std::string("Athena.Math.Vector4") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
         {
             return Vector4(object->Get(String::New("x"))->ToNumber()->NumberValue(),
@@ -440,7 +440,7 @@ Handle<Value> toJavaScript(const Vector4& value)
     object->Set(String::New("y"), Number::New(value.y));
     object->Set(String::New("z"), Number::New(value.z));
     object->Set(String::New("w"), Number::New(value.w));
-    
+
     return object;
 }
 

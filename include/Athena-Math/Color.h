@@ -1,8 +1,8 @@
 /** @file   Color.h
     @author Philip Abbet
-    
+
     Declaration of the class Athena::Math::Color
-    
+
     @note   This is based on the corresponding class from
             <a href="http://www.ogre3d.org/">Ogre3D</a>.
 */
@@ -16,34 +16,34 @@
 namespace Athena {
 namespace Math {
 
-	/** \addtogroup Math
-	*  @{
-	*/
-	
-	typedef uint32 RGBA;
+    /** \addtogroup Math
+    *  @{
+    */
+
+    typedef uint32 RGBA;
     typedef uint32 ARGB;
     typedef uint32 ABGR;
     typedef uint32 BGRA;
-    
-    
-	//------------------------------------------------------------------------------------
-	/// @brief  Represents a color in RGB-space
+
+
+    //------------------------------------------------------------------------------------
+    /// @brief  Represents a color in RGB-space
     ///
-	/// Color is represented as 4 components, each of which is a floating-point value from
-	/// 0.0 to 1.0.
+    /// Color is represented as 4 components, each of which is a floating-point value from
+    /// 0.0 to 1.0.
     ///
     /// The 3 'normal' colour components are red, green and blue, a higher number
     /// indicating greater amounts of that component in the colour. The forth component
     /// is the 'alpha' value, which represents transparency. In this case, 0.0 is
     /// completely transparent and 1.0 is fully opaque.
-	//------------------------------------------------------------------------------------
-	class ATHENA_SYMBOL Color
-	{
+    //------------------------------------------------------------------------------------
+    class ATHENA_SYMBOL Color
+    {
         //_____ Construction / Destruction __________
     public:
-	    explicit Color(float red = 1.0f, float green = 1.0f, float blue = 1.0f,
-				       float alpha = 1.0f)
-		: r(red), g(green), b(blue), a(alpha)
+        explicit Color(float red = 1.0f, float green = 1.0f, float blue = 1.0f,
+                       float alpha = 1.0f)
+        : r(red), g(green), b(blue), a(alpha)
         {
         }
 
@@ -51,79 +51,79 @@ namespace Math {
         //_____ Value retrieval __________
     public:
         //--------------------------------------------------------------------------------
-		/// @brief  Retrieves colour as RGBA
+        /// @brief  Retrieves colour as RGBA
         //--------------------------------------------------------------------------------
-	    RGBA getAsRGBA(void) const;
+        RGBA getAsRGBA(void) const;
 
         //--------------------------------------------------------------------------------
-		/// @brief  Retrieves colour as ARGB
+        /// @brief  Retrieves colour as ARGB
         //--------------------------------------------------------------------------------
-	    ARGB getAsARGB(void) const;
+        ARGB getAsARGB(void) const;
 
         //--------------------------------------------------------------------------------
-		/// @brief  Retrieves colour as BGRA
+        /// @brief  Retrieves colour as BGRA
         //--------------------------------------------------------------------------------
-		BGRA getAsBGRA(void) const;
+        BGRA getAsBGRA(void) const;
 
         //--------------------------------------------------------------------------------
-		/// @brief  Retrieves colour as ABGR
+        /// @brief  Retrieves colour as ABGR
         //--------------------------------------------------------------------------------
-	    ABGR getAsABGR(void) const;
+        ABGR getAsABGR(void) const;
 
         //--------------------------------------------------------------------------------
-		/// @brief  Array accessor operator
+        /// @brief  Array accessor operator
         //--------------------------------------------------------------------------------
-		inline float operator[](const size_t i) const
-		{
-			assert(i < 4);
-			return *(&r+i);
-		}
+        inline float operator[](const size_t i) const
+        {
+            assert(i < 4);
+            return *(&r+i);
+        }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Array accessor operator
+        /// @brief  Array accessor operator
         //--------------------------------------------------------------------------------
-		inline float& operator[](const size_t i)
-		{
-			assert(i < 4);
-			return *(&r+i);
-		}
+        inline float& operator[](const size_t i)
+        {
+            assert(i < 4);
+            return *(&r+i);
+        }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Pointer accessor for direct copying
+        /// @brief  Pointer accessor for direct copying
         //--------------------------------------------------------------------------------
-		inline float* ptr()
-		{
-			return &r;
-		}
+        inline float* ptr()
+        {
+            return &r;
+        }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Pointer accessor for direct copying
+        /// @brief  Pointer accessor for direct copying
         //--------------------------------------------------------------------------------
-		inline const float* ptr() const
-		{
-			return &r;
-		}
+        inline const float* ptr() const
+        {
+            return &r;
+        }
 
 
         //_____ Value assignation __________
     public:
         //--------------------------------------------------------------------------------
-		/// @brief  Sets colour as RGBA
+        /// @brief  Sets colour as RGBA
         //--------------------------------------------------------------------------------
         void setAsRGBA(const RGBA val);
 
         //--------------------------------------------------------------------------------
-		/// @brief  Sets colour as ARGB
+        /// @brief  Sets colour as ARGB
         //--------------------------------------------------------------------------------
         void setAsARGB(const ARGB val);
 
         //--------------------------------------------------------------------------------
-		/// @brief  Sets colour as BGRA
+        /// @brief  Sets colour as BGRA
         //--------------------------------------------------------------------------------
-		void setAsBGRA(const BGRA val);
+        void setAsBGRA(const BGRA val);
 
         //--------------------------------------------------------------------------------
-		/// @brief  Sets colour as ABGR
+        /// @brief  Sets colour as ABGR
         //--------------------------------------------------------------------------------
         void setAsABGR(const ABGR val);
 
@@ -131,7 +131,7 @@ namespace Math {
         //_____ Methods __________
     public:
         //--------------------------------------------------------------------------------
-		/// @brief  Clamps color value to the range [0, 1]
+        /// @brief  Clamps color value to the range [0, 1]
         //--------------------------------------------------------------------------------
         inline void saturate(void)
         {
@@ -157,8 +157,8 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  As saturate, except that this colour value is unaffected and the
-		///         saturated color value is returned as a copy
+        /// @brief  As saturate, except that this colour value is unaffected and the
+        ///         saturated color value is returned as a copy
         //--------------------------------------------------------------------------------
         inline Color saturateCopy(void) const
         {
@@ -167,7 +167,7 @@ namespace Math {
             return ret;
         }
 
-		
+
         //_____ Arithmetic operations __________
     public:
         inline Color operator+(const Color& rkVector) const
@@ -306,38 +306,38 @@ namespace Math {
 
         //_____ Comparison operators __________
     public:
-	    inline bool operator==(const Color& rhs) const
-	    {
-	        return (r == rhs.r && g == rhs.g && b == rhs.b && a == rhs.a);
-	    }
-	    
-	    inline bool operator!=(const Color& rhs) const
-	    {
-	        return !(*this == rhs);
-	    }
+        inline bool operator==(const Color& rhs) const
+        {
+            return (r == rhs.r && g == rhs.g && b == rhs.b && a == rhs.a);
+        }
+
+        inline bool operator!=(const Color& rhs) const
+        {
+            return !(*this == rhs);
+        }
 
 
         //_____ Color-space conversion __________
     public:
         //--------------------------------------------------------------------------------
-		/// @brief  Set a colour value from Hue, Saturation and Brightness
-		///
-		/// @param  hue         Hue value, scaled to the [0,1] range as opposed to the
-		///                     0-360 one
-		/// @param  saturation  Saturation level, [0,1]
-		/// @param  brightness  Brightness level, [0,1]
+        /// @brief  Set a colour value from Hue, Saturation and Brightness
+        ///
+        /// @param  hue         Hue value, scaled to the [0,1] range as opposed to the
+        ///                     0-360 one
+        /// @param  saturation  Saturation level, [0,1]
+        /// @param  brightness  Brightness level, [0,1]
         //--------------------------------------------------------------------------------
-		void setHSB(Real hue, Real saturation, Real brightness);
+        void setHSB(Real hue, Real saturation, Real brightness);
 
         //--------------------------------------------------------------------------------
-		/// @brief  Convert the current colour to Hue, Saturation and Brightness values
-		///
-		/// @param[out]  hue        Hue value, scaled to the [0,1] range as opposed to
-		///                         the 0-360 one
-		/// @param[out]  saturation Saturation level, [0,1]
-		/// @param[out]  brightness Brightness level, [0,1]
+        /// @brief  Convert the current colour to Hue, Saturation and Brightness values
+        ///
+        /// @param[out]  hue        Hue value, scaled to the [0,1] range as opposed to
+        ///                         the 0-360 one
+        /// @param[out]  saturation Saturation level, [0,1]
+        /// @param[out]  brightness Brightness level, [0,1]
         //--------------------------------------------------------------------------------
-		void getHSB(Real* hue, Real* saturation, Real* brightness) const;
+        void getHSB(Real* hue, Real* saturation, Real* brightness) const;
 
 
         //_____ Constants __________
@@ -352,11 +352,11 @@ namespace Math {
 
         //_____ Attributes __________
     public:
-		float r, g, b, a;
+        float r, g, b, a;
     };
 
-	/** @} */
-	/** @} */
+    /** @} */
+    /** @} */
 }
 }
 

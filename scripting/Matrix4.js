@@ -1,8 +1,8 @@
 /** @file   Matrix4.js
     @author Philip Abbet
-    
+
     Declaration of the class Athena.Math.Matrix4
-    
+
     @note   Using a pure JavaScript class here instead of a binding over
             the C++ one results in faster code.
 */
@@ -12,38 +12,38 @@ Athena.Math.Matrix4 = function()
     if (arguments.length == 0)
     {
         this.m_0_0 = 0.0;
-        this.m_0_1 = 0.0;  
+        this.m_0_1 = 0.0;
         this.m_0_2 = 0.0;
         this.m_0_3 = 0.0;
         this.m_1_0 = 0.0;
-        this.m_1_1 = 0.0;  
+        this.m_1_1 = 0.0;
         this.m_1_2 = 0.0;
         this.m_1_3 = 0.0;
         this.m_2_0 = 0.0;
-        this.m_2_1 = 0.0;  
+        this.m_2_1 = 0.0;
         this.m_2_2 = 0.0;
         this.m_2_3 = 0.0;
         this.m_3_0 = 0.0;
-        this.m_3_1 = 0.0;  
+        this.m_3_1 = 0.0;
         this.m_3_2 = 0.0;
         this.m_3_3 = 0.0;
     }
     else if (arguments.length == 16)
     {
         this.m_0_0 = arguments[0];
-        this.m_0_1 = arguments[1];  
+        this.m_0_1 = arguments[1];
         this.m_0_2 = arguments[2];
         this.m_0_3 = arguments[3];
         this.m_1_0 = arguments[4];
-        this.m_1_1 = arguments[5];  
+        this.m_1_1 = arguments[5];
         this.m_1_2 = arguments[6];
         this.m_1_3 = arguments[7];
         this.m_2_0 = arguments[8];
-        this.m_2_1 = arguments[9];  
+        this.m_2_1 = arguments[9];
         this.m_2_2 = arguments[10];
         this.m_2_3 = arguments[11];
         this.m_3_0 = arguments[12];
-        this.m_3_1 = arguments[13];  
+        this.m_3_1 = arguments[13];
         this.m_3_2 = arguments[14];
         this.m_3_3 = arguments[15];
     }
@@ -52,59 +52,59 @@ Athena.Math.Matrix4 = function()
         if (arguments[0].__classname__ == 'Athena.Math.Matrix4')
         {
             this.m_0_0 = arguments[0].m_0_0;
-            this.m_0_1 = arguments[0].m_0_1;  
+            this.m_0_1 = arguments[0].m_0_1;
             this.m_0_2 = arguments[0].m_0_2;
             this.m_0_3 = arguments[0].m_0_3;
             this.m_1_0 = arguments[0].m_1_0;
-            this.m_1_1 = arguments[0].m_1_1;  
+            this.m_1_1 = arguments[0].m_1_1;
             this.m_1_2 = arguments[0].m_1_2;
             this.m_1_3 = arguments[0].m_1_3;
             this.m_2_0 = arguments[0].m_2_0;
-            this.m_2_1 = arguments[0].m_2_1;  
+            this.m_2_1 = arguments[0].m_2_1;
             this.m_2_2 = arguments[0].m_2_2;
             this.m_2_3 = arguments[0].m_2_3;
             this.m_3_0 = arguments[0].m_3_0;
-            this.m_3_1 = arguments[0].m_3_1;  
+            this.m_3_1 = arguments[0].m_3_1;
             this.m_3_2 = arguments[0].m_3_2;
             this.m_3_3 = arguments[0].m_3_3;
         }
         else if (arguments[0].__classname__ == 'Athena.Math.Matrix3')
         {
             this.m_0_0 = arguments[0].m_0_0;
-            this.m_0_1 = arguments[0].m_0_1;  
+            this.m_0_1 = arguments[0].m_0_1;
             this.m_0_2 = arguments[0].m_0_2;
             this.m_0_3 = 0.0;
             this.m_1_0 = arguments[0].m_1_0;
-            this.m_1_1 = arguments[0].m_1_1;  
+            this.m_1_1 = arguments[0].m_1_1;
             this.m_1_2 = arguments[0].m_1_2;
             this.m_1_3 = 0.0;
             this.m_2_0 = arguments[0].m_2_0;
-            this.m_2_1 = arguments[0].m_2_1;  
+            this.m_2_1 = arguments[0].m_2_1;
             this.m_2_2 = arguments[0].m_2_2;
             this.m_2_3 = 0.0;
             this.m_3_0 = 0.0;
-            this.m_3_1 = 0.0;  
+            this.m_3_1 = 0.0;
             this.m_3_2 = 0.0;
             this.m_3_3 = 1.0;
         }
         else if (arguments[0].__classname__ == 'Athena.Math.Quaternion')
         {
             var m3x3 = arguments[0].toRotationMatrix();
-            
+
             this.m_0_0 = m3x3.m_0_0;
-            this.m_0_1 = m3x3.m_0_1;  
+            this.m_0_1 = m3x3.m_0_1;
             this.m_0_2 = m3x3.m_0_2;
             this.m_0_3 = 0.0;
             this.m_1_0 = m3x3.m_1_0;
-            this.m_1_1 = m3x3.m_1_1;  
+            this.m_1_1 = m3x3.m_1_1;
             this.m_1_2 = m3x3.m_1_2;
             this.m_1_3 = 0.0;
             this.m_2_0 = m3x3.m_2_0;
-            this.m_2_1 = m3x3.m_2_1;  
+            this.m_2_1 = m3x3.m_2_1;
             this.m_2_2 = m3x3.m_2_2;
             this.m_2_3 = 0.0;
             this.m_3_0 = 0.0;
-            this.m_3_1 = 0.0;  
+            this.m_3_1 = 0.0;
             this.m_3_2 = 0.0;
             this.m_3_3 = 1.0;
         }
@@ -135,19 +135,19 @@ Athena.Math.Matrix4.prototype.set = function()
     if (arguments.length == 16)
     {
         this.m_0_0 = arguments[0];
-        this.m_0_1 = arguments[1];  
+        this.m_0_1 = arguments[1];
         this.m_0_2 = arguments[2];
         this.m_0_3 = arguments[3];
         this.m_1_0 = arguments[4];
-        this.m_1_1 = arguments[5];  
+        this.m_1_1 = arguments[5];
         this.m_1_2 = arguments[6];
         this.m_1_3 = arguments[7];
         this.m_2_0 = arguments[8];
-        this.m_2_1 = arguments[9];  
+        this.m_2_1 = arguments[9];
         this.m_2_2 = arguments[10];
         this.m_2_3 = arguments[11];
         this.m_3_0 = arguments[12];
-        this.m_3_1 = arguments[13];  
+        this.m_3_1 = arguments[13];
         this.m_3_2 = arguments[14];
         this.m_3_3 = arguments[15];
     }
@@ -156,59 +156,59 @@ Athena.Math.Matrix4.prototype.set = function()
         if (arguments[0].__classname__ == 'Athena.Math.Matrix4')
         {
             this.m_0_0 = arguments[0].m_0_0;
-            this.m_0_1 = arguments[0].m_0_1;  
+            this.m_0_1 = arguments[0].m_0_1;
             this.m_0_2 = arguments[0].m_0_2;
             this.m_0_3 = arguments[0].m_0_3;
             this.m_1_0 = arguments[0].m_1_0;
-            this.m_1_1 = arguments[0].m_1_1;  
+            this.m_1_1 = arguments[0].m_1_1;
             this.m_1_2 = arguments[0].m_1_2;
             this.m_1_3 = arguments[0].m_1_3;
             this.m_2_0 = arguments[0].m_2_0;
-            this.m_2_1 = arguments[0].m_2_1;  
+            this.m_2_1 = arguments[0].m_2_1;
             this.m_2_2 = arguments[0].m_2_2;
             this.m_2_3 = arguments[0].m_2_3;
             this.m_3_0 = arguments[0].m_3_0;
-            this.m_3_1 = arguments[0].m_3_1;  
+            this.m_3_1 = arguments[0].m_3_1;
             this.m_3_2 = arguments[0].m_3_2;
             this.m_3_3 = arguments[0].m_3_3;
         }
         else if (arguments[0].__classname__ == 'Athena.Math.Matrix3')
         {
             this.m_0_0 = arguments[0].m_0_0;
-            this.m_0_1 = arguments[0].m_0_1;  
+            this.m_0_1 = arguments[0].m_0_1;
             this.m_0_2 = arguments[0].m_0_2;
             this.m_0_3 = 0.0;
             this.m_1_0 = arguments[0].m_1_0;
-            this.m_1_1 = arguments[0].m_1_1;  
+            this.m_1_1 = arguments[0].m_1_1;
             this.m_1_2 = arguments[0].m_1_2;
             this.m_1_3 = 0.0;
             this.m_2_0 = arguments[0].m_2_0;
-            this.m_2_1 = arguments[0].m_2_1;  
+            this.m_2_1 = arguments[0].m_2_1;
             this.m_2_2 = arguments[0].m_2_2;
             this.m_2_3 = 0.0;
             this.m_3_0 = 0.0;
-            this.m_3_1 = 0.0;  
+            this.m_3_1 = 0.0;
             this.m_3_2 = 0.0;
             this.m_3_3 = 1.0;
         }
         else if (arguments[0].__classname__ == 'Athena.Math.Quaternion')
         {
             var m3x3 = arguments[0].toRotationMatrix();
-            
+
             this.m_0_0 = m3x3.m_0_0;
-            this.m_0_1 = m3x3.m_0_1;  
+            this.m_0_1 = m3x3.m_0_1;
             this.m_0_2 = m3x3.m_0_2;
             this.m_0_3 = 0.0;
             this.m_1_0 = m3x3.m_1_0;
-            this.m_1_1 = m3x3.m_1_1;  
+            this.m_1_1 = m3x3.m_1_1;
             this.m_1_2 = m3x3.m_1_2;
             this.m_1_3 = 0.0;
             this.m_2_0 = m3x3.m_2_0;
-            this.m_2_1 = m3x3.m_2_1;  
+            this.m_2_1 = m3x3.m_2_1;
             this.m_2_2 = m3x3.m_2_2;
             this.m_2_3 = 0.0;
             this.m_3_0 = 0.0;
-            this.m_3_1 = 0.0;  
+            this.m_3_1 = 0.0;
             this.m_3_2 = 0.0;
             this.m_3_3 = 1.0;
         }
@@ -289,25 +289,25 @@ Athena.Math.Matrix4.prototype.makeInverseTransform = function(position, scale, o
 Athena.Math.Matrix4.prototype.add = function()
 {
     var r = new Athena.Math.Matrix4(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if ((typeof(arguments[i]) === 'object') && (arguments[i].__classname__ == 'Athena.Math.Matrix4'))
         {
             r.m_0_0 += arguments[i].m_0_0;
-            r.m_0_1 += arguments[i].m_0_1;  
+            r.m_0_1 += arguments[i].m_0_1;
             r.m_0_2 += arguments[i].m_0_2;
             r.m_0_3 += arguments[i].m_0_3;
             r.m_1_0 += arguments[i].m_1_0;
-            r.m_1_1 += arguments[i].m_1_1;  
+            r.m_1_1 += arguments[i].m_1_1;
             r.m_1_2 += arguments[i].m_1_2;
             r.m_1_3 += arguments[i].m_1_3;
             r.m_2_0 += arguments[i].m_2_0;
-            r.m_2_1 += arguments[i].m_2_1;  
+            r.m_2_1 += arguments[i].m_2_1;
             r.m_2_2 += arguments[i].m_2_2;
             r.m_2_3 += arguments[i].m_2_3;
             r.m_3_0 += arguments[i].m_3_0;
-            r.m_3_1 += arguments[i].m_3_1;  
+            r.m_3_1 += arguments[i].m_3_1;
             r.m_3_2 += arguments[i].m_3_2;
             r.m_3_3 += arguments[i].m_3_3;
         }
@@ -321,25 +321,25 @@ Athena.Math.Matrix4.prototype.add = function()
 Athena.Math.Matrix4.prototype.sub = function()
 {
     var r = new Athena.Math.Matrix4(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if ((typeof(arguments[i]) === 'object') && (arguments[i].__classname__ == 'Athena.Math.Matrix4'))
         {
             r.m_0_0 -= arguments[i].m_0_0;
-            r.m_0_1 -= arguments[i].m_0_1;  
+            r.m_0_1 -= arguments[i].m_0_1;
             r.m_0_2 -= arguments[i].m_0_2;
             r.m_0_3 -= arguments[i].m_0_3;
             r.m_1_0 -= arguments[i].m_1_0;
-            r.m_1_1 -= arguments[i].m_1_1;  
+            r.m_1_1 -= arguments[i].m_1_1;
             r.m_1_2 -= arguments[i].m_1_2;
             r.m_1_3 -= arguments[i].m_1_3;
             r.m_2_0 -= arguments[i].m_2_0;
-            r.m_2_1 -= arguments[i].m_2_1;  
+            r.m_2_1 -= arguments[i].m_2_1;
             r.m_2_2 -= arguments[i].m_2_2;
             r.m_2_3 -= arguments[i].m_2_3;
             r.m_3_0 -= arguments[i].m_3_0;
-            r.m_3_1 -= arguments[i].m_3_1;  
+            r.m_3_1 -= arguments[i].m_3_1;
             r.m_3_2 -= arguments[i].m_3_2;
             r.m_3_3 -= arguments[i].m_3_3;
         }
@@ -375,14 +375,14 @@ Athena.Math.Matrix4.prototype.mul = function()
         }
         else if (arguments[0].__classname__ == 'Athena.Math.Plane')
         {
-			var invTrans = this.inverse().transpose();
-			var v4 = new Athena.Math.Vector4(arguments[0].normal.x, arguments[0].normal.y, arguments[0].normal.z, arguments[0].d);
-			v4 = invTrans.mul(v4);
-			
-			var normal = new Athena.Math.Vector3(v4.x, v4.y, v4.z);
-			var length = normal.normalise();
-			
-			return new Athena.Math.Plane(normal, v4.w / length);
+            var invTrans = this.inverse().transpose();
+            var v4 = new Athena.Math.Vector4(arguments[0].normal.x, arguments[0].normal.y, arguments[0].normal.z, arguments[0].d);
+            v4 = invTrans.mul(v4);
+
+            var normal = new Athena.Math.Vector3(v4.x, v4.y, v4.z);
+            var length = normal.normalise();
+
+            return new Athena.Math.Plane(normal, v4.w / length);
         }
     }
 
@@ -395,24 +395,24 @@ Athena.Math.Matrix4.prototype.mul = function()
             if (arguments[i].__classname__ == 'Athena.Math.Matrix4')
             {
                 var r2 = new Athena.Math.Matrix4(r);
-            
+
                 r.m_0_0 += r2.m_0_0 * arguments[i].m_0_0 + r2.m_0_1 * arguments[i].m_1_0 + r2.m_0_2 * arguments[i].m_2_0 + r2.m_0_3 * arguments[i].m_3_0;
-                r.m_0_1 += r2.m_0_0 * arguments[i].m_0_1 + r2.m_0_1 * arguments[i].m_1_1 + r2.m_0_2 * arguments[i].m_2_1 + r2.m_0_3 * arguments[i].m_3_1;  
+                r.m_0_1 += r2.m_0_0 * arguments[i].m_0_1 + r2.m_0_1 * arguments[i].m_1_1 + r2.m_0_2 * arguments[i].m_2_1 + r2.m_0_3 * arguments[i].m_3_1;
                 r.m_0_2 += r2.m_0_0 * arguments[i].m_0_2 + r2.m_0_1 * arguments[i].m_1_2 + r2.m_0_2 * arguments[i].m_2_2 + r2.m_0_3 * arguments[i].m_3_2;
                 r.m_0_3 += r2.m_0_0 * arguments[i].m_0_3 + r2.m_0_1 * arguments[i].m_1_3 + r2.m_0_2 * arguments[i].m_2_3 + r2.m_0_3 * arguments[i].m_3_3;
 
                 r.m_1_0 += r2.m_1_0 * arguments[i].m_0_0 + r2.m_1_1 * arguments[i].m_1_0 + r2.m_1_2 * arguments[i].m_2_0 + r2.m_1_3 * arguments[i].m_3_0;
-                r.m_1_1 += r2.m_1_0 * arguments[i].m_0_1 + r2.m_1_1 * arguments[i].m_1_1 + r2.m_1_2 * arguments[i].m_2_1 + r2.m_1_3 * arguments[i].m_3_1;  
+                r.m_1_1 += r2.m_1_0 * arguments[i].m_0_1 + r2.m_1_1 * arguments[i].m_1_1 + r2.m_1_2 * arguments[i].m_2_1 + r2.m_1_3 * arguments[i].m_3_1;
                 r.m_1_2 += r2.m_1_0 * arguments[i].m_0_2 + r2.m_1_1 * arguments[i].m_1_2 + r2.m_1_2 * arguments[i].m_2_2 + r2.m_1_3 * arguments[i].m_3_2;
                 r.m_1_3 += r2.m_1_0 * arguments[i].m_0_3 + r2.m_1_1 * arguments[i].m_1_3 + r2.m_1_2 * arguments[i].m_2_3 + r2.m_1_3 * arguments[i].m_3_3;
 
                 r.m_2_0 += r2.m_2_0 * arguments[i].m_0_0 + r2.m_2_1 * arguments[i].m_1_0 + r2.m_2_2 * arguments[i].m_2_0 + r2.m_2_3 * arguments[i].m_3_0;
-                r.m_2_1 += r2.m_2_0 * arguments[i].m_0_1 + r2.m_2_1 * arguments[i].m_1_1 + r2.m_2_2 * arguments[i].m_2_1 + r2.m_2_3 * arguments[i].m_3_1;  
+                r.m_2_1 += r2.m_2_0 * arguments[i].m_0_1 + r2.m_2_1 * arguments[i].m_1_1 + r2.m_2_2 * arguments[i].m_2_1 + r2.m_2_3 * arguments[i].m_3_1;
                 r.m_2_2 += r2.m_2_0 * arguments[i].m_0_2 + r2.m_2_1 * arguments[i].m_1_2 + r2.m_2_2 * arguments[i].m_2_2 + r2.m_2_3 * arguments[i].m_3_2;
                 r.m_2_3 += r2.m_2_0 * arguments[i].m_0_3 + r2.m_2_1 * arguments[i].m_1_3 + r2.m_2_2 * arguments[i].m_2_3 + r2.m_2_3 * arguments[i].m_3_3;
 
                 r.m_3_0 += r2.m_3_0 * arguments[i].m_0_0 + r2.m_3_1 * arguments[i].m_1_0 + r2.m_3_2 * arguments[i].m_2_0 + r2.m_3_3 * arguments[i].m_3_0;
-                r.m_3_1 += r2.m_3_0 * arguments[i].m_0_1 + r2.m_3_1 * arguments[i].m_1_1 + r2.m_3_2 * arguments[i].m_2_1 + r2.m_3_3 * arguments[i].m_3_1;  
+                r.m_3_1 += r2.m_3_0 * arguments[i].m_0_1 + r2.m_3_1 * arguments[i].m_1_1 + r2.m_3_2 * arguments[i].m_2_1 + r2.m_3_3 * arguments[i].m_3_1;
                 r.m_3_2 += r2.m_3_0 * arguments[i].m_0_2 + r2.m_3_1 * arguments[i].m_1_2 + r2.m_3_2 * arguments[i].m_2_2 + r2.m_3_3 * arguments[i].m_3_2;
                 r.m_3_3 += r2.m_3_0 * arguments[i].m_0_3 + r2.m_3_1 * arguments[i].m_1_3 + r2.m_3_2 * arguments[i].m_2_3 + r2.m_3_3 * arguments[i].m_3_3;
             }
@@ -424,19 +424,19 @@ Athena.Math.Matrix4.prototype.mul = function()
         else
         {
             r.m_0_0 *= arguments[i];
-            r.m_0_1 *= arguments[i];  
+            r.m_0_1 *= arguments[i];
             r.m_0_2 *= arguments[i];
             r.m_0_3 *= arguments[i];
             r.m_1_0 *= arguments[i];
-            r.m_1_1 *= arguments[i];  
+            r.m_1_1 *= arguments[i];
             r.m_1_2 *= arguments[i];
             r.m_1_3 *= arguments[i];
             r.m_2_0 *= arguments[i];
-            r.m_2_1 *= arguments[i];  
+            r.m_2_1 *= arguments[i];
             r.m_2_2 *= arguments[i];
             r.m_2_3 *= arguments[i];
             r.m_3_0 *= arguments[i];
-            r.m_3_1 *= arguments[i];  
+            r.m_3_1 *= arguments[i];
             r.m_3_2 *= arguments[i];
             r.m_3_3 *= arguments[i];
         }
@@ -651,7 +651,7 @@ Athena.Math.Matrix4.prototype.inverse = function()
 Athena.Math.Matrix4.prototype.toString = function()
 {
     var s = '[';
-    
+
     for (var row = 0; row < 4; ++row)
     {
         for (var col = 0; col < 4; ++col)
@@ -660,7 +660,7 @@ Athena.Math.Matrix4.prototype.toString = function()
             if (s < 3)
                 s += ' ';
         }
-        
+
         if (row == 3)
             s += ']';
         else

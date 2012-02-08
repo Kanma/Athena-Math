@@ -1,8 +1,8 @@
 /** @file   Quaternion.js
     @author Philip Abbet
-    
+
     Declaration of the class Athena.Math.Quaternion
-    
+
     @note   Using a pure JavaScript class here instead of a binding over
             the C++ one results in faster code.
 */
@@ -13,14 +13,14 @@ Athena.Math.Quaternion = function()
     {
         this.w = 1.0;
         this.x = 0.0;
-        this.y = 0.0;  
+        this.y = 0.0;
         this.z = 0.0;
     }
     else if (arguments.length == 4)
     {
         this.w = arguments[0];
         this.x = arguments[1];
-        this.y = arguments[2];  
+        this.y = arguments[2];
         this.z = arguments[3];
     }
     else if (arguments.length == 2)
@@ -45,7 +45,7 @@ Athena.Math.Quaternion = function()
         {
             this.w = arguments[0].w;
             this.x = arguments[0].x;
-            this.y = arguments[0].y;  
+            this.y = arguments[0].y;
             this.z = arguments[0].z;
         }
         else if (arguments[0].__classname__ == 'Athena.Math.Matrix3')
@@ -117,7 +117,7 @@ Athena.Math.Quaternion.prototype.set = function()
     {
         this.w = arguments[0];
         this.x = arguments[1];
-        this.y = arguments[2];  
+        this.y = arguments[2];
         this.z = arguments[3];
     }
     else if (arguments.length == 2)
@@ -142,7 +142,7 @@ Athena.Math.Quaternion.prototype.set = function()
         {
             this.w = arguments[0].w;
             this.x = arguments[0].x;
-            this.y = arguments[0].y;  
+            this.y = arguments[0].y;
             this.z = arguments[0].z;
         }
         else if (arguments[0].__classname__ == 'Athena.Math.Matrix3')
@@ -237,7 +237,7 @@ Athena.Math.Quaternion.prototype.toAngleAxis = function()
     {
         var angle = 2.0 * Athena.Math.acos(this.w);
         var fInvLength = 1.0 / Math.sqrt(fSqrLength);
-        
+
         var axis = new Athena.Math.Vector3(this.x * fInvLength,
                                            this.y * fInvLength,
                                            this.z * fInvLength);
@@ -256,7 +256,7 @@ Athena.Math.Quaternion.prototype.toAngleAxis = function()
 Athena.Math.Quaternion.prototype.toAxes = function()
 {
     var m = this.toRotationMatrix();
-    
+
     return { xaxis: new Athena.Math.Vector3(m.m_0_0, m.m_1_0, m.m_2_0),
              yaxis: new Athena.Math.Vector3(m.m_0_1, m.m_1_1, m.m_2_1),
              zaxis: new Athena.Math.Vector3(m.m_0_2, m.m_1_2, m.m_2_2) };
@@ -338,7 +338,7 @@ Athena.Math.Quaternion.prototype.squaredNorm = function()
 Athena.Math.Quaternion.prototype.normalise = function()
 {
     var length = this.norm();
-    
+
     if (length > 1e-08)
     {
         var inverse = 1.0 / length;
@@ -347,7 +347,7 @@ Athena.Math.Quaternion.prototype.normalise = function()
         this.y *= inverse;
         this.z *= inverse;
     }
-    
+
     return length;
 }
 
@@ -356,14 +356,14 @@ Athena.Math.Quaternion.prototype.normalise = function()
 Athena.Math.Quaternion.prototype.inverse = function()
 {
     var squared_length = this.squaredNorm();
-    
+
     if (length > 1e-08)
     {
         var inverse = 1.0 / squared_length;
         return new Athena.Math.Quaternion(this.w * inverse, -this.x * inverse,
                                           -this.y * inverse, -this.z * inverse);
     }
-    
+
     return Athena.Math.Quaternion_ZERO;
 }
 
@@ -401,14 +401,14 @@ Athena.Math.Quaternion.prototype.toString = function()
 Athena.Math.Quaternion.prototype.add = function()
 {
     var q = new Athena.Math.Quaternion(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if ((typeof(arguments[i]) === 'object') && (arguments[i].__classname__ == 'Athena.Math.Quaternion'))
         {
             q.w += arguments[i].w;
             q.x += arguments[i].x;
-            q.y += arguments[i].y;  
+            q.y += arguments[i].y;
             q.z += arguments[i].z;
         }
     }
@@ -421,14 +421,14 @@ Athena.Math.Quaternion.prototype.add = function()
 Athena.Math.Quaternion.prototype.sub = function()
 {
     var q = new Athena.Math.Quaternion(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if ((typeof(arguments[i]) === 'object') && (arguments[i].__classname__ == 'Athena.Math.Quaternion'))
         {
             q.w -= arguments[i].w;
             q.x -= arguments[i].x;
-            q.y -= arguments[i].y;  
+            q.y -= arguments[i].y;
             q.z -= arguments[i].z;
         }
     }
@@ -448,12 +448,12 @@ Athena.Math.Quaternion.prototype.mul = function()
 
         uv = uv.mul(2.0 * this.w);
         uuv = uuv.mul(2.0);
-        
+
         return arguments[0].add(uv, uuv);
     }
 
     var q = new Athena.Math.Quaternion(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if (typeof(arguments[i]) === 'object')
@@ -472,7 +472,7 @@ Athena.Math.Quaternion.prototype.mul = function()
         {
             q.w *= arguments[i];
             q.x *= arguments[i];
-            q.y *= arguments[i];  
+            q.y *= arguments[i];
             q.z *= arguments[i];
         }
     }

@@ -1,8 +1,8 @@
 /** @file   Vector3.h
     @author Philip Abbet
-    
+
     Declaration of the class Athena::Math::Vector3
-    
+
     @note   This is based on the corresponding class from
             <a href="http://www.ogre3d.org/">Ogre3D</a>.
 */
@@ -18,19 +18,19 @@
 namespace Athena {
 namespace Math {
 
-	/** \addtogroup Math
-	*  @{
-	*/
-	
-	//------------------------------------------------------------------------------------
-	/// @brief  Standard 3-dimensional vector
-	/// 
-	/// A direction in 3D space represented as distances along the 3 orthogonal axes
-	/// (x, y, z). Note that positions, directions and scaling factors can be represented
-	/// by a vector, depending on how you interpret the values.
-	//------------------------------------------------------------------------------------
-	class ATHENA_SYMBOL Vector3
-	{
+    /** \addtogroup Math
+    *  @{
+    */
+
+    //------------------------------------------------------------------------------------
+    /// @brief  Standard 3-dimensional vector
+    ///
+    /// A direction in 3D space represented as distances along the 3 orthogonal axes
+    /// (x, y, z). Note that positions, directions and scaling factors can be represented
+    /// by a vector, depending on how you interpret the values.
+    //------------------------------------------------------------------------------------
+    class ATHENA_SYMBOL Vector3
+    {
         //_____ Construction / Destruction __________
     public:
         inline Vector3()
@@ -69,35 +69,35 @@ namespace Math {
 
         //_____ Value retrieval __________
     public:
-		inline Real operator[](const size_t i) const
+        inline Real operator[](const size_t i) const
         {
             assert(i < 3);
 
             return *(&x+i);
         }
 
-		inline Real& operator[](const size_t i)
+        inline Real& operator[](const size_t i)
         {
             assert(i < 3);
 
             return *(&x+i);
         }
-        
-        //--------------------------------------------------------------------------------
-		/// @brief  Pointer accessor for direct copying
-        //--------------------------------------------------------------------------------
-		inline Real* ptr()
-		{
-			return &x;
-		}
 
         //--------------------------------------------------------------------------------
-		/// @brief  Pointer accessor for direct copying
+        /// @brief  Pointer accessor for direct copying
         //--------------------------------------------------------------------------------
-		inline const Real* ptr() const
-		{
-			return &x;
-		}
+        inline Real* ptr()
+        {
+            return &x;
+        }
+
+        //--------------------------------------------------------------------------------
+        /// @brief  Pointer accessor for direct copying
+        //--------------------------------------------------------------------------------
+        inline const Real* ptr() const
+        {
+            return &x;
+        }
 
 
         //_____ Value assignation __________
@@ -121,14 +121,14 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Exchange the contents of this vector with another
+        /// @brief  Exchange the contents of this vector with another
         //--------------------------------------------------------------------------------
-		inline void swap(Vector3& other)
-		{
-			std::swap(x, other.x);
-			std::swap(y, other.y);
-			std::swap(z, other.z);
-		}
+        inline void swap(Vector3& other)
+        {
+            std::swap(x, other.x);
+            std::swap(y, other.y);
+            std::swap(z, other.z);
+        }
 
 
         //_____ Comparison operations __________
@@ -356,11 +356,11 @@ namespace Math {
         //_____ Methods __________
     public:
         //--------------------------------------------------------------------------------
-		/// @brief  Returns the length (magnitude) of the vector
-		///
-		/// @warning    This operation requires a square root and is expensive in terms of
-		///             CPU operations. If you don't need to know the exact length (e.g.
-		///             for just comparing lengths) use squaredLength() instead.
+        /// @brief  Returns the length (magnitude) of the vector
+        ///
+        /// @warning    This operation requires a square root and is expensive in terms of
+        ///             CPU operations. If you don't need to know the exact length (e.g.
+        ///             for just comparing lengths) use squaredLength() instead.
         //--------------------------------------------------------------------------------
         inline Real length() const
         {
@@ -368,14 +368,14 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Returns the square of the length (magnitude) of the vector
-		///
-		/// @remark This method is for efficiency - calculating the actual length of a
-		///         vector requires a square root, which is expensive in terms of the
-		///         operations required. This method returns the square of the length of
-		///         the vector, i.e. the same as the length but before the square root is
-		///         taken. Use this if you want to find the longest / shortest vector
-		///         without incurring the square root.
+        /// @brief  Returns the square of the length (magnitude) of the vector
+        ///
+        /// @remark This method is for efficiency - calculating the actual length of a
+        ///         vector requires a square root, which is expensive in terms of the
+        ///         operations required. This method returns the square of the length of
+        ///         the vector, i.e. the same as the length but before the square root is
+        ///         taken. Use this if you want to find the longest / shortest vector
+        ///         without incurring the square root.
         //--------------------------------------------------------------------------------
         inline Real squaredLength() const
         {
@@ -383,7 +383,7 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Indicates if this vector is zero length
+        /// @brief  Indicates if this vector is zero length
         //--------------------------------------------------------------------------------
         inline bool isZeroLength(void) const
         {
@@ -393,11 +393,11 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Returns the distance to another vector
-		///
-		/// @warning    This operation requires a square root and is expensive in terms of
-		///             CPU operations. If you don't need to know the exact distance (e.g.
-		///             for just comparing distances) use squaredDistance() instead.
+        /// @brief  Returns the distance to another vector
+        ///
+        /// @warning    This operation requires a square root and is expensive in terms of
+        ///             CPU operations. If you don't need to know the exact distance (e.g.
+        ///             for just comparing distances) use squaredDistance() instead.
         //--------------------------------------------------------------------------------
         inline Real distance(const Vector3& rhs) const
         {
@@ -405,14 +405,14 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Returns the square of the distance to another vector
-		///
-		/// @remark This method is for efficiency - calculating the actual distance to
-		///         another vector requires a square root, which is expensive in terms of
-		///         the operations required. This method returns the square of the distance
-		///         to another vector, i.e. the same as the distance but before the square
-		///         root is taken. Use this if you want to find the longest / shortest
-		///         distance without incurring the square root.
+        /// @brief  Returns the square of the distance to another vector
+        ///
+        /// @remark This method is for efficiency - calculating the actual distance to
+        ///         another vector requires a square root, which is expensive in terms of
+        ///         the operations required. This method returns the square of the distance
+        ///         to another vector, i.e. the same as the distance but before the square
+        ///         root is taken. Use this if you want to find the longest / shortest
+        ///         distance without incurring the square root.
         //--------------------------------------------------------------------------------
         inline Real squaredDistance(const Vector3& rhs) const
         {
@@ -420,14 +420,14 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Calculates the dot (scalar) product of this vector with another
-		///
-		/// @remark The dot product can be used to calculate the angle between 2 vectors.
-		///         If both are unit vectors, the dot product is the cosine of the angle;
-		///         otherwise the dot product must be divided by the product of the
-		///         lengths of both vectors to get the cosine of the angle. This result
-		///         can further be used to calculate the distance of a point from a plane.
-		///
+        /// @brief  Calculates the dot (scalar) product of this vector with another
+        ///
+        /// @remark The dot product can be used to calculate the angle between 2 vectors.
+        ///         If both are unit vectors, the dot product is the cosine of the angle;
+        ///         otherwise the dot product must be divided by the product of the
+        ///         lengths of both vectors to get the cosine of the angle. This result
+        ///         can further be used to calculate the distance of a point from a plane.
+        ///
         /// @param  vec     Vector with which to calculate the dot product (together with
         ///                 this one)
         /// @return         A real representing the dot product value
@@ -438,12 +438,12 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Calculates the absolute dot (scalar) product of this vector with
-		///         another
-		///
-		/// @remark This function work like dotProduct, except that it use the absolute
+        /// @brief  Calculates the absolute dot (scalar) product of this vector with
+        ///         another
+        ///
+        /// @remark This function work like dotProduct, except that it use the absolute
         ///         value of each component of the vector while computing
-		///
+        ///
         /// @param  vec     Vector with which to calculate the absolute dot product
         ///                 (together with this one)
         /// @return         A real representing the absolute dot product value
@@ -454,13 +454,13 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Normalises the vector
-		///
-		/// This method normalises the vector such that it's length / magnitude is 1. The
-		/// result is called a unit vector.
-		///
+        /// @brief  Normalises the vector
+        ///
+        /// This method normalises the vector such that it's length / magnitude is 1. The
+        /// result is called a unit vector.
+        ///
         /// @return The previous length of the vector
-        /// 
+        ///
         /// @note   This function will not crash for zero-sized vectors, but there will be
         ///         no changes made to their components.
         //--------------------------------------------------------------------------------
@@ -481,8 +481,8 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  As normalise, except that this vector is unaffected and the normalised
-		///         vector is returned as a copy
+        /// @brief  As normalise, except that this vector is unaffected and the normalised
+        ///         vector is returned as a copy
         //--------------------------------------------------------------------------------
         inline Vector3 normalisedCopy(void) const
         {
@@ -492,9 +492,9 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Calculates the cross-product of 2 vectors, i.e. the vector that lies
+        /// @brief  Calculates the cross-product of 2 vectors, i.e. the vector that lies
         ///         lies perpendicular to them both
-		///
+        ///
         /// @remark The cross-product is normally used to calculate the normal vector of a
         ///         plane, by calculating the cross-product of 2 non-equivalent vectors
         ///         which lie on the plane (e.g. 2 edges of a triangle).
@@ -527,7 +527,7 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Returns a vector at a point half way between this one and the passed
+        /// @brief  Returns a vector at a point half way between this one and the passed
         ///         in vector
         //--------------------------------------------------------------------------------
         inline Vector3 midPoint(const Vector3& vec) const
@@ -539,9 +539,9 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Sets this vector's components to the minimum of its own and the ones
-		///         of the passed in vector
-		///
+        /// @brief  Sets this vector's components to the minimum of its own and the ones
+        ///         of the passed in vector
+        ///
         /// @remark 'Minimum' in this case means the combination of the lowest value of x,
         ///         y and z from both vectors. Lowest is taken just numerically, not
         ///         magnitude, so -1 < 0.
@@ -554,9 +554,9 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Sets this vector's components to the maximum of its own and the ones
-		///         of the passed in vector
-		///
+        /// @brief  Sets this vector's components to the maximum of its own and the ones
+        ///         of the passed in vector
+        ///
         /// @remark 'Maximum' in this case means the combination of the highest value of x,
         ///         y and z from both vectors. Highest is taken just numerically, not
         ///         magnitude, so 1 > -3.
@@ -569,8 +569,8 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Generates a vector perpendicular to this vector (eg an 'up' vector)
-		///
+        /// @brief  Generates a vector perpendicular to this vector (eg an 'up' vector)
+        ///
         /// @remark This method will return a vector which is perpendicular to this vector.
         ///         There are an infinite number of possibilities but this method will
         ///         guarantee to generate one of them. If you need more control you should
@@ -589,15 +589,15 @@ namespace Math {
                 // another axis.
                 perp = this->crossProduct(Vector3::UNIT_Y);
             }
-			perp.normalise();
+            perp.normalise();
 
             return perp;
         }
-        
+
         //--------------------------------------------------------------------------------
-		/// @brief  Generates a new random vector which deviates from this vector by a
+        /// @brief  Generates a new random vector which deviates from this vector by a
         ///         given angle in a random direction
-		///
+        ///
         /// @param  angle   The angle at which to deviate in radians
         /// @param  up      Any vector perpendicular to this one (which could be generated
         ///                 by cross-product of this vector and any other non-colinear
@@ -608,7 +608,7 @@ namespace Math {
         /// @return         A random vector which deviates from this vector by angle. This
         ///                 vector will not be normalised, normalise it if you wish
         ///                 afterwards.
-        ///    
+        ///
         /// @remark This method assumes that the random number generator has already
         ///         been seeded appropriately.
         //--------------------------------------------------------------------------------
@@ -638,35 +638,35 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Gets the angle between 2 vectors
-        ///    
+        /// @brief  Gets the angle between 2 vectors
+        ///
         /// @remark Vectors do not have to be unit-length but must represent directions.
         //--------------------------------------------------------------------------------
-		inline Radian angleBetween(const Vector3& dest)
-		{
-			Real lenProduct = length() * dest.length();
+        inline Radian angleBetween(const Vector3& dest)
+        {
+            Real lenProduct = length() * dest.length();
 
-			// Divide by zero check
-			if(lenProduct < 1e-6f)
-				lenProduct = 1e-6f;
+            // Divide by zero check
+            if(lenProduct < 1e-6f)
+                lenProduct = 1e-6f;
 
-			Real f = dotProduct(dest) / lenProduct;
+            Real f = dotProduct(dest) / lenProduct;
 
-			f = MathUtils::Clamp(f, (Real) -1.0, (Real) 1.0);
-			return MathUtils::ACos(f);
-		}
-		
+            f = MathUtils::Clamp(f, (Real) -1.0, (Real) 1.0);
+            return MathUtils::ACos(f);
+        }
+
         //--------------------------------------------------------------------------------
-		/// @brief  Gets the shortest arc quaternion to rotate this vector to the
-		///         destination vector
-        ///    
+        /// @brief  Gets the shortest arc quaternion to rotate this vector to the
+        ///         destination vector
+        ///
         /// @remark If you call this with a dest vector that is close to the inverse
         ///         of this vector, we will rotate 180 degrees around the 'fallbackAxis'
-		///         (if specified, or a generated axis if not) since in this case ANY axis
-		///         of rotation is valid.
+        ///         (if specified, or a generated axis if not) since in this case ANY axis
+        ///         of rotation is valid.
         //--------------------------------------------------------------------------------
         Quaternion getRotationTo(const Vector3& dest,
-			                     const Vector3& fallbackAxis = Vector3::ZERO) const
+                                 const Vector3& fallbackAxis = Vector3::ZERO) const
         {
             // Based on Stan Melax's article in Game Programming Gems
             Quaternion q;
@@ -682,43 +682,43 @@ namespace Math {
             {
                 return Quaternion::IDENTITY;
             }
-			if (d < (1e-6f - 1.0f))
-			{
-				if (fallbackAxis != Vector3::ZERO)
-				{
-					// rotate 180 degrees about the fallback axis
-					q.FromAngleAxis(Radian(MathUtils::PI), fallbackAxis);
-				}
-				else
-				{
-					// Generate an axis
-					Vector3 axis = Vector3::UNIT_X.crossProduct(*this);
-					if (axis.isZeroLength()) // pick another if colinear
-						axis = Vector3::UNIT_Y.crossProduct(*this);
-					axis.normalise();
-					q.FromAngleAxis(Radian(MathUtils::PI), axis);
-				}
-			}
-			else
-			{
+            if (d < (1e-6f - 1.0f))
+            {
+                if (fallbackAxis != Vector3::ZERO)
+                {
+                    // rotate 180 degrees about the fallback axis
+                    q.FromAngleAxis(Radian(MathUtils::PI), fallbackAxis);
+                }
+                else
+                {
+                    // Generate an axis
+                    Vector3 axis = Vector3::UNIT_X.crossProduct(*this);
+                    if (axis.isZeroLength()) // pick another if colinear
+                        axis = Vector3::UNIT_Y.crossProduct(*this);
+                    axis.normalise();
+                    q.FromAngleAxis(Radian(MathUtils::PI), axis);
+                }
+            }
+            else
+            {
                 Real s = MathUtils::Sqrt((1+d)*2);
-	            Real invs = 1 / s;
+                Real invs = 1 / s;
 
-				Vector3 c = v0.crossProduct(v1);
+                Vector3 c = v0.crossProduct(v1);
 
-    	        q.x = c.x * invs;
-        	    q.y = c.y * invs;
-            	q.z = c.z * invs;
-            	q.w = s * 0.5f;
-				q.normalise();
-			}
+                q.x = c.x * invs;
+                q.y = c.y * invs;
+                q.z = c.z * invs;
+                q.w = s * 0.5f;
+                q.normalise();
+            }
             return q;
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Calculates a reflection vector to the plane with the given normal
-		///
-		/// @remark Assumes 'this' is pointing AWAY FROM the plane, invert if it is not.
+        /// @brief  Calculates a reflection vector to the plane with the given normal
+        ///
+        /// @remark Assumes 'this' is pointing AWAY FROM the plane, invert if it is not.
         //--------------------------------------------------------------------------------
         inline Vector3 reflect(const Vector3& normal) const
         {
@@ -726,59 +726,59 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Indicates whether this vector is within a positional tolerance of
-		///         another vector
-		///
-		/// @param  rhs         The vector to compare with
-		/// @param  tolerance   The amount that each element of the vector may vary by
-		///                     and still be considered equal
+        /// @brief  Indicates whether this vector is within a positional tolerance of
+        ///         another vector
+        ///
+        /// @param  rhs         The vector to compare with
+        /// @param  tolerance   The amount that each element of the vector may vary by
+        ///                     and still be considered equal
         //--------------------------------------------------------------------------------
-		inline bool positionEquals(const Vector3& rhs, Real tolerance = 1e-03) const
-		{
-			return MathUtils::RealEqual(x, rhs.x, tolerance) &&
-				   MathUtils::RealEqual(y, rhs.y, tolerance) &&
-				   MathUtils::RealEqual(z, rhs.z, tolerance);
-		}
+        inline bool positionEquals(const Vector3& rhs, Real tolerance = 1e-03) const
+        {
+            return MathUtils::RealEqual(x, rhs.x, tolerance) &&
+                   MathUtils::RealEqual(y, rhs.y, tolerance) &&
+                   MathUtils::RealEqual(z, rhs.z, tolerance);
+        }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Indicates whether this vector is within a positional tolerance of
-		///         another vector, by taking the scales of the vectors into account
-		///
-		/// @param  rhs         The vector to compare with
-		/// @param  tolerance   The amount (related to the scale of vectors) that distance
+        /// @brief  Indicates whether this vector is within a positional tolerance of
+        ///         another vector, by taking the scales of the vectors into account
+        ///
+        /// @param  rhs         The vector to compare with
+        /// @param  tolerance   The amount (related to the scale of vectors) that distance
         ///                     of the vector may vary by and still be considered close
         //--------------------------------------------------------------------------------
-		inline bool positionCloses(const Vector3& rhs, Real tolerance = 1e-03f) const
-		{
-			return squaredDistance(rhs) <=
+        inline bool positionCloses(const Vector3& rhs, Real tolerance = 1e-03f) const
+        {
+            return squaredDistance(rhs) <=
                 (squaredLength() + rhs.squaredLength()) * tolerance;
-		}
+        }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Indicates whether this vector is within a directional tolerance of
-		///         another vector
-		///
-		/// @param  rhs         The vector to compare with
-		/// @param  tolerance   The maximum angle by which the vectors may vary and still
-		///                     be considered equal
+        /// @brief  Indicates whether this vector is within a directional tolerance of
+        ///         another vector
         ///
-		/// @note   Both vectors should be normalised.
+        /// @param  rhs         The vector to compare with
+        /// @param  tolerance   The maximum angle by which the vectors may vary and still
+        ///                     be considered equal
+        ///
+        /// @note   Both vectors should be normalised.
         //--------------------------------------------------------------------------------
-		inline bool directionEquals(const Vector3& rhs, const Radian& tolerance) const
-		{
-			Real dot = dotProduct(rhs);
-			Radian angle = MathUtils::ACos(dot);
+        inline bool directionEquals(const Vector3& rhs, const Radian& tolerance) const
+        {
+            Real dot = dotProduct(rhs);
+            Radian angle = MathUtils::ACos(dot);
 
-			return MathUtils::Abs(angle.valueRadians()) <= tolerance.valueRadians();
-		}
+            return MathUtils::Abs(angle.valueRadians()) <= tolerance.valueRadians();
+        }
 
         //--------------------------------------------------------------------------------
-		/// @brief  Check whether this vector contains valid values
+        /// @brief  Check whether this vector contains valid values
         //--------------------------------------------------------------------------------
-		inline bool isNaN() const
-		{
-			return MathUtils::isNaN(x) || MathUtils::isNaN(y) || MathUtils::isNaN(z);
-		}
+        inline bool isNaN() const
+        {
+            return MathUtils::isNaN(x) || MathUtils::isNaN(y) || MathUtils::isNaN(z);
+        }
 
 
         //_____ Constants __________
@@ -797,9 +797,9 @@ namespace Math {
     public:
         Real x, y, z;
     };
-    
-	/** @} */
-	/** @} */
+
+    /** @} */
+    /** @} */
 }
 }
 

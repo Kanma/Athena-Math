@@ -1,8 +1,8 @@
 /** @file   Vector4.js
     @author Philip Abbet
-    
+
     Declaration of the class Athena.Math.Vector4
-    
+
     @note   Using a pure JavaScript class here instead of a binding over
             the C++ one results in faster code.
 */
@@ -136,7 +136,7 @@ Athena.Math.Vector4.prototype.greaterThan = function(vector)
 Athena.Math.Vector4.prototype.add = function()
 {
     var v = new Athena.Math.Vector4(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if (typeof(arguments[i]) === 'object')
@@ -163,7 +163,7 @@ Athena.Math.Vector4.prototype.add = function()
 Athena.Math.Vector4.prototype.sub = function()
 {
     var v = new Athena.Math.Vector4(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if (typeof(arguments[i]) === 'object')
@@ -190,7 +190,7 @@ Athena.Math.Vector4.prototype.sub = function()
 Athena.Math.Vector4.prototype.mul = function()
 {
     var v = new Athena.Math.Vector4(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if (typeof(arguments[i]) === 'object')
@@ -217,7 +217,7 @@ Athena.Math.Vector4.prototype.mul = function()
 Athena.Math.Vector4.prototype.divide = function()
 {
     var v = new Athena.Math.Vector4(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if (typeof(arguments[i]) === 'object')
@@ -405,7 +405,7 @@ Athena.Math.Vector4.prototype.absDot = function(vector)
 Athena.Math.Vector4.prototype.normalise = function()
 {
     var length = this.length();
-    
+
     if (length > 1e-08)
     {
         inverse = 1.0 / length;
@@ -414,7 +414,7 @@ Athena.Math.Vector4.prototype.normalise = function()
         this.z *= inverse;
         this.w *= inverse;
     }
-    
+
     return length;
 }
 
@@ -462,10 +462,10 @@ Athena.Math.Vector4.prototype.makeCeil = function(vector)
 
 Athena.Math.Vector4.prototype.positionEquals = function(vector, tolerance)
 {
-	return Athena.Math.equals(this.x, vector.x, tolerance) &&
-		   Athena.Math.equals(this.y, vector.y, tolerance) &&
-		   Athena.Math.equals(this.z, vector.z, tolerance) &&
-   		   Athena.Math.equals(this.w, vector.w, tolerance);
+    return Athena.Math.equals(this.x, vector.x, tolerance) &&
+           Athena.Math.equals(this.y, vector.y, tolerance) &&
+           Athena.Math.equals(this.z, vector.z, tolerance) &&
+              Athena.Math.equals(this.w, vector.w, tolerance);
 }
 
 //-----------------------------------------------------------------------

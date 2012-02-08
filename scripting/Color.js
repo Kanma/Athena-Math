@@ -1,8 +1,8 @@
 /** @file   Color.js
     @author Philip Abbet
-    
+
     Declaration of the class Athena.Math.Color
-    
+
     @note   Using a pure JavaScript class here instead of a binding over
             the C++ one results in faster code.
 */
@@ -138,7 +138,7 @@ Athena.Math.Color.prototype.toString = function()
 Athena.Math.Color.prototype.add = function()
 {
     var c = new Athena.Math.Color(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if (typeof(arguments[i]) === 'object')
@@ -165,7 +165,7 @@ Athena.Math.Color.prototype.add = function()
 Athena.Math.Color.prototype.sub = function()
 {
     var c = new Athena.Math.Color(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if (typeof(arguments[i]) === 'object')
@@ -192,7 +192,7 @@ Athena.Math.Color.prototype.sub = function()
 Athena.Math.Color.prototype.mul = function()
 {
     var c = new Athena.Math.Color(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if (typeof(arguments[i]) === 'object')
@@ -219,7 +219,7 @@ Athena.Math.Color.prototype.mul = function()
 Athena.Math.Color.prototype.divide = function()
 {
     var c = new Athena.Math.Color(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if (typeof(arguments[i]) === 'object')
@@ -344,44 +344,44 @@ Athena.Math.Color.prototype.setHSB = function(hue, saturation, brightness)
         hue -= parseInt(hue);
     else if (hue < 0.0)
         hue += parseInt(hue + 1);
-    
+
     // clamp saturation / brightness
     saturation = Math.min(saturation, 1.0);
     saturation = Math.max(saturation, 0.0);
     brightness = Math.min(brightness, 1.0);
     brightness = Math.max(brightness, 0.0);
-    
+
     if (brightness == 0.0)
-    {   
+    {
         // early exit, this has to be black
         this.r = 0.0;
         this.g = 0.0;
         this.b = 0.0;
         return;
     }
-    
+
     if (saturation == 0.0)
-    {   
+    {
         // early exit, this has to be grey
         this.r = brightness;
         this.g = brightness;
         this.b = brightness;
         return;
     }
-    
-    
+
+
     var hueDomain  = hue * 6.0;
     if (hueDomain >= 6.0)
     {
         // wrap around, and allow mathematical errors
         hueDomain = 0.0;
     }
-    
+
     var domain = parseInt(hueDomain);
     var f1 = brightness * (1 - saturation);
     var f2 = brightness * (1 - saturation * (hueDomain - domain));
     var f3 = brightness * (1 - saturation * (1 - (hueDomain - domain)));
-    
+
     switch (domain)
     {
     case 0:
@@ -430,39 +430,39 @@ Athena.Math.Color.prototype.getHSB = function()
     var vMin = Math.min(this.r, Math.min(this.g, this.b));
     var vMax = Math.max(this.r, Math.max(this.g, this.b));
     var delta = vMax - vMin;
-    
+
     var brightness = vMax;
     var hue;
     var saturation;
-    
+
     if (Athena.Math.equals(delta, 0.0, 1e-6))
     {
         // grey
         hue = 0;
         saturation = 0;
     }
-    else                                    
+    else
     {
         // a colour
         saturation = delta / vMax;
-    
+
         var deltaR = (((vMax - this.r) / 6.0) + (delta / 2.0)) / delta;
         var deltaG = (((vMax - this.g) / 6.0) + (delta / 2.0)) / delta;
         var deltaB = (((vMax - this.b) / 6.0) + (delta / 2.0)) / delta;
-    
+
         if (Athena.Math.equals(this.r, vMax))
             hue = deltaB - deltaG;
         else if (Athena.Math.equals(this.g, vMax))
             hue = 0.3333333 + deltaR - deltaB;
-        else if (Athena.Math.equals(this.b, vMax)) 
+        else if (Athena.Math.equals(this.b, vMax))
             hue = 0.6666667 + deltaG - deltaR;
-    
-        if (hue < 0.0) 
+
+        if (hue < 0.0)
             hue += 1.0;
         if (hue > 1.0)
             hue -= 1.0;
     }
-    
+
     return { hue: hue, saturation: saturation, brightness: brightness };
 }
 

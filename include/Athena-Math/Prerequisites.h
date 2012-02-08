@@ -1,6 +1,6 @@
 /** @file   Prerequisites.h
     @author Philip Abbet
-    
+
     Declaration of the types of the Athena-Math module
 */
 
@@ -18,14 +18,14 @@ namespace Athena {
 namespace Math {
 
     #if ATHENA_DOUBLE_PRECISION == 1
-		/// Software floating point type.
+        /// Software floating point type.
         typedef double Real;
     #else
-		/// Software floating point type.
+        /// Software floating point type.
         typedef float Real;
     #endif
 
-    
+
     // Forward declaration of classes
     class AxisAlignedBox;
     class Color;
@@ -50,11 +50,11 @@ namespace Math {
     typedef char            int8;
 
     #if ATHENA_COMPILER == ATHENA_COMPILER_MSVC
-    	typedef unsigned __int64    uint64;
-    	typedef __int64             int64;
+        typedef unsigned __int64    uint64;
+        typedef __int64             int64;
     #else
-    	typedef unsigned long long  uint64;
-    	typedef long long           int64;
+        typedef unsigned long long  uint64;
+        typedef long long           int64;
     #endif
 }
 }

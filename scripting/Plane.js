@@ -1,8 +1,8 @@
 /** @file   Plane.js
     @author Philip Abbet
-    
+
     Declaration of the class Athena.Math.Plane
-    
+
     @note   Using a pure JavaScript class here instead of a binding over
             the C++ one results in faster code.
 */
@@ -38,11 +38,11 @@ Athena.Math.Plane = function()
              (typeof(arguments[1]) === 'object') && (arguments[1].__classname__ == 'Athena.Math.Vector3') &&
              (typeof(arguments[2]) === 'object') && (arguments[2].__classname__ == 'Athena.Math.Vector3'))
     {
-    	var edge1 = arguments[1].sub(arguments[0]);
-    	var edge2 = arguments[2].sub(arguments[0]);
-    	this.normal = edge1.cross(edge2);
-    	this.normal.normalise();
-    	this.d = -this.normal.dot(arguments[0]);
+        var edge1 = arguments[1].sub(arguments[0]);
+        var edge2 = arguments[2].sub(arguments[0]);
+        this.normal = edge1.cross(edge2);
+        this.normal.normalise();
+        this.d = -this.normal.dot(arguments[0]);
     }
     else if (arguments.length == 4)
     {
@@ -84,11 +84,11 @@ Athena.Math.Plane.prototype.set = function()
              (typeof(arguments[1]) === 'object') && (arguments[1].__classname__ == 'Athena.Math.Vector3') &&
              (typeof(arguments[2]) === 'object') && (arguments[2].__classname__ == 'Athena.Math.Vector3'))
     {
-    	var edge1 = arguments[1].sub(arguments[0]);
-    	var edge2 = arguments[2].sub(arguments[0]);
-    	this.normal = edge1.cross(edge2);
-    	this.normal.normalise();
-    	this.d = -this.normal.dot(arguments[0]);
+        var edge1 = arguments[1].sub(arguments[0]);
+        var edge2 = arguments[2].sub(arguments[0]);
+        this.normal = edge1.cross(edge2);
+        this.normal.normalise();
+        this.d = -this.normal.dot(arguments[0]);
     }
     else if (arguments.length == 4)
     {
@@ -123,15 +123,15 @@ Athena.Math.Plane.prototype.getSide = function()
 {
     if ((arguments.length == 1) && (typeof(arguments[0]) === 'object') && (arguments[0].__classname__ == 'Athena.Math.Vector3'))
     {
-    	var distance = this.getDistance(arguments[0]);
+        var distance = this.getDistance(arguments[0]);
 
-    	if (distance < 0.0)
-    		return Athena.Math.Plane_NEGATIVE_SIDE;
+        if (distance < 0.0)
+            return Athena.Math.Plane_NEGATIVE_SIDE;
 
-    	if (distance > 0.0)
-		    return Athena.Math.Plane_POSITIVE_SIDE;
+        if (distance > 0.0)
+            return Athena.Math.Plane_POSITIVE_SIDE;
 
-	    return Athena.Math.Plane_NO_SIDE;
+        return Athena.Math.Plane_NO_SIDE;
     }
     // TODO: getSide(aab)
     else if ((arguments.length == 2) &&
@@ -143,12 +143,12 @@ Athena.Math.Plane.prototype.getSide = function()
         var maxAbsDist = this.normal.absDot(arguments[1]);
 
         if (dist < -maxAbsDist)
-		    return Athena.Math.Plane_NEGATIVE_SIDE;
+            return Athena.Math.Plane_NEGATIVE_SIDE;
 
         if (dist > +maxAbsDist)
-		    return Athena.Math.Plane_POSITIVE_SIDE;
+            return Athena.Math.Plane_POSITIVE_SIDE;
 
-	    return Athena.Math.Plane_BOTH_SIDE;
+        return Athena.Math.Plane_BOTH_SIDE;
     }
     else
     {
@@ -160,26 +160,26 @@ Athena.Math.Plane.prototype.getSide = function()
 
 Athena.Math.Plane.prototype.getDistance = function(point)
 {
-	return this.normal.dot(point) + this.d;
+    return this.normal.dot(point) + this.d;
 }
 
 //-----------------------------------------------------------------------
 
 Athena.Math.Plane.prototype.projectVector = function(point)
 {
-	var xform = new Athena.Math.Matrix3();
+    var xform = new Athena.Math.Matrix3();
 
-	xform.m_0_0 = 1.0 - this.normal.x * this.normal.x;
-	xform.m_0_1 = -this.normal.x * this.normal.y;
-	xform.m_0_2 = -this.normal.x * this.normal.z;
-	xform.m_1_0 = -this.normal.y * this.normal.x;
-	xform.m_1_1 = 1.0 - this.normal.y * this.normal.y;
-	xform.m_1_2 = -this.normal.y * this.normal.z;
-	xform.m_2_0 = -this.normal.z * this.normal.x;
-	xform.m_2_1 = -this.normal.z * this.normal.y;
-	xform.m_2_2 = 1.0 - this.normal.z * this.normal.z;
+    xform.m_0_0 = 1.0 - this.normal.x * this.normal.x;
+    xform.m_0_1 = -this.normal.x * this.normal.y;
+    xform.m_0_2 = -this.normal.x * this.normal.z;
+    xform.m_1_0 = -this.normal.y * this.normal.x;
+    xform.m_1_1 = 1.0 - this.normal.y * this.normal.y;
+    xform.m_1_2 = -this.normal.y * this.normal.z;
+    xform.m_2_0 = -this.normal.z * this.normal.x;
+    xform.m_2_1 = -this.normal.z * this.normal.y;
+    xform.m_2_2 = 1.0 - this.normal.z * this.normal.z;
 
-	return xform.mul(point);
+    return xform.mul(point);
 }
 
 //-----------------------------------------------------------------------

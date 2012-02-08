@@ -1,8 +1,8 @@
 /** @file   Sphere.js
     @author Philip Abbet
-    
+
     Declaration of the class Athena.Math.Sphere
-    
+
     @note   Using a pure JavaScript class here instead of a binding over
             the C++ one results in faster code.
 */

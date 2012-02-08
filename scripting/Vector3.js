@@ -1,8 +1,8 @@
 /** @file   Vector3.js
     @author Philip Abbet
-    
+
     Declaration of the class Athena.Math.Vector3
-    
+
     @note   Using a pure JavaScript class here instead of a binding over
             the C++ one results in faster code.
 */
@@ -109,7 +109,7 @@ Athena.Math.Vector3.prototype.greaterThan = function(vector)
 Athena.Math.Vector3.prototype.add = function()
 {
     var v = new Athena.Math.Vector3(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if (typeof(arguments[i]) === 'object')
@@ -134,7 +134,7 @@ Athena.Math.Vector3.prototype.add = function()
 Athena.Math.Vector3.prototype.sub = function()
 {
     var v = new Athena.Math.Vector3(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if (typeof(arguments[i]) === 'object')
@@ -159,7 +159,7 @@ Athena.Math.Vector3.prototype.sub = function()
 Athena.Math.Vector3.prototype.mul = function()
 {
     var v = new Athena.Math.Vector3(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if (typeof(arguments[i]) === 'object')
@@ -184,7 +184,7 @@ Athena.Math.Vector3.prototype.mul = function()
 Athena.Math.Vector3.prototype.divide = function()
 {
     var v = new Athena.Math.Vector3(this);
-    
+
     for (var i = 0; i < arguments.length; i++)
     {
         if (typeof(arguments[i]) === 'object')
@@ -361,7 +361,7 @@ Athena.Math.Vector3.prototype.absDot = function(vector)
 Athena.Math.Vector3.prototype.normalise = function()
 {
     var length = this.length();
-    
+
     if (length > 1e-08)
     {
         inverse = 1.0 / length;
@@ -369,7 +369,7 @@ Athena.Math.Vector3.prototype.normalise = function()
         this.y *= inverse;
         this.z *= inverse;
     }
-    
+
     return length;
 }
 
@@ -425,10 +425,10 @@ Athena.Math.Vector3.prototype.makeCeil = function(vector)
 Athena.Math.Vector3.prototype.perpendicular = function()
 {
     var perp = this.cross(Athena.Math.Vector3_UNIT_X);
-    
+
     if (perp.squaredLength() < 1e-06 * 1e-06)
         perp = this.cross(Athena.Math.Vector3_UNIT_Y);
-    
+
     perp.normalise();
 
     return perp;
@@ -440,7 +440,7 @@ Athena.Math.Vector3.prototype.perpendicular = function()
 Athena.Math.Vector3.prototype.randomDeviant = function(angle, up)
 {
     var newUp;
-    
+
     if ((up === undefined) || (up.equals(Athena.Math.Vector3_ZERO)))
         newUp = this.perpendicular();
     else
@@ -461,14 +461,14 @@ Athena.Math.Vector3.prototype.angleBetween = function(vector)
 {
     var lenProduct = Math.sqrt(this.squaredLength() * vector.squaredLength());
 
-	// Divide by zero check
-	if (lenProduct < 1e-6)
-		lenProduct = 1e-6;
+    // Divide by zero check
+    if (lenProduct < 1e-6)
+        lenProduct = 1e-6;
 
-	var f = this.dot(vector) / lenProduct;
+    var f = this.dot(vector) / lenProduct;
 
-	f = Athena.Math.clamp(f, -1.0, 1.0);
-	return Math.acos(f);
+    f = Athena.Math.clamp(f, -1.0, 1.0);
+    return Math.acos(f);
 }
 
 //-----------------------------------------------------------------------
@@ -490,38 +490,38 @@ Athena.Math.Vector3.prototype.getRotationTo = function(dest, fallbackAxis)
 
     var q = new Athena.Math.Quaternion();
 
-	if (d < (1e-6 - 1.0))
-	{
-		if ((fallbackAxis !== undefined) && !fallbackAxis.equals(Athena.Math.Vector3_ZERO))
-		{
-			// rotate 180 degrees about the fallback axis
-			q.set(Math.PI, fallbackAxis);
-		}
-		else
-		{
-			// Generate an axis
-			var axis = Athena.Math.Vector3_UNIT_X.cross(this);
-			if (axis.isZeroLength()) // pick another if colinear
-				axis = Athena.Math.Vector3_UNIT_Y.cross(this);
-			axis.normalise();
-			q.set(Math.PI, axis);
-		}
-	}
-	else
-	{
+    if (d < (1e-6 - 1.0))
+    {
+        if ((fallbackAxis !== undefined) && !fallbackAxis.equals(Athena.Math.Vector3_ZERO))
+        {
+            // rotate 180 degrees about the fallback axis
+            q.set(Math.PI, fallbackAxis);
+        }
+        else
+        {
+            // Generate an axis
+            var axis = Athena.Math.Vector3_UNIT_X.cross(this);
+            if (axis.isZeroLength()) // pick another if colinear
+                axis = Athena.Math.Vector3_UNIT_Y.cross(this);
+            axis.normalise();
+            q.set(Math.PI, axis);
+        }
+    }
+    else
+    {
         var s = Math.sqrt((1 + d) * 2);
         var invs = 1.0 / s;
 
-		var c = v0.cross(v1);
+        var c = v0.cross(v1);
 
         q.x = c.x * invs;
-	    q.y = c.y * invs;
-    	q.z = c.z * invs;
-    	q.w = s * 0.5;
+        q.y = c.y * invs;
+        q.z = c.z * invs;
+        q.w = s * 0.5;
 
-		q.normalise();
-	}
-	
+        q.normalise();
+    }
+
     return q;
 }
 
@@ -536,9 +536,9 @@ Athena.Math.Vector3.prototype.reflect = function(normal)
 
 Athena.Math.Vector3.prototype.positionEquals = function(vector, tolerance)
 {
-	return Athena.Math.equals(this.x, vector.x, tolerance) &&
-		   Athena.Math.equals(this.y, vector.y, tolerance) &&
-		   Athena.Math.equals(this.z, vector.z, tolerance);
+    return Athena.Math.equals(this.x, vector.x, tolerance) &&
+           Athena.Math.equals(this.y, vector.y, tolerance) &&
+           Athena.Math.equals(this.z, vector.z, tolerance);
 }
 
 //-----------------------------------------------------------------------
@@ -555,7 +555,7 @@ Athena.Math.Vector3.prototype.directionEquals = function(vector, tolerance)
 {
     var dot = this.dot(vector);
     var angle = Math.acos(dot);
-    
+
     return Math.abs(angle) <= tolerance;
 }
 

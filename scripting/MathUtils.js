@@ -1,8 +1,8 @@
 /** @file   MathUtils.js
     @author Philip Abbet
-    
+
     Declaration of math-related functions
-    
+
     @note   Using a pure JavaScript implementation here instead of a
             binding over the C++ functions results in faster code.
 */
@@ -46,7 +46,7 @@ Athena.Math.equals = function(a, b, tolerance)
 {
     if (tolerance === undefined)
         tolerance = 1e-6;
-    
+
     return Math.abs(b - a) <= tolerance;
 }
 

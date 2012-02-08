@@ -1,8 +1,8 @@
 /** @file   MathUtils.cpp
     @author Philip Abbet
-    
+
     Implementation of the Athena::Math::MathUtils class.
-    
+
     @note   This is based on the corresponding class from
             <a href="http://www.ogre3d.org/">Ogre3D</a>.
 */
@@ -49,7 +49,7 @@ Real MathUtils::Sign(Real fValue)
 
 Real MathUtils::InvSqrt(Real fValue)
 {
-	return Real(asm_rsq(fValue));
+    return Real(asm_rsq(fValue));
 }
 
 
@@ -102,7 +102,7 @@ Real MathUtils::UnitRandom()
 {
     return asm_rand() / asm_rand_max();
 }
-    
+
 
 Real MathUtils::RangeRandom(Real fLow, Real fHigh)
 {
@@ -112,7 +112,7 @@ Real MathUtils::RangeRandom(Real fLow, Real fHigh)
 
 Real MathUtils::SymmetricRandom()
 {
-	return 2.0f * UnitRandom() - 1.0f;
+    return 2.0f * UnitRandom() - 1.0f;
 }
 
 
@@ -120,8 +120,8 @@ Real MathUtils::SymmetricRandom()
 
 Real MathUtils::gaussianDistribution(Real x, Real offset, Real scale)
 {
-	Real nom = MathUtils::Exp(-MathUtils::Sqr(x - offset) / (2 * MathUtils::Sqr(scale)));
-	Real denom = scale * MathUtils::Sqrt(2 * MathUtils::PI);
+    Real nom = MathUtils::Exp(-MathUtils::Sqr(x - offset) / (2 * MathUtils::Sqr(scale)));
+    Real denom = scale * MathUtils::Sqrt(2 * MathUtils::PI);
 
-	return nom / denom;
+    return nom / denom;
 }
