@@ -203,6 +203,15 @@ set(JS_FILES # AxisAlignedBox
              Vector4/PositionCloses.js
              Vector4/IsNaN.js
              Vector4/Constants.js
+             
+             # Intersections
+             Intersection/AxisAlignedBox_AxisAlignedBox.js
+             Intersection/AxisAlignedBox_Sphere.js
+             Intersection/AxisAlignedBox_Plane.js
+             Intersection/AxisAlignedBox_Vector3.js
+             Intersection/Sphere_Sphere.js
+             Intersection/Sphere_Plane.js
+             Intersection/Sphere_Vector3.js
 )
 
 

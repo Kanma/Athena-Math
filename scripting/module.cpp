@@ -31,6 +31,13 @@ bool bind_Color(Handle<Object> parent, const std::string& modulePath)
 }
 
 
+bool bind_Intersection(Handle<Object> parent, const std::string& modulePath)
+{
+    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/Intersection.js", Context::GetCurrent());
+    return !result.IsEmpty();
+}
+
+
 bool bind_MathUtils(Handle<Object> parent, const std::string& modulePath)
 {
     Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/MathUtils.js", Context::GetCurrent());
@@ -112,6 +119,7 @@ extern "C" {
                bind_Vector2(parent, modulePath) &&
                bind_Vector3(parent, modulePath) &&
                bind_Vector4(parent, modulePath) &&
-               bind_AxisAlignedBox(parent, modulePath);
+               bind_AxisAlignedBox(parent, modulePath) &&
+               bind_Intersection(parent, modulePath);
     }
 }

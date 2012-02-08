@@ -8,6 +8,7 @@ set(SRCS module.cpp
 
 set(JS_SRCS AxisAlignedBox.js
             Color.js
+            Intersection.js
             MathUtils.js
             Matrix3.js
             Matrix4.js

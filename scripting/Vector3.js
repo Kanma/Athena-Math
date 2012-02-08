@@ -103,6 +103,20 @@ Athena.Math.Vector3.prototype.greaterThan = function(vector)
     return (this.x > vector.x) && (this.y > vector.y) && (this.z > vector.z);
 }
 
+//-----------------------------------------------------------------------
+
+Athena.Math.Vector3.prototype.lesserThanOrEqualTo = function(vector)
+{
+    return (this.x <= vector.x) && (this.y <= vector.y) && (this.z <= vector.z);
+}
+
+//-----------------------------------------------------------------------
+
+Athena.Math.Vector3.prototype.greaterThanOrEqualTo = function(vector)
+{
+    return (this.x >= vector.x) && (this.y >= vector.y) && (this.z >= vector.z);
+}
+
 
 /********************************* ARITHMETIC OPERATIONS ********************************/
 

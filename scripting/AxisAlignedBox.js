@@ -411,7 +411,7 @@ Athena.Math.AxisAlignedBox.prototype.contains = function()
         if (this.isInfinite())
              return true;
 
-        return arguments[0].greaterThan(this.minimum) && this.maximum.greaterThan(arguments[0]);
+        return arguments[0].greaterThanOrEqualTo(this.minimum) && this.maximum.greaterThanOrEqualTo(arguments[0]);
     }
     else if (arguments[0].__classname__ == 'Athena.Math.AxisAlignedBox')
     {
