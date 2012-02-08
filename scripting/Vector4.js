@@ -465,7 +465,7 @@ Athena.Math.Vector4.prototype.positionEquals = function(vector, tolerance)
     return Athena.Math.equals(this.x, vector.x, tolerance) &&
            Athena.Math.equals(this.y, vector.y, tolerance) &&
            Athena.Math.equals(this.z, vector.z, tolerance) &&
-              Athena.Math.equals(this.w, vector.w, tolerance);
+           Athena.Math.equals(this.w, vector.w, tolerance);
 }
 
 //-----------------------------------------------------------------------

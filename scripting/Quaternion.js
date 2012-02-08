@@ -364,7 +364,7 @@ Athena.Math.Quaternion.prototype.inverse = function()
                                           -this.y * inverse, -this.z * inverse);
     }
 
-    return Athena.Math.Quaternion_ZERO;
+    return new Athena.Math.Quaternion(Athena.Math.Quaternion_ZERO);
 }
 
 //-----------------------------------------------------------------------

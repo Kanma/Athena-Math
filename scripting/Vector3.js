@@ -486,7 +486,7 @@ Athena.Math.Vector3.prototype.getRotationTo = function(dest, fallbackAxis)
 
     // If dot == 1, vectors are the same
     if (d >= 1.0)
-        return Athena.Math.Quaternion_IDENTITY;
+        return new Athena.Math.Quaternion(Athena.Math.Quaternion_IDENTITY);
 
     var q = new Athena.Math.Quaternion();
 
