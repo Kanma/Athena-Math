@@ -56,6 +56,8 @@ namespace Math {
         typedef unsigned long long  uint64;
         typedef long long           int64;
     #endif
+    
+    extern const char* VERSION;
 }
 }
 

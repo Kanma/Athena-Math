@@ -36,6 +36,8 @@ extern "C" {
     {
         HandleScope handle_scope;
 
+        parent->Set(String::New("VERSION"), String::New(Athena::Math::VERSION));
+
         return load_js_file("Color", parent, modulePath) &&
                load_js_file("MathUtils", parent, modulePath) &&
                load_js_file("Matrix3", parent, modulePath) &&

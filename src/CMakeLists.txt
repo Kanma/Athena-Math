@@ -1,5 +1,10 @@
+# File generation
+configure_file(${ATHENA_MATH_SOURCE_DIR}/src/module.cpp.in
+               ${XMAKE_BINARY_DIR}/generated/Athena-Math/module.cpp)
+
 # List the source files
-set(SRCS AxisAlignedBox.cpp
+set(SRCS ${XMAKE_BINARY_DIR}/generated/Athena-Math/module.cpp
+         AxisAlignedBox.cpp
          Color.cpp
          Intersection.cpp
          MathUtils.cpp
@@ -31,7 +36,10 @@ endif()
 
 # Declaration of the library
 if (NOT ATHENA_MATH_STATIC)
-    xmake_create_dynamic_library(ATHENA_MATH Athena-Math 1.0.0 1.0.0 ${SRCS})
+    xmake_create_dynamic_library(ATHENA_MATH Athena-Math
+                                 "${ATHENA_MATH_VERSION_MAJOR}.${ATHENA_MATH_VERSION_MINOR}.${ATHENA_MATH_VERSION_PATCH}"
+                                 "${ATHENA_MATH_VERSION_MAJOR}.${ATHENA_MATH_VERSION_MINOR}.${ATHENA_MATH_VERSION_PATCH}"
+                                 ${SRCS})
 else()
     xmake_create_static_library(ATHENA_MATH Athena-Math ${SRCS})
 endif()
