@@ -70,7 +70,7 @@ namespace Math {
         }
 
         //--------------------------------------------------------------------------------
-        /// @brief  Resets the bag to its initial state, like of no element had been
+        /// @brief  Resets the bag to its initial state, like if no element had been
         ///         retrieved yet
         //--------------------------------------------------------------------------------
         void reset()

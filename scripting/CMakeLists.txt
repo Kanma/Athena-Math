@@ -15,6 +15,7 @@ set(JS_SRCS AxisAlignedBox.js
             Matrix4.js
             Plane.js
             Quaternion.js
+            ShuffleBag.js
             Sphere.js
             Vector2.js
             Vector3.js

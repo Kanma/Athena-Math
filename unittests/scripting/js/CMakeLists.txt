@@ -219,6 +219,9 @@ set(JS_FILES # AxisAlignedBox
              RandomNumberGenerator/RandomizeIntMax.js
              RandomNumberGenerator/RandomizeIntMinMax.js
              RandomNumberGenerator/SetSeed.js
+
+             # ShuffleBag
+             ShuffleBag/ShuffleBag.js
 )
 
 

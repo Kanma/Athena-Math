@@ -19,86 +19,11 @@ extern bool bind_RandomNumberGenerator(Handle<Object> parent);
 
 /*************************************** FUNCTIONS *************************************/
 
-bool bind_AxisAlignedBox(Handle<Object> parent, const std::string& modulePath)
+bool load_js_file(const std::string& fileName, Handle<Object> parent, const std::string& modulePath)
 {
-    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/AxisAlignedBox.js", Context::GetCurrent());
-    return !result.IsEmpty();
-}
-
-
-bool bind_Color(Handle<Object> parent, const std::string& modulePath)
-{
-    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/Color.js", Context::GetCurrent());
-    return !result.IsEmpty();
-}
-
-
-bool bind_Intersection(Handle<Object> parent, const std::string& modulePath)
-{
-    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/Intersection.js", Context::GetCurrent());
-    return !result.IsEmpty();
-}
-
-
-bool bind_MathUtils(Handle<Object> parent, const std::string& modulePath)
-{
-    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/MathUtils.js", Context::GetCurrent());
-    return !result.IsEmpty();
-}
-
-
-bool bind_Matrix3(Handle<Object> parent, const std::string& modulePath)
-{
-    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/Matrix3.js", Context::GetCurrent());
-    return !result.IsEmpty();
-}
-
-
-bool bind_Matrix4(Handle<Object> parent, const std::string& modulePath)
-{
-    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/Matrix4.js", Context::GetCurrent());
-    return !result.IsEmpty();
-}
-
-
-bool bind_Plane(Handle<Object> parent, const std::string& modulePath)
-{
-    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/Plane.js", Context::GetCurrent());
-    return !result.IsEmpty();
-}
-
-
-bool bind_Quaternion(Handle<Object> parent, const std::string& modulePath)
-{
-    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/Quaternion.js", Context::GetCurrent());
-    return !result.IsEmpty();
-}
-
-
-bool bind_Sphere(Handle<Object> parent, const std::string& modulePath)
-{
-    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/Sphere.js", Context::GetCurrent());
-    return !result.IsEmpty();
-}
-
-
-bool bind_Vector2(Handle<Object> parent, const std::string& modulePath)
-{
-    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/Vector2.js", Context::GetCurrent());
-    return !result.IsEmpty();
-}
-
-
-bool bind_Vector3(Handle<Object> parent, const std::string& modulePath)
-{
-    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/Vector3.js", Context::GetCurrent());
-    return !result.IsEmpty();
-}
-
-
-bool bind_Vector4(Handle<Object> parent, const std::string& modulePath)
-{
-    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(modulePath + "js/Math/Vector4.js", Context::GetCurrent());
+    Handle<Value> result = ScriptingManager::getSingletonPtr()->executeFile(
+                                        modulePath + "js/Math/" + fileName + ".js",
+                                        Context::GetCurrent());
     return !result.IsEmpty();
 }
 
@@ -111,18 +36,19 @@ extern "C" {
     {
         HandleScope handle_scope;
 
-        return bind_Color(parent, modulePath) &&
-               bind_MathUtils(parent, modulePath) &&
-               bind_Matrix3(parent, modulePath) &&
-               bind_Matrix4(parent, modulePath) &&
-               bind_Plane(parent, modulePath) &&
-               bind_Quaternion(parent, modulePath) &&
-               bind_Sphere(parent, modulePath) &&
-               bind_Vector2(parent, modulePath) &&
-               bind_Vector3(parent, modulePath) &&
-               bind_Vector4(parent, modulePath) &&
-               bind_AxisAlignedBox(parent, modulePath) &&
-               bind_Intersection(parent, modulePath) &&
+        return load_js_file("Color", parent, modulePath) &&
+               load_js_file("MathUtils", parent, modulePath) &&
+               load_js_file("Matrix3", parent, modulePath) &&
+               load_js_file("Matrix4", parent, modulePath) &&
+               load_js_file("Plane", parent, modulePath) &&
+               load_js_file("Quaternion", parent, modulePath) &&
+               load_js_file("Sphere", parent, modulePath) &&
+               load_js_file("Vector2", parent, modulePath) &&
+               load_js_file("Vector3", parent, modulePath) &&
+               load_js_file("Vector4", parent, modulePath) &&
+               load_js_file("AxisAlignedBox", parent, modulePath) &&
+               load_js_file("Intersection", parent, modulePath) &&
+               load_js_file("ShuffleBag", parent, modulePath) &&
                bind_RandomNumberGenerator(parent);
     }
 }
