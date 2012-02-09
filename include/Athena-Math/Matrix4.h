@@ -1,8 +1,8 @@
 /** @file   Matrix4.h
     @author Philip Abbet
-    
+
     Declaration of the class Athena::Math::Matrix4
-    
+
     @note   This is based on the corresponding class from
             <a href="http://www.ogre3d.org/">Ogre3D</a>.
 */
@@ -21,21 +21,21 @@
 namespace Athena {
 namespace Math {
 
-	/** \addtogroup Math
-	*  @{
-	*/
-	
-	//------------------------------------------------------------------------------------
-	/// @brief  Class encapsulating a standard 4x4 homogeneous matrix
-	/// 
-	/// OGRE uses column vectors when applying matrix multiplications. This means a vector
-	/// is represented as a single column, 4-row matrix. This has the effect that the
-	/// transformations implemented by the matrices happens right-to-left e.g. if vector V
-	/// is to be transformed by M1 then M2 then M3, the calculation would be
-	/// M3 * M2 * M1 * V. The order that matrices are concatenated is vital since matrix
-	/// multiplication is not commutative, i.e. you can get a different result if you
-	/// concatenate in the wrong order.
-    /// 
+    /** \addtogroup Math
+    *  @{
+    */
+
+    //------------------------------------------------------------------------------------
+    /// @brief  Class encapsulating a standard 4x4 homogeneous matrix
+    ///
+    /// OGRE uses column vectors when applying matrix multiplications. This means a vector
+    /// is represented as a single column, 4-row matrix. This has the effect that the
+    /// transformations implemented by the matrices happens right-to-left e.g. if vector V
+    /// is to be transformed by M1 then M2 then M3, the calculation would be
+    /// M3 * M2 * M1 * V. The order that matrices are concatenated is vital since matrix
+    /// multiplication is not commutative, i.e. you can get a different result if you
+    /// concatenate in the wrong order.
+    ///
     /// The use of column vectors and right-to-left ordering is the standard in most
     /// mathematical texts, and is the same as used in OpenGL. It is, however, the
     /// opposite of Direct3D, which has inexplicably chosen to differ from the accepted
@@ -48,9 +48,9 @@ namespace Math {
     ///     | m[2][0]  m[2][1]  m[2][2]  m[2][3] |   {z}
     ///     [ m[3][0]  m[3][1]  m[3][2]  m[3][3] ]   {1}
     /// </pre>
-	//------------------------------------------------------------------------------------
-	class ATHENA_SYMBOL Matrix4
-	{
+    //------------------------------------------------------------------------------------
+    class ATHENA_SYMBOL Matrix4
+    {
         //_____ Construction / Destruction __________
     public:
         //--------------------------------------------------------------------------------
@@ -110,7 +110,7 @@ namespace Math {
         //--------------------------------------------------------------------------------
         /// @brief  Member access, allows use of construct mat[r][c]
         //--------------------------------------------------------------------------------
-		inline Real* operator[](size_t iRow)
+        inline Real* operator[](size_t iRow)
         {
             assert(iRow < 4);
             return m[iRow];
@@ -160,25 +160,25 @@ namespace Math {
         //--------------------------------------------------------------------------------
         /// @brief  Exchange the contents of this matrix with another
         //--------------------------------------------------------------------------------
-		inline void swap(Matrix4& other)
-		{
-			std::swap(m[0][0], other.m[0][0]);
-			std::swap(m[0][1], other.m[0][1]);
-			std::swap(m[0][2], other.m[0][2]);
-			std::swap(m[0][3], other.m[0][3]);
-			std::swap(m[1][0], other.m[1][0]);
-			std::swap(m[1][1], other.m[1][1]);
-			std::swap(m[1][2], other.m[1][2]);
-			std::swap(m[1][3], other.m[1][3]);
-			std::swap(m[2][0], other.m[2][0]);
-			std::swap(m[2][1], other.m[2][1]);
-			std::swap(m[2][2], other.m[2][2]);
-			std::swap(m[2][3], other.m[2][3]);
-			std::swap(m[3][0], other.m[3][0]);
-			std::swap(m[3][1], other.m[3][1]);
-			std::swap(m[3][2], other.m[3][2]);
-			std::swap(m[3][3], other.m[3][3]);
-		}
+        inline void swap(Matrix4& other)
+        {
+            std::swap(m[0][0], other.m[0][0]);
+            std::swap(m[0][1], other.m[0][1]);
+            std::swap(m[0][2], other.m[0][2]);
+            std::swap(m[0][3], other.m[0][3]);
+            std::swap(m[1][0], other.m[1][0]);
+            std::swap(m[1][1], other.m[1][1]);
+            std::swap(m[1][2], other.m[1][2]);
+            std::swap(m[1][3], other.m[1][3]);
+            std::swap(m[2][0], other.m[2][0]);
+            std::swap(m[2][1], other.m[2][1]);
+            std::swap(m[2][2], other.m[2][2]);
+            std::swap(m[2][3], other.m[2][3]);
+            std::swap(m[3][0], other.m[3][0]);
+            std::swap(m[3][1], other.m[3][1]);
+            std::swap(m[3][2], other.m[3][2]);
+            std::swap(m[3][3], other.m[3][3]);
+        }
 
 
         //_____ Arithmetic operations __________
@@ -234,31 +234,31 @@ namespace Math {
 
             return r;
         }
-        
+
         //--------------------------------------------------------------------------------
         /// @brief  Vector transformation using '*'
         //--------------------------------------------------------------------------------
         inline Vector4 operator*(const Vector4& v) const
         {
-            return Vector4(m[0][0] * v.x + m[0][1] * v.y + m[0][2] * v.z + m[0][3] * v.w, 
+            return Vector4(m[0][0] * v.x + m[0][1] * v.y + m[0][2] * v.z + m[0][3] * v.w,
                            m[1][0] * v.x + m[1][1] * v.y + m[1][2] * v.z + m[1][3] * v.w,
                            m[2][0] * v.x + m[2][1] * v.y + m[2][2] * v.z + m[2][3] * v.w,
                            m[3][0] * v.x + m[3][1] * v.y + m[3][2] * v.z + m[3][3] * v.w);
         }
-        
+
         //--------------------------------------------------------------------------------
         /// @brief  Plane transformation using '*'
         //--------------------------------------------------------------------------------
         inline Plane operator*(const Plane& p) const
         {
             Plane ret;
-			Matrix4 invTrans = inverse().transpose();
-			Vector4 v4( p.normal.x, p.normal.y, p.normal.z, p.d );
-			v4 = invTrans * v4;
-			ret.normal.x = v4.x; 
-			ret.normal.y = v4.y; 
-			ret.normal.z = v4.z;
-			ret.d = v4.w / ret.normal.normalise();
+            Matrix4 invTrans = inverse().transpose();
+            Vector4 v4( p.normal.x, p.normal.y, p.normal.z, p.d );
+            v4 = invTrans * v4;
+            ret.normal.x = v4.x;
+            ret.normal.y = v4.y;
+            ret.normal.z = v4.z;
+            ret.d = v4.w / ret.normal.normalise();
 
             return ret;
         }
@@ -360,7 +360,7 @@ namespace Math {
                 m[2][0] != m2.m[2][0] || m[2][1] != m2.m[2][1] || m[2][2] != m2.m[2][2] || m[2][3] != m2.m[2][3] ||
                 m[3][0] != m2.m[3][0] || m[3][1] != m2.m[3][1] || m[3][2] != m2.m[3][2] || m[3][3] != m2.m[3][3])
                 return true;
-            
+
             return false;
         }
 
@@ -397,31 +397,31 @@ namespace Math {
         //--------------------------------------------------------------------------------
         /// @brief  Determines if this matrix involves a scaling
         //--------------------------------------------------------------------------------
-		inline bool hasScale() const
-		{
-			// check magnitude of column vectors (==local axes)
-			Real t = m[0][0] * m[0][0] + m[1][0] * m[1][0] + m[2][0] * m[2][0];
-			if (!MathUtils::RealEqual(t, 1.0, 1e-04))
-				return true;
+        inline bool hasScale() const
+        {
+            // check magnitude of column vectors (==local axes)
+            Real t = m[0][0] * m[0][0] + m[1][0] * m[1][0] + m[2][0] * m[2][0];
+            if (!MathUtils::RealEqual(t, 1.0, 1e-04))
+                return true;
 
-			t = m[0][1] * m[0][1] + m[1][1] * m[1][1] + m[2][1] * m[2][1];
-			if (!MathUtils::RealEqual(t, 1.0, 1e-04))
-				return true;
+            t = m[0][1] * m[0][1] + m[1][1] * m[1][1] + m[2][1] * m[2][1];
+            if (!MathUtils::RealEqual(t, 1.0, 1e-04))
+                return true;
 
-			t = m[0][2] * m[0][2] + m[1][2] * m[1][2] + m[2][2] * m[2][2];
-			if (!MathUtils::RealEqual(t, 1.0, 1e-04))
-				return true;
+            t = m[0][2] * m[0][2] + m[1][2] * m[1][2] + m[2][2] * m[2][2];
+            if (!MathUtils::RealEqual(t, 1.0, 1e-04))
+                return true;
 
-			return false;
-		}
+            return false;
+        }
 
         //--------------------------------------------------------------------------------
         /// @brief  Determines if this matrix involves a negative scaling
         //--------------------------------------------------------------------------------
-		inline bool hasNegativeScale() const
-		{
-			return determinant() < 0;
-		}
+        inline bool hasNegativeScale() const
+        {
+            return determinant() < 0;
+        }
 
         //--------------------------------------------------------------------------------
         /// @brief  Extracts the rotation / scaling part as a quaternion from the matrix
@@ -432,10 +432,10 @@ namespace Math {
             extract3x3Matrix(m3x3);
             return Quaternion(m3x3);
         }
-        
-		Matrix4 adjoint() const;
-		Real determinant() const;
-		Matrix4 inverse() const;
+
+        Matrix4 adjoint() const;
+        Real determinant() const;
+        Matrix4 inverse() const;
 
 
         //_____ Translation transformation __________
@@ -612,7 +612,7 @@ namespace Math {
         {
             assert(isAffine());
 
-            return Vector3(m[0][0] * v.x + m[0][1] * v.y + m[0][2] * v.z + m[0][3], 
+            return Vector3(m[0][0] * v.x + m[0][1] * v.y + m[0][2] * v.z + m[0][3],
                            m[1][0] * v.x + m[1][1] * v.y + m[1][2] * v.z + m[1][3],
                            m[2][0] * v.x + m[2][1] * v.y + m[2][2] * v.z + m[2][3]);
         }
@@ -626,7 +626,7 @@ namespace Math {
         {
             assert(isAffine());
 
-            return Vector4(m[0][0] * v.x + m[0][1] * v.y + m[0][2] * v.z + m[0][3] * v.w, 
+            return Vector4(m[0][0] * v.x + m[0][1] * v.y + m[0][2] * v.z + m[0][3] * v.w,
                            m[1][0] * v.x + m[1][1] * v.y + m[1][2] * v.z + m[1][3] * v.w,
                            m[2][0] * v.x + m[2][1] * v.y + m[2][2] * v.z + m[2][3] * v.w,
                            v.w);
@@ -659,8 +659,8 @@ namespace Math {
                        v.x*mat[0][3] + v.y*mat[1][3] + v.z*mat[2][3] + v.w*mat[3][3]);
     }
 
-	/** @} */
-	/** @} */
+    /** @} */
+    /** @} */
 }
 }
 

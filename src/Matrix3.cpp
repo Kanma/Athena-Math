@@ -1,8 +1,8 @@
 /** @file   Matrix3.cpp
     @author Philip Abbet
-    
+
     Implementation of the class Athena::Math::Matrix3
-    
+
     @note   This is based on the corresponding class from
             <a href="http://www.ogre3d.org/">Ogre3D</a>.
 */
@@ -25,7 +25,7 @@ const Matrix3 Matrix3::IDENTITY(1, 0, 0, 0, 1, 0, 0, 0, 1);
 Vector3 Matrix3::GetColumn(size_t iCol) const
 {
     assert(0 <= iCol && iCol < 3);
-    
+
     return Vector3(m[0][iCol], m[1][iCol], m[2][iCol]);
 }
 
@@ -35,7 +35,7 @@ Vector3 Matrix3::GetColumn(size_t iCol) const
 void Matrix3::SetColumn(size_t iCol, const Vector3& vec)
 {
     assert(0 <= iCol && iCol < 3);
-    
+
     m[0][iCol] = vec.x;
     m[1][iCol] = vec.y;
     m[2][iCol] = vec.z;
@@ -257,7 +257,7 @@ Matrix3 Matrix3::operator-(const Matrix3& rkMatrix) const
             kDiff.m[iRow][iCol] = m[iRow][iCol] - rkMatrix.m[iRow][iCol];
         }
     }
-    
+
     return kDiff;
 }
 
@@ -276,7 +276,7 @@ Matrix3 Matrix3::operator*(const Matrix3& rkMatrix) const
                 m[iRow][2]*rkMatrix.m[2][iCol];
         }
     }
-    
+
     return kProd;
 }
 
@@ -292,7 +292,7 @@ Vector3 Matrix3::operator*(const Vector3& rkPoint) const
             m[iRow][1]*rkPoint[1] +
             m[iRow][2]*rkPoint[2];
     }
-    
+
     return kProd;
 }
 
@@ -335,7 +335,7 @@ Matrix3 Matrix3::Transpose() const
         for (size_t iCol = 0; iCol < 3; ++iCol)
             kTranspose[iRow][iCol] = m[iCol][iRow];
     }
-    
+
     return kTranspose;
 }
 

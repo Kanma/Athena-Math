@@ -1,8 +1,8 @@
 /** @file   Quaternion.cpp
     @author Philip Abbet
-    
+
     Implementation of the class Athena::Math::Quaternion
-    
+
     @note   This is based on the corresponding class from
             <a href="http://www.ogre3d.org/">Ogre3D</a>.
 */
@@ -242,7 +242,7 @@ Vector3 Quaternion::zAxis(void) const
 
 //-----------------------------------------------------------------------
 
-void Quaternion::ToAxes (Vector3& xaxis, Vector3& yaxis, Vector3& zaxis) const
+void Quaternion::ToAxes(Vector3& xaxis, Vector3& yaxis, Vector3& zaxis) const
 {
     Matrix3 kRot;
 
@@ -386,7 +386,7 @@ bool Quaternion::equals(const Quaternion& rhs, const Radian& tolerance) const
     Real fCos = Dot(rhs);
     Radian angle = MathUtils::ACos(fCos);
 
-	return (MathUtils::Abs(angle.valueRadians()) <= tolerance.valueRadians())
+    return (MathUtils::Abs(angle.valueRadians()) <= tolerance.valueRadians())
         || MathUtils::RealEqual(angle.valueRadians(), MathUtils::PI, tolerance.valueRadians());
 
 
@@ -406,79 +406,79 @@ Real Quaternion::normalise(void)
 
 Radian Quaternion::getRoll(bool reprojectAxis) const
 {
-	if (reprojectAxis)
-	{
-		// roll = atan2(localx.y, localx.x)
-		// pick parts of xAxis() implementation that we need
-		Real fTy  = 2.0*y;
-		Real fTz  = 2.0*z;
-		Real fTwz = fTz*w;
-		Real fTxy = fTy*x;
-		Real fTyy = fTy*y;
-		Real fTzz = fTz*z;
+    if (reprojectAxis)
+    {
+        // roll = atan2(localx.y, localx.x)
+        // pick parts of xAxis() implementation that we need
+        Real fTy  = 2.0*y;
+        Real fTz  = 2.0*z;
+        Real fTwz = fTz*w;
+        Real fTxy = fTy*x;
+        Real fTyy = fTy*y;
+        Real fTzz = fTz*z;
 
-		// Vector3(1.0-(fTyy+fTzz), fTxy+fTwz, fTxz-fTwy);
+        // Vector3(1.0-(fTyy+fTzz), fTxy+fTwz, fTxz-fTwy);
 
-		return Radian(MathUtils::ATan2(fTxy+fTwz, 1.0-(fTyy+fTzz)));
+        return Radian(MathUtils::ATan2(fTxy+fTwz, 1.0-(fTyy+fTzz)));
 
-	}
-	else
-	{
-		return Radian(MathUtils::ATan2(2*(x*y + w*z), w*w + x*x - y*y - z*z));
-	}
+    }
+    else
+    {
+        return Radian(MathUtils::ATan2(2*(x*y + w*z), w*w + x*x - y*y - z*z));
+    }
 }
 
 //-----------------------------------------------------------------------
 
 Radian Quaternion::getPitch(bool reprojectAxis) const
 {
-	if (reprojectAxis)
-	{
-		// pitch = atan2(localy.z, localy.y)
-		// pick parts of yAxis() implementation that we need
-		Real fTx  = 2.0*x;
-		Real fTz  = 2.0*z;
-		Real fTwx = fTx*w;
-		Real fTxx = fTx*x;
-		Real fTyz = fTz*y;
-		Real fTzz = fTz*z;
+    if (reprojectAxis)
+    {
+        // pitch = atan2(localy.z, localy.y)
+        // pick parts of yAxis() implementation that we need
+        Real fTx  = 2.0*x;
+        Real fTz  = 2.0*z;
+        Real fTwx = fTx*w;
+        Real fTxx = fTx*x;
+        Real fTyz = fTz*y;
+        Real fTzz = fTz*z;
 
-		// Vector3(fTxy-fTwz, 1.0-(fTxx+fTzz), fTyz+fTwx);
-		return Radian(MathUtils::ATan2(fTyz+fTwx, 1.0-(fTxx+fTzz)));
-	}
-	else
-	{
-		// internal version
-		return Radian(MathUtils::ATan2(2*(y*z + w*x), w*w - x*x - y*y + z*z));
-	}
+        // Vector3(fTxy-fTwz, 1.0-(fTxx+fTzz), fTyz+fTwx);
+        return Radian(MathUtils::ATan2(fTyz+fTwx, 1.0-(fTxx+fTzz)));
+    }
+    else
+    {
+        // internal version
+        return Radian(MathUtils::ATan2(2*(y*z + w*x), w*w - x*x - y*y + z*z));
+    }
 }
 
 //-----------------------------------------------------------------------
 
 Radian Quaternion::getYaw(bool reprojectAxis) const
 {
-	if (reprojectAxis)
-	{
-		// yaw = atan2(localz.x, localz.z)
-		// pick parts of zAxis() implementation that we need
-		Real fTx  = 2.0*x;
-		Real fTy  = 2.0*y;
-		Real fTz  = 2.0*z;
-		Real fTwy = fTy*w;
-		Real fTxx = fTx*x;
-		Real fTxz = fTz*x;
-		Real fTyy = fTy*y;
+    if (reprojectAxis)
+    {
+        // yaw = atan2(localz.x, localz.z)
+        // pick parts of zAxis() implementation that we need
+        Real fTx  = 2.0*x;
+        Real fTy  = 2.0*y;
+        Real fTz  = 2.0*z;
+        Real fTwy = fTy*w;
+        Real fTxx = fTx*x;
+        Real fTxz = fTz*x;
+        Real fTyy = fTy*y;
 
-		// Vector3(fTxz+fTwy, fTyz-fTwx, 1.0-(fTxx+fTyy));
+        // Vector3(fTxz+fTwy, fTyz-fTwx, 1.0-(fTxx+fTyy));
 
-		return Radian(MathUtils::ATan2(fTxz+fTwy, 1.0-(fTxx+fTyy)));
+        return Radian(MathUtils::ATan2(fTxz+fTwy, 1.0-(fTxx+fTyy)));
 
-	}
-	else
-	{
-		// internal version
-		return Radian(MathUtils::ASin(-2*(x*z - w*y)));
-	}
+    }
+    else
+    {
+        // internal version
+        return Radian(MathUtils::ASin(-2*(x*z - w*y)));
+    }
 }
 
 
@@ -530,15 +530,15 @@ Quaternion Quaternion::operator-() const
 
 Vector3 Quaternion::operator*(const Vector3& v) const
 {
-	// nVidia SDK implementation
-	Vector3 uv, uuv;
-	Vector3 qvec(x, y, z);
-	uv = qvec.crossProduct(v);
-	uuv = qvec.crossProduct(uv);
-	uv *= (2.0f * w);
-	uuv *= 2.0f;
+    // nVidia SDK implementation
+    Vector3 uv, uuv;
+    Vector3 qvec(x, y, z);
+    uv = qvec.crossProduct(v);
+    uuv = qvec.crossProduct(uv);
+    uv *= (2.0f * w);
+    uuv *= 2.0f;
 
-	return v + uv + uuv;
+    return v + uv + uuv;
 
 }
 
@@ -641,16 +641,16 @@ Quaternion Quaternion::Squad(Real fT, const Quaternion& rkP, const Quaternion& r
 Quaternion Quaternion::nlerp(Real fT, const Quaternion& rkP, const Quaternion& rkQ,
                              bool shortestPath)
 {
-	Quaternion result;
+    Quaternion result;
     Real fCos = rkP.Dot(rkQ);
-	if (fCos < 0.0f && shortestPath)
-	{
-		result = rkP + fT * ((-rkQ) - rkP);
-	}
-	else
-	{
-		result = rkP + fT * (rkQ - rkP);
-	}
+    if (fCos < 0.0f && shortestPath)
+    {
+        result = rkP + fT * ((-rkQ) - rkP);
+    }
+    else
+    {
+        result = rkP + fT * (rkQ - rkP);
+    }
     result.normalise();
     return result;
 }

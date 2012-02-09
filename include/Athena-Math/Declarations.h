@@ -1,7 +1,7 @@
-/**	@file	Declarations.h
-	@author	Philip Abbet
+/**    @file    Declarations.h
+    @author    Philip Abbet
 
-	Declare all the macros needed by the Athena-Math module
+    Declare all the macros needed by the Athena-Math module
 */
 
 #ifndef _ATHENA_MATH_DECLARATIONS_H_
@@ -57,13 +57,13 @@
 
 /// Used to export symbols from the library
 #if ATHENA_PLATFORM == ATHENA_PLATFORM_WIN32
-#	ifdef ATHENA_EXPORTS
-#		define ATHENA_SYMBOL	__declspec(dllexport)
-#	else
-#		define ATHENA_SYMBOL	__declspec(dllimport)
-#	endif
+#    ifdef ATHENA_EXPORTS
+#        define ATHENA_SYMBOL    __declspec(dllexport)
+#    else
+#        define ATHENA_SYMBOL    __declspec(dllimport)
+#    endif
 #else
-#	define ATHENA_SYMBOL
+#    define ATHENA_SYMBOL
 #endif
 
 /// See if we can use __forceinline or if we need to use __inline instead
