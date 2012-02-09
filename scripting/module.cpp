@@ -14,6 +14,8 @@ using namespace Athena::Scripting;
 
 /*********************************** EXTERNAL FUNCTIONS *********************************/
 
+extern bool bind_RandomNumberGenerator(Handle<Object> parent);
+
 
 /*************************************** FUNCTIONS *************************************/
 
@@ -120,6 +122,7 @@ extern "C" {
                bind_Vector3(parent, modulePath) &&
                bind_Vector4(parent, modulePath) &&
                bind_AxisAlignedBox(parent, modulePath) &&
-               bind_Intersection(parent, modulePath);
+               bind_Intersection(parent, modulePath) &&
+               bind_RandomNumberGenerator(parent);
     }
 }

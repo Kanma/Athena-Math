@@ -212,6 +212,13 @@ set(JS_FILES # AxisAlignedBox
              Intersection/Sphere_Sphere.js
              Intersection/Sphere_Plane.js
              Intersection/Sphere_Vector3.js
+             
+             # RandomNumberGenerator
+             RandomNumberGenerator/RandomizeMax.js
+             RandomNumberGenerator/RandomizeMinMax.js
+             RandomNumberGenerator/RandomizeIntMax.js
+             RandomNumberGenerator/RandomizeIntMinMax.js
+             RandomNumberGenerator/SetSeed.js
 )
 
 
