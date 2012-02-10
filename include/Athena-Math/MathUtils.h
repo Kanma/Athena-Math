@@ -1,9 +1,9 @@
 /** @file   MathUtils.h
     @author Philip Abbet
-    
+
     Declaration of the classes Athena::Math::Radian, Athena::Math::Degree and
     Athena::Math::MathUtils.
-    
+
     @note   This is based on the corresponding classes from
             <a href="http://www.ogre3d.org/">Ogre3D</a>.
 */
@@ -17,168 +17,168 @@
 namespace Athena {
 namespace Math {
 
-	/** \addtogroup Math
-	*  @{
-	*/
-	
-	//------------------------------------------------------------------------------------
-	/// @brief  Represents an angle in radians
-	///
-	/// @remark Radian values are interchangeable with Degree values, and conversions
+    /** \addtogroup Math
+    *  @{
+    */
+
+    //------------------------------------------------------------------------------------
+    /// @brief  Represents an angle in radians
+    ///
+    /// @remark Radian values are interchangeable with Degree values, and conversions
     ///         will be done automatically between them
-	//------------------------------------------------------------------------------------
-	class ATHENA_SYMBOL Radian
-	{
+    //------------------------------------------------------------------------------------
+    class ATHENA_SYMBOL Radian
+    {
         //_____ Construction / Destruction __________
-	public:
-		explicit Radian(Real r=0.0f) : m_radians(r) {}
-		Radian(const Degree& d);
-		
+    public:
+        explicit Radian(Real r=0.0f) : m_radians(r) {}
+        Radian(const Degree& d);
+
 
         //_____ Value assignation & retrieval __________
-	public:
-		Radian& operator=(const Real& f) { m_radians = f; return *this; }
-		Radian& operator=(const Radian& r) { m_radians = r.m_radians; return *this; }
-		Radian& operator=(const Degree& d);
+    public:
+        Radian& operator=(const Real& f) { m_radians = f; return *this; }
+        Radian& operator=(const Radian& r) { m_radians = r.m_radians; return *this; }
+        Radian& operator=(const Degree& d);
 
-		Real valueDegrees() const;
-		Real valueRadians() const { return m_radians; }
+        Real valueDegrees() const;
+        Real valueRadians() const { return m_radians; }
 
 
         //_____ Mathematical operations __________
-	public:
+    public:
         const Radian& operator+() const { return *this; }
-		Radian operator+(const Radian& r) const { return Radian(m_radians + r.m_radians); }
-		Radian operator+(const Degree& d) const;
-		Radian& operator+=(const Radian& r) { m_radians += r.m_radians; return *this; }
-		Radian& operator+=(const Degree& d);
-		Radian operator-() const { return Radian(-m_radians); }
-		Radian operator-(const Radian& r) const { return Radian(m_radians - r.m_radians); }
-		Radian operator-(const Degree& d) const;
-		Radian& operator-=(const Radian& r) { m_radians -= r.m_radians; return *this; }
-		Radian& operator-=(const Degree& d);
-		Radian operator*(Real f ) const { return Radian(m_radians * f); }
+        Radian operator+(const Radian& r) const { return Radian(m_radians + r.m_radians); }
+        Radian operator+(const Degree& d) const;
+        Radian& operator+=(const Radian& r) { m_radians += r.m_radians; return *this; }
+        Radian& operator+=(const Degree& d);
+        Radian operator-() const { return Radian(-m_radians); }
+        Radian operator-(const Radian& r) const { return Radian(m_radians - r.m_radians); }
+        Radian operator-(const Degree& d) const;
+        Radian& operator-=(const Radian& r) { m_radians -= r.m_radians; return *this; }
+        Radian& operator-=(const Degree& d);
+        Radian operator*(Real f ) const { return Radian(m_radians * f); }
         Radian operator*(const Radian& f) const { return Radian(m_radians * f.m_radians); }
-		Radian& operator*=(Real f) { m_radians *= f; return *this; }
-		Radian operator/(Real f) const { return Radian(m_radians / f); }
-		Radian& operator/=(Real f) { m_radians /= f; return *this; }
+        Radian& operator*=(Real f) { m_radians *= f; return *this; }
+        Radian operator/(Real f) const { return Radian(m_radians / f); }
+        Radian& operator/=(Real f) { m_radians /= f; return *this; }
 
 
         //_____ Comparison operations __________
-	public:
-		bool operator<(const Radian& r) const { return m_radians < r.m_radians; }
-		bool operator<=(const Radian& r) const { return m_radians <= r.m_radians; }
-		bool operator==(const Radian& r) const { return m_radians == r.m_radians; }
-		bool operator!=(const Radian& r) const { return m_radians != r.m_radians; }
-		bool operator>=(const Radian& r) const { return m_radians >= r.m_radians; }
-		bool operator>(const Radian& r) const { return m_radians > r.m_radians; }
+    public:
+        bool operator<(const Radian& r) const { return m_radians < r.m_radians; }
+        bool operator<=(const Radian& r) const { return m_radians <= r.m_radians; }
+        bool operator==(const Radian& r) const { return m_radians == r.m_radians; }
+        bool operator!=(const Radian& r) const { return m_radians != r.m_radians; }
+        bool operator>=(const Radian& r) const { return m_radians >= r.m_radians; }
+        bool operator>(const Radian& r) const { return m_radians > r.m_radians; }
 
-		
-		//_____ Attributes __________
-	private:
+
+        //_____ Attributes __________
+    private:
         Real m_radians;
-	};
+    };
 
 
-	//------------------------------------------------------------------------------------
-	/// @brief  Represents an angle in degrees
-	///
-	/// @remark Degree values are interchangeable with Radian values, and conversions
+    //------------------------------------------------------------------------------------
+    /// @brief  Represents an angle in degrees
+    ///
+    /// @remark Degree values are interchangeable with Radian values, and conversions
     ///         will be done automatically between them
-	//------------------------------------------------------------------------------------
-	class ATHENA_SYMBOL Degree
-	{
+    //------------------------------------------------------------------------------------
+    class ATHENA_SYMBOL Degree
+    {
         //_____ Construction / Destruction __________
-	public:
-		explicit Degree(Real d=0.0f) : m_degrees(d) {}
-		Degree(const Radian& r) : m_degrees(r.valueDegrees()) {}
+    public:
+        explicit Degree(Real d=0.0f) : m_degrees(d) {}
+        Degree(const Radian& r) : m_degrees(r.valueDegrees()) {}
 
 
         //_____ Value assignation & retrieval __________
-	public:
-		Degree& operator=(const Real& f) { m_degrees = f; return *this; }
-		Degree& operator=(const Degree& d) { m_degrees = d.m_degrees; return *this; }
-		Degree& operator=(const Radian& r) { m_degrees = r.valueDegrees(); return *this; }
+    public:
+        Degree& operator=(const Real& f) { m_degrees = f; return *this; }
+        Degree& operator=(const Degree& d) { m_degrees = d.m_degrees; return *this; }
+        Degree& operator=(const Radian& r) { m_degrees = r.valueDegrees(); return *this; }
 
-		Real valueDegrees() const { return m_degrees; }
-		Real valueRadians() const;
+        Real valueDegrees() const { return m_degrees; }
+        Real valueRadians() const;
 
 
         //_____ Mathematical operations __________
-	public:
-		const Degree& operator+() const { return *this; }
-		Degree operator+(const Degree& d) const { return Degree(m_degrees + d.m_degrees); }
-		Degree operator+(const Radian& r) const { return Degree(m_degrees + r.valueDegrees()); }
-		Degree& operator+=(const Degree& d) { m_degrees += d.m_degrees; return *this; }
-		Degree& operator+=(const Radian& r) { m_degrees += r.valueDegrees(); return *this; }
-		Degree operator-() const { return Degree(-m_degrees); }
-		Degree operator-(const Degree& d) const { return Degree(m_degrees - d.m_degrees); }
-		Degree operator-(const Radian& r) const { return Degree(m_degrees - r.valueDegrees()); }
-		Degree& operator-=(const Degree& d) { m_degrees -= d.m_degrees; return *this; }
-		Degree& operator-=(const Radian& r) { m_degrees -= r.valueDegrees(); return *this; }
-		Degree operator*(Real f) const { return Degree(m_degrees * f); }
+    public:
+        const Degree& operator+() const { return *this; }
+        Degree operator+(const Degree& d) const { return Degree(m_degrees + d.m_degrees); }
+        Degree operator+(const Radian& r) const { return Degree(m_degrees + r.valueDegrees()); }
+        Degree& operator+=(const Degree& d) { m_degrees += d.m_degrees; return *this; }
+        Degree& operator+=(const Radian& r) { m_degrees += r.valueDegrees(); return *this; }
+        Degree operator-() const { return Degree(-m_degrees); }
+        Degree operator-(const Degree& d) const { return Degree(m_degrees - d.m_degrees); }
+        Degree operator-(const Radian& r) const { return Degree(m_degrees - r.valueDegrees()); }
+        Degree& operator-=(const Degree& d) { m_degrees -= d.m_degrees; return *this; }
+        Degree& operator-=(const Radian& r) { m_degrees -= r.valueDegrees(); return *this; }
+        Degree operator*(Real f) const { return Degree(m_degrees * f); }
         Degree operator*(const Degree& f) const { return Degree(m_degrees * f.m_degrees); }
-		Degree& operator*=(Real f) { m_degrees *= f; return *this; }
-		Degree operator/(Real f) const { return Degree(m_degrees / f); }
-		Degree& operator/=(Real f) { m_degrees /= f; return *this; }
+        Degree& operator*=(Real f) { m_degrees *= f; return *this; }
+        Degree operator/(Real f) const { return Degree(m_degrees / f); }
+        Degree& operator/=(Real f) { m_degrees /= f; return *this; }
 
-		bool operator<(const Degree& d) const { return m_degrees <  d.m_degrees; }
-		bool operator<=(const Degree& d) const { return m_degrees <= d.m_degrees; }
-		bool operator==(const Degree& d) const { return m_degrees == d.m_degrees; }
-		bool operator!=(const Degree& d) const { return m_degrees != d.m_degrees; }
-		bool operator>=(const Degree& d) const { return m_degrees >= d.m_degrees; }
-		bool operator>(const Degree& d) const { return m_degrees >  d.m_degrees; }
+        bool operator<(const Degree& d) const { return m_degrees <  d.m_degrees; }
+        bool operator<=(const Degree& d) const { return m_degrees <= d.m_degrees; }
+        bool operator==(const Degree& d) const { return m_degrees == d.m_degrees; }
+        bool operator!=(const Degree& d) const { return m_degrees != d.m_degrees; }
+        bool operator>=(const Degree& d) const { return m_degrees >= d.m_degrees; }
+        bool operator>(const Degree& d) const { return m_degrees >  d.m_degrees; }
 
 
-		//_____ Attributes __________
-	private:
+        //_____ Attributes __________
+    private:
         Real m_degrees;
-	};
+    };
 
 
-	//------------------------------------------------------------------------------------
-	// The following functions could not be defined within the class definition of class
-	// Radian because they required class Degree to be defined
-	//------------------------------------------------------------------------------------
-	inline Radian::Radian(const Degree& d) : m_radians(d.valueRadians()) {}
+    //------------------------------------------------------------------------------------
+    // The following functions could not be defined within the class definition of class
+    // Radian because they required class Degree to be defined
+    //------------------------------------------------------------------------------------
+    inline Radian::Radian(const Degree& d) : m_radians(d.valueRadians()) {}
 
-	inline Radian& Radian::operator=(const Degree& d)
-	{
-		m_radians = d.valueRadians();
-		return *this;
-	}
+    inline Radian& Radian::operator=(const Degree& d)
+    {
+        m_radians = d.valueRadians();
+        return *this;
+    }
 
-	inline Radian Radian::operator+(const Degree& d) const
-	{
-		return Radian(m_radians + d.valueRadians());
-	}
-	
-	inline Radian& Radian::operator+=(const Degree& d)
-	{
-		m_radians += d.valueRadians();
-		return *this;
-	}
-	
-	inline Radian Radian::operator-(const Degree& d) const
-	{
-		return Radian(m_radians - d.valueRadians());
-	}
-	
-	inline Radian& Radian::operator-=(const Degree& d)
-	{
-		m_radians -= d.valueRadians();
-		return *this;
-	}
+    inline Radian Radian::operator+(const Degree& d) const
+    {
+        return Radian(m_radians + d.valueRadians());
+    }
+
+    inline Radian& Radian::operator+=(const Degree& d)
+    {
+        m_radians += d.valueRadians();
+        return *this;
+    }
+
+    inline Radian Radian::operator-(const Degree& d) const
+    {
+        return Radian(m_radians - d.valueRadians());
+    }
+
+    inline Radian& Radian::operator-=(const Degree& d)
+    {
+        m_radians -= d.valueRadians();
+        return *this;
+    }
 
 
-	//------------------------------------------------------------------------------------
-	/// @brief  Class to provide access to common mathematical functions
-	//------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------
+    /// @brief  Class to provide access to common mathematical functions
+    //------------------------------------------------------------------------------------
     class ATHENA_SYMBOL MathUtils
     {
         //_____ Constants __________
     public:
- 		static const Real LOG2;                 ///< log(2)
+         static const Real LOG2;                 ///< log(2)
         static const Real POS_INFINITY;         ///< +∞
         static const Real NEG_INFINITY;         ///< -∞
         static const Real PI;                   ///< π
@@ -220,22 +220,22 @@ namespace Math {
         static inline Radian Sqrt(const Radian& fValue) { return Radian(sqrt(fValue.valueRadians())); }
         static inline Degree Sqrt(const Degree& fValue) { return Degree(sqrt(fValue.valueDegrees())); }
         static Real InvSqrt(Real fValue);
-        
+
         static bool RealEqual(Real a, Real b, Real tolerance = std::numeric_limits<Real>::epsilon());
-        
+
         static inline bool isNaN(Real f)
         {
-        	// std::isnan() is C99, not supported by all compilers
-        	// However NaN always fails this next test, no other number does.
-        	return f != f;
+            // std::isnan() is C99, not supported by all compilers
+            // However NaN always fails this next test, no other number does.
+            return f != f;
         }
 
         /// Clamp a value within an inclusive range
         template <typename T>
         static T Clamp(T val, T minval, T maxval)
         {
-        	assert(minval < maxval && "Invalid clamp range");
-        	return std::max(std::min(val, maxval), minval);
+            assert(minval < maxval && "Invalid clamp range");
+            return std::max(std::min(val, maxval), minval);
         }
 
 
@@ -272,45 +272,45 @@ namespace Math {
         //_____ Signal generation __________
     public:
         //--------------------------------------------------------------------------------
-	    /// @brief  Generates a value based on the Gaussian (normal) distribution function
+        /// @brief  Generates a value based on the Gaussian (normal) distribution function
         ///         with the given offset and scale parameters
         //--------------------------------------------------------------------------------
         static Real gaussianDistribution(Real x, Real offset = 0.0f, Real scale = 1.0f);
     };
 
 
-	//------------------------------------------------------------------------------------
-	// The following functions must be defined down here, because they rely on the angle
-	// unit conversion functions in class MathUtils
-	//------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------
+    // The following functions must be defined down here, because they rely on the angle
+    // unit conversion functions in class MathUtils
+    //------------------------------------------------------------------------------------
     inline Real Radian::valueDegrees() const
     {
-    	return MathUtils::RadiansToDegrees(m_radians);
+        return MathUtils::RadiansToDegrees(m_radians);
     }
 
     inline Real Degree::valueRadians() const
     {
-    	return MathUtils::DegreesToRadians(m_degrees);
+        return MathUtils::DegreesToRadians(m_degrees);
     }
 
     inline Radian operator*(Real a, const Radian& b)
     {
-    	return Radian(a * b.valueRadians());
+        return Radian(a * b.valueRadians());
     }
 
     inline Radian operator/(Real a, const Radian& b)
     {
-    	return Radian(a / b.valueRadians());
+        return Radian(a / b.valueRadians());
     }
 
     inline Degree operator*(Real a, const Degree& b)
     {
-    	return Degree(a * b.valueDegrees());
+        return Degree(a * b.valueDegrees());
     }
 
     inline Degree operator/(Real a, const Degree& b)
     {
-    	return Degree(a / b.valueDegrees());
+        return Degree(a / b.valueDegrees());
     }
 
     /** @} */

@@ -1,6 +1,7 @@
 ********************************************************************************
 *                                                                              *
 *                                 Athena-Math                                  *
+*                                Version 1.1.0                                 *
 *                       http://github.com/Kanma/Athena-Math                    *
 *                                                                              *
 ********************************************************************************
@@ -11,7 +12,43 @@
 ---------------------------------------
 
 Athena-Math is the mathematics module of the Athena Game Framework, in the form
-of a library written in C++. 
+of a library written in C++, with an optional support for JavaScript.
+
+This module can be used as a standalone library, or combined with the rest of
+the Athena Game Framework (http://github.com/Kanma/Athena-Framework).
+
+Additionally, when the Athena-Scripting (http://github.com/Kanma/Athena-Scripting)
+module is built alongside this one, Athena-Math will be usable from JavaScript.
+
+
+---------------------------------------
+- Dependencies
+---------------------------------------
+
+Athena-Math requires XMake to compile. It is provided as a GIT submodule of this
+repository.
+
+To download it, do:
+
+    somewhere$ cd <path/to/the/source/of/Athena-Math>
+    Athena-Math$ git submodule init
+    Athena-Math$ git submodule update
+
+
+---------------------------------------
+- Compilation
+---------------------------------------
+
+(Note: you'll need to install CMake to compile Athena-Math)
+
+To compile Athena-Math, do:
+
+    somewhere$ mkdir build
+    somewhere$ cd build
+    build$ cmake <path/to/the/source/of/Athena-Math>
+    build$ make
+
+The library will be put in build/bin/
 
 
 ---------------------------------------

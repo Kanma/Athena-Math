@@ -1,5 +1,5 @@
 /** @file   asm_math.h
-    
+
     ASM math routines posted by davepermen et al on flipcode forums, taken from
     <a href="http://www.ogre3d.org/">Ogre3D</a> source code
 */
@@ -28,16 +28,16 @@ const float pi = 4.0f * atan( 1.0f );
 const float half_pi = 0.5f * pi;
 
 /*=============================================================================
-	NO EXPLICIT RETURN REQUIRED FROM THESE METHODS!! 
+    NO EXPLICIT RETURN REQUIRED FROM THESE METHODS!!
 =============================================================================*/
 #if  ATHENA_COMPILER == ATHENA_COMPILER_MSVC && ATHENA_ARCH_TYPE == ATHENA_ARCHITECTURE_32
-#	pragma warning( push )
-#	pragma warning( disable: 4035 ) 
+#    pragma warning( push )
+#    pragma warning( disable: 4035 )
 #endif
 
 float asm_arccos( float r ) {
     // return half_pi + arctan( r / -sqr( 1.f - r * r ) );
-	
+
 #if  ATHENA_COMPILER == ATHENA_COMPILER_MSVC &&  ATHENA_ARCH_TYPE == ATHENA_ARCHITECTURE_32
 
     float asm_one = 1.f;
@@ -57,7 +57,7 @@ float asm_arccos( float r ) {
 
 #else
 
-	return float( acos( r ) );
+    return float( acos( r ) );
 
 #endif
 }
@@ -81,7 +81,7 @@ float asm_arcsin( float r ) {
 
 #else
 
-	return float( asin( r ) );
+    return float( asin( r ) );
 
 #endif
 
@@ -99,7 +99,7 @@ float asm_arctan( float r ) {
 
 #else
 
-	return float( atan( r ) );
+    return float( atan( r ) );
 
 #endif
 
@@ -116,7 +116,7 @@ float asm_sin( float r ) {
 
 #else
 
-	return sin( r );
+    return sin( r );
 
 #endif
 
@@ -132,8 +132,8 @@ float asm_cos( float r ) {
     } // returns r0
 
 #else
-	
-	return cos( r );
+
+    return cos( r );
 
 #endif
 }
@@ -152,8 +152,8 @@ float asm_tan( float r ) {
     } // returns r0
 
 #else
-	
-	return tan( r );
+
+    return tan( r );
 
 #endif
 }
@@ -170,7 +170,7 @@ float asm_sqrt( float r )
 
 #else
 
-	return sqrt( r );
+    return sqrt( r );
 
 #endif
 }
@@ -190,7 +190,7 @@ float asm_rsq( float r )
 
 #else
 
-	return 1. / sqrt( r );
+    return 1. / sqrt( r );
 
 #endif
 }
@@ -220,7 +220,7 @@ float apx_rsq( float r ) {
 
 #else
 
-	return 1. / sqrt( r );
+    return 1. / sqrt( r );
 
 #endif
 }
@@ -279,21 +279,21 @@ ATHENA_FORCEINLINE float asm_rand()
   #if 0
     #if ATHENA_COMP_VER >= 1300
 
-	static unsigned __int64 q = time( NULL );
+    static unsigned __int64 q = time( NULL );
 
-	_asm {
-		movq mm0, q
+    _asm {
+        movq mm0, q
 
-		// do the magic MMX thing
-		pshufw mm1, mm0, 0x1E
-		paddd mm0, mm1
+        // do the magic MMX thing
+        pshufw mm1, mm0, 0x1E
+        paddd mm0, mm1
 
-		// move to integer memory location and free MMX
-		movq q, mm0
-		emms
-	}
+        // move to integer memory location and free MMX
+        movq q, mm0
+        emms
+    }
 
-	return float( q );
+    return float( q );
     #endif
   #else
     // VC6 does not support pshufw
@@ -302,7 +302,7 @@ ATHENA_FORCEINLINE float asm_rand()
 #else
     // GCC etc
 
-	return float( rand() );
+    return float( rand() );
 
 #endif
 }
@@ -315,8 +315,8 @@ ATHENA_FORCEINLINE float asm_rand_max()
   #if 0
     #if ATHENA_COMP_VER >= 1300
 
-	return (std::numeric_limits< unsigned __int64 >::max)();
-	return 9223372036854775807.0f;
+    return (std::numeric_limits< unsigned __int64 >::max)();
+    return 9223372036854775807.0f;
     #endif
   #else
     // VC6 does not support unsigned __int64
@@ -325,13 +325,13 @@ ATHENA_FORCEINLINE float asm_rand_max()
 
 #else
     // GCC etc
-	return float( RAND_MAX );
+    return float( RAND_MAX );
 
 #endif
 }
 
 // returns log2( r ) / log2( e )
-float asm_ln( float r ) {    
+float asm_ln( float r ) {
 
 #if  ATHENA_COMPILER == ATHENA_COMPILER_MSVC &&  ATHENA_ARCH_TYPE == ATHENA_ARCHITECTURE_32
 
@@ -369,13 +369,13 @@ float asm_ln( float r ) {
 
 #else
 
-	return log( r );
+    return log( r );
 
 #endif
 }
 
 #if  ATHENA_COMPILER == ATHENA_COMPILER_MSVC &&  ATHENA_ARCH_TYPE == ATHENA_ARCHITECTURE_32
-#	pragma warning( pop )
+#    pragma warning( pop )
 #endif
 
 } // namespace
