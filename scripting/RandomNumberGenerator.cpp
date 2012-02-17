@@ -19,14 +19,6 @@ using namespace v8;
 
 #define GetObjectPtr(HANDLE) GetObjectPtr<RandomNumberGenerator>(HANDLE)
 
-#define bindMethod(NAME, CALLBACK)                                  \
-    template_RandomNumberGenerator->Set(String::New(NAME), FunctionTemplate::New(CALLBACK)->GetFunction());
-
-
-/*************************************** GLOBALS ***************************************/
-
-Persistent<FunctionTemplate> function_RandomNumberGenerator;
-
 
 /***************************** CONSTRUCTION / DESTRUCTION ******************************/
 
@@ -123,28 +115,26 @@ Handle<Value> RandomNumberGenerator_Randomize(const Arguments& args)
 
 bool bind_RandomNumberGenerator(Handle<Object> parent)
 {
-    if (function_RandomNumberGenerator.IsEmpty())
+    ScriptingManager* pManager = ScriptingManager::getSingletonPtr();
+    
+    Handle<FunctionTemplate> rng = pManager->getClassTemplate("Athena.Math.RandomNumberGenerator");
+    
+    if (rng.IsEmpty())
     {
-        // Create the object template
-        function_RandomNumberGenerator = Persistent<FunctionTemplate>::New(
-                                                FunctionTemplate::New(RandomNumberGenerator_New));
-
-        function_RandomNumberGenerator->InstanceTemplate()->SetInternalFieldCount(1);
+        // Declaration of the class
+        rng = FunctionTemplate::New(RandomNumberGenerator_New);
+        rng->InstanceTemplate()->SetInternalFieldCount(1);
 
         // Methods
-        Local<ObjectTemplate> template_RandomNumberGenerator =
-                function_RandomNumberGenerator->PrototypeTemplate();
-
-        bindMethod("setSeed",      RandomNumberGenerator_SetSeed);
-        bindMethod("reset",        RandomNumberGenerator_Reset);
-        bindMethod("randomize",    RandomNumberGenerator_Randomize);
-        bindMethod("randomizeInt", RandomNumberGenerator_RandomizeInt);
+        AddMethod(rng, "setSeed",      RandomNumberGenerator_SetSeed);
+        AddMethod(rng, "reset",        RandomNumberGenerator_Reset);
+        AddMethod(rng, "randomize",    RandomNumberGenerator_Randomize);
+        AddMethod(rng, "randomizeInt", RandomNumberGenerator_RandomizeInt);
 
         // Register the class with the Scripting Manager
-        ScriptingManager::getSingletonPtr()->declareClassTemplate("Athena.Math.RandomNumberGenerator",
-                                                                  function_RandomNumberGenerator);
+        pManager->declareClassTemplate("Athena.Math.RandomNumberGenerator", rng);
     }
 
     // Add the class to the parent
-    return parent->Set(String::New("RandomNumberGenerator"), function_RandomNumberGenerator->GetFunction());
+    return parent->Set(String::New("RandomNumberGenerator"), rng->GetFunction());
 }
