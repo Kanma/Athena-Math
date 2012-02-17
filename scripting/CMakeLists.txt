@@ -29,6 +29,8 @@ xmake_project_link(ATHENA_MATH_SCRIPTING_MODULE ATHENA_SCRIPTING V8)
 set_target_properties(Athena-Math-Scripting-module PROPERTIES OUTPUT_NAME "Math"
                                                               LIBRARY_OUTPUT_DIRECTORY "${XMAKE_BINARY_DIR}/bin/modules/Athena")
 
+add_dependencies(Athena-Math-Scripting-module Run-UnitTests-Athena-Scripting)
+
 # Copy of the JavaScript files
 foreach (JS_SRC ${JS_SRCS})
     configure_file(${JS_SRC} "${XMAKE_BINARY_DIR}/bin/modules/Athena/js/Math/${JS_SRC}" COPYONLY)

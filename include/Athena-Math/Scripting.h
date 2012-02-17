@@ -22,12 +22,6 @@
 namespace Athena {
 namespace Math {
 
-    enum
-    {
-        CLASSID_RANDOM_NUMBER_GENERATOR = 100,
-    };
-
-
     //------------------------------------------------------------------------------------
     /// @brief    Create a C++ AxisAlignedBox from a JavaScript one
     //------------------------------------------------------------------------------------

@@ -6,6 +6,7 @@
 
 #include <Athena-Math/RandomNumberGenerator.h>
 #include <Athena-Math/Scripting.h>
+#include <Athena-Scripting/ScriptingManager.h>
 #include <Athena-Scripting/Utils.h>
 #include <v8.h>
 
@@ -16,9 +17,7 @@ using namespace v8;
 
 /**************************************** MACROS ***************************************/
 
-#define createJSRandomNumberGeneratorFromPtr(rng)                                   \
-    createJSObject<RandomNumberGenerator>(template_RandomNumberGenerator, RandomNumberGenerator_WeakCallback, \
-                                          rng, sizeof(RandomNumberGenerator), CLASSID_RANDOM_NUMBER_GENERATOR);
+#define GetObjectPtr(HANDLE) GetObjectPtr<RandomNumberGenerator>(HANDLE)
 
 #define bindMethod(NAME, CALLBACK)                                  \
     template_RandomNumberGenerator->Set(String::New(NAME), FunctionTemplate::New(CALLBACK)->GetFunction());
@@ -26,27 +25,15 @@ using namespace v8;
 
 /*************************************** GLOBALS ***************************************/
 
-Persistent<ObjectTemplate> template_RandomNumberGenerator;
+Persistent<FunctionTemplate> function_RandomNumberGenerator;
 
 
 /***************************** CONSTRUCTION / DESTRUCTION ******************************/
 
-// Destructor
-void RandomNumberGenerator_WeakCallback(Persistent<Value> value, void* data)
-{
-    if (value.IsNearDeath())
-    {
-        RandomNumberGenerator* rng = CastJSObject<RandomNumberGenerator>(value, CLASSID_RANDOM_NUMBER_GENERATOR);
-        delete rng;
-    }
-}
-
-//-----------------------------------------------------------------------
-
 // Constructor
 Handle<Value> RandomNumberGenerator_New(const Arguments& args)
 {
-    return createJSRandomNumberGeneratorFromPtr(new RandomNumberGenerator());
+    return SetObjectPtr(args.This(), new RandomNumberGenerator());
 }
 
 
@@ -57,9 +44,8 @@ Handle<Value> RandomNumberGenerator_SetSeed(const Arguments& args)
     if ((args.Length() != 1) || !args[0]->IsUint32())
         return ThrowException(String::New("Invalid parameter, expected an unsigned integer"));
 
-    RandomNumberGenerator* self = CastJSObject<RandomNumberGenerator>(args.This(), CLASSID_RANDOM_NUMBER_GENERATOR);
-    if (!self)
-        return ThrowException(String::New("'this' isn't a RandomNumberGenerator"));
+    RandomNumberGenerator* self = GetObjectPtr(args.This());
+    assert(self);
 
     self->setSeed(args[0]->Uint32Value());
     
@@ -70,9 +56,8 @@ Handle<Value> RandomNumberGenerator_SetSeed(const Arguments& args)
 
 Handle<Value> RandomNumberGenerator_Reset(const Arguments& args)
 {
-    RandomNumberGenerator* self = CastJSObject<RandomNumberGenerator>(args.This(), CLASSID_RANDOM_NUMBER_GENERATOR);
-    if (!self)
-        return ThrowException(String::New("'this' isn't a RandomNumberGenerator"));
+    RandomNumberGenerator* self = GetObjectPtr(args.This());
+    assert(self);
 
     self->reset();
     
@@ -83,9 +68,8 @@ Handle<Value> RandomNumberGenerator_Reset(const Arguments& args)
 
 Handle<Value> RandomNumberGenerator_RandomizeInt(const Arguments& args)
 {
-    RandomNumberGenerator* self = CastJSObject<RandomNumberGenerator>(args.This(), CLASSID_RANDOM_NUMBER_GENERATOR);
-    if (!self)
-        return ThrowException(String::New("'this' isn't a RandomNumberGenerator"));
+    RandomNumberGenerator* self = GetObjectPtr(args.This());
+    assert(self);
 
     if (args.Length() == 0)
     {
@@ -113,9 +97,8 @@ Handle<Value> RandomNumberGenerator_RandomizeInt(const Arguments& args)
 
 Handle<Value> RandomNumberGenerator_Randomize(const Arguments& args)
 {
-    RandomNumberGenerator* self = CastJSObject<RandomNumberGenerator>(args.This(), CLASSID_RANDOM_NUMBER_GENERATOR);
-    if (!self)
-        return ThrowException(String::New("'this' isn't a RandomNumberGenerator"));
+    RandomNumberGenerator* self = GetObjectPtr(args.This());
+    assert(self);
 
     if (args.Length() == 0)
     {
@@ -140,17 +123,28 @@ Handle<Value> RandomNumberGenerator_Randomize(const Arguments& args)
 
 bool bind_RandomNumberGenerator(Handle<Object> parent)
 {
-    // Create the object template
-    template_RandomNumberGenerator = Persistent<ObjectTemplate>::New(ObjectTemplate::New());
-    template_RandomNumberGenerator->SetCallAsFunctionHandler(RandomNumberGenerator_New);
-    template_RandomNumberGenerator->SetInternalFieldCount(2);
+    if (function_RandomNumberGenerator.IsEmpty())
+    {
+        // Create the object template
+        function_RandomNumberGenerator = Persistent<FunctionTemplate>::New(
+                                                FunctionTemplate::New(RandomNumberGenerator_New));
 
-    // Methods
-    bindMethod("setSeed",      RandomNumberGenerator_SetSeed);
-    bindMethod("reset",        RandomNumberGenerator_Reset);
-    bindMethod("randomize",    RandomNumberGenerator_Randomize);
-    bindMethod("randomizeInt", RandomNumberGenerator_RandomizeInt);
+        function_RandomNumberGenerator->InstanceTemplate()->SetInternalFieldCount(1);
+
+        // Methods
+        Local<ObjectTemplate> template_RandomNumberGenerator =
+                function_RandomNumberGenerator->PrototypeTemplate();
+
+        bindMethod("setSeed",      RandomNumberGenerator_SetSeed);
+        bindMethod("reset",        RandomNumberGenerator_Reset);
+        bindMethod("randomize",    RandomNumberGenerator_Randomize);
+        bindMethod("randomizeInt", RandomNumberGenerator_RandomizeInt);
+
+        // Register the class with the Scripting Manager
+        ScriptingManager::getSingletonPtr()->declareClassTemplate("Athena.Math.RandomNumberGenerator",
+                                                                  function_RandomNumberGenerator);
+    }
 
     // Add the class to the parent
-    return parent->Set(String::New("RandomNumberGenerator"), FunctionTemplate::New(RandomNumberGenerator_New)->GetFunction());
+    return parent->Set(String::New("RandomNumberGenerator"), function_RandomNumberGenerator->GetFunction());
 }

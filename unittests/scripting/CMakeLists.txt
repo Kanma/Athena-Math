@@ -20,6 +20,8 @@ xmake_project_link(UNITTESTS_ATHENA_MATH_SCRIPTING UNITTEST_CPP)
 xmake_project_link(UNITTESTS_ATHENA_MATH_SCRIPTING ATHENA_MATH)
 xmake_project_link(UNITTESTS_ATHENA_MATH_SCRIPTING ATHENA_SCRIPTING)
 
+add_dependencies(UnitTests-Athena-Math-Scripting Run-UnitTests-Athena-Scripting)
+
 
 # Run the unit tests
 get_property(PATH TARGET UnitTests-Athena-Math-Scripting PROPERTY RUNTIME_OUTPUT_DIRECTORY)
