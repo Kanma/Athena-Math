@@ -1,5 +1,5 @@
-/**    @file    RandomGenerator.cpp
-    @author    Philip Abbet
+/** @file   RandomGenerator.cpp
+    @author Philip Abbet
 
     Implementation of the class 'Athena::Math::RandomNumberGenerator'
 */

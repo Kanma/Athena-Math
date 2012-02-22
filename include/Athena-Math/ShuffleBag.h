@@ -1,5 +1,5 @@
-/**    @file    ShuffleBag.h
-    @author    Philip Abbet
+/** @file   ShuffleBag.h
+    @author Philip Abbet
 
     Declaration of the class 'Athena::Math::ShuffleBag'
 
@@ -22,7 +22,7 @@ namespace Math {
     */
 
     //------------------------------------------------------------------------------------
-    /// @brief    Contains some elements that can be retrieved in a
+    /// @brief  Contains some elements that can be retrieved in a
     ///         random-but-still-controlled order
     ///
     /// Each element can appear several times in the bag, giving him a higher probability

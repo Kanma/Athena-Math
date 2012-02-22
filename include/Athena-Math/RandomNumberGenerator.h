@@ -1,5 +1,5 @@
-/**    @file    RandomNumberGenerator.h
-    @author    Philip Abbet
+/** @file   RandomNumberGenerator.h
+    @author Philip Abbet
 
     Declaration of the class 'Athena::Math::RandomNumberGenerator'
 */
@@ -18,7 +18,7 @@ namespace Math {
     */
 
     //------------------------------------------------------------------------------------
-    /// @brief    Random number generator
+    /// @brief  Random number generator
     ///
     /// See http://en.wikipedia.org/wiki/Linear_congruential_generator
     //------------------------------------------------------------------------------------
