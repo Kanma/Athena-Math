@@ -1,5 +1,5 @@
-/**    @file    Declarations.h
-    @author    Philip Abbet
+/** @file   Declarations.h
+    @author Philip Abbet
 
     Declare all the macros needed by the Athena-Math module
 */
