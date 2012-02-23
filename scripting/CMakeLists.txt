@@ -27,6 +27,7 @@ set(JS_SRCS AxisAlignedBox.js
 xmake_create_dynamic_library(ATHENA_MATH_SCRIPTING_MODULE Athena-Math-Scripting-module 1.0.0 1.0.0 ${SRCS})
 xmake_project_link(ATHENA_MATH_SCRIPTING_MODULE ATHENA_SCRIPTING V8)
 set_target_properties(Athena-Math-Scripting-module PROPERTIES OUTPUT_NAME "Math"
+                                                              PREFIX ""
                                                               LIBRARY_OUTPUT_DIRECTORY "${XMAKE_BINARY_DIR}/bin/modules/Athena")
 
 add_dependencies(Athena-Math-Scripting-module Run-UnitTests-Athena-Scripting)
