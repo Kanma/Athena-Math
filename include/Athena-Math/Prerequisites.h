@@ -14,6 +14,18 @@
 #include <assert.h>
 
 
+/// Used to export symbols from the library
+#if ATHENA_PLATFORM == ATHENA_PLATFORM_WIN32
+#    ifdef ATHENA_MATH_EXPORTS
+#        define ATHENA_MATH_SYMBOL  __declspec(dllexport)
+#    else
+#        define ATHENA_MATH_SYMBOL  __declspec(dllimport)
+#    endif
+#else
+#    define ATHENA_MATH_SYMBOL
+#endif
+
+
 namespace Athena {
 namespace Math {
 

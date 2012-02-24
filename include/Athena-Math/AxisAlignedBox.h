@@ -32,7 +32,7 @@ namespace Math {
     ///         all 3 axes. This class is typically used for an axis-aligned bounding box
     ///         (AABB) for collision and visibility determination.
     //------------------------------------------------------------------------------------
-    class ATHENA_SYMBOL AxisAlignedBox
+    class ATHENA_MATH_SYMBOL AxisAlignedBox
     {
         //_____ Internal types __________
     public:

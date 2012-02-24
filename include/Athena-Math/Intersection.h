@@ -23,7 +23,7 @@ namespace Math {
     //------------------------------------------------------------------------------------
     /// @brief  Contains most of the intersection-related methods
     //------------------------------------------------------------------------------------
-    class ATHENA_SYMBOL Intersection
+    class ATHENA_MATH_SYMBOL Intersection
     {
         //_____ Methods __________
     public:

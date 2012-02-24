@@ -27,7 +27,7 @@ namespace Math {
     /// @remark Radian values are interchangeable with Degree values, and conversions
     ///         will be done automatically between them
     //------------------------------------------------------------------------------------
-    class ATHENA_SYMBOL Radian
+    class ATHENA_MATH_SYMBOL Radian
     {
         //_____ Construction / Destruction __________
     public:
@@ -86,7 +86,7 @@ namespace Math {
     /// @remark Degree values are interchangeable with Radian values, and conversions
     ///         will be done automatically between them
     //------------------------------------------------------------------------------------
-    class ATHENA_SYMBOL Degree
+    class ATHENA_MATH_SYMBOL Degree
     {
         //_____ Construction / Destruction __________
     public:
@@ -174,7 +174,7 @@ namespace Math {
     //------------------------------------------------------------------------------------
     /// @brief  Class to provide access to common mathematical functions
     //------------------------------------------------------------------------------------
-    class ATHENA_SYMBOL MathUtils
+    class ATHENA_MATH_SYMBOL MathUtils
     {
         //_____ Constants __________
     public:
