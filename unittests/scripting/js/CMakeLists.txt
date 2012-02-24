@@ -71,7 +71,7 @@ set(JS_FILES # AxisAlignedBox
              Matrix4/NotEquals.js
              Matrix4/Transpose.js
              Matrix4/Translation.js
-             
+
              # Plane
              Plane/ConstructionWithoutParameters.js
              Plane/ConstructionWithPlane.js
@@ -84,7 +84,7 @@ set(JS_FILES # AxisAlignedBox
              Plane/GetSideOfBox2.js
              Plane/ProjectVector.js
              Plane/GetDistance.js
-             
+
              # Quaternion
              Quaternion/CreationWithWXYZ.js
              Quaternion/CreationWithAngleAxis.js
@@ -102,7 +102,7 @@ set(JS_FILES # AxisAlignedBox
              Quaternion/Negate.js
              Quaternion/Equals.js
              Quaternion/NotEquals.js
-             
+
              # Vector2
              Vector2/CreationWithXY.js
              Vector2/CreationWithScale.js
@@ -203,7 +203,7 @@ set(JS_FILES # AxisAlignedBox
              Vector4/PositionCloses.js
              Vector4/IsNaN.js
              Vector4/Constants.js
-             
+
              # Intersections
              Intersection/AxisAlignedBox_AxisAlignedBox.js
              Intersection/AxisAlignedBox_Sphere.js
@@ -212,7 +212,7 @@ set(JS_FILES # AxisAlignedBox
              Intersection/Sphere_Sphere.js
              Intersection/Sphere_Plane.js
              Intersection/Sphere_Vector3.js
-             
+
              # RandomNumberGenerator
              RandomNumberGenerator/RandomizeMax.js
              RandomNumberGenerator/RandomizeMinMax.js

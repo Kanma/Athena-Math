@@ -45,7 +45,7 @@ Athena.Math.intersects = function(a, b)
     {
         if (box.isNull())
             return false;
-        
+
         if (box.isInfinite())
             return true;
 
@@ -55,7 +55,7 @@ Athena.Math.intersects = function(a, b)
         function process(c, min, max)
         {
             var s;
-            
+
             if (c < min)
             {
                 s = c - min;
@@ -106,16 +106,16 @@ Athena.Math.intersects = function(a, b)
         return (vector.sub(sphere.center).squaredLength() <= sphere.radius * sphere.radius);
     }
 
-    
+
     //_____ Parameters conversion __________
-    
+
     var box1;
     var box2;
     var sphere1;
     var sphere2;
     var plane;
     var vector;
-    
+
     function decode(obj)
     {
         if (obj.__classname__ == 'Athena.Math.AxisAlignedBox')
@@ -141,13 +141,13 @@ Athena.Math.intersects = function(a, b)
             vector = obj;
         }
     }
-    
+
     decode(a);
     decode(b);
-    
-    
+
+
     //_____ Call the correct intersection function __________
-    
+
     if (box1 !== undefined)
     {
         if (box2 !== undefined)
