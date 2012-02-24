@@ -53,8 +53,8 @@ endif()
 if (WIN32)
     # Disable some warnings in Visual Studio
     xmake_add_to_list_property(ATHENA_MATH COMPILE_DEFINITIONS "_CRT_SECURE_NO_WARNINGS")
-    xmake_add_to_list_property(ATHENA_MATH COMPILE_DEFINITIONS "/wd4244")
-    xmake_add_to_list_property(ATHENA_MATH COMPILE_DEFINITIONS "/wd4305")
+    xmake_add_to_property(ATHENA_MATH COMPILE_FLAGS /wd4244)
+    xmake_add_to_property(ATHENA_MATH COMPILE_FLAGS /wd4305)
 endif()
 
 
