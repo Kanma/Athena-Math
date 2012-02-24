@@ -50,6 +50,7 @@ if (DEFINED ATHENA_SCRIPTING_ENABLED AND ATHENA_SCRIPTING_ENABLED)
     xmake_project_link(ATHENA_MATH V8)
 endif()
 
+
 if (WIN32)
     # Disable some warnings in Visual Studio
     xmake_add_to_list_property(ATHENA_MATH COMPILE_DEFINITIONS "_CRT_SECURE_NO_WARNINGS")

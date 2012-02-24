@@ -13,6 +13,9 @@
 #   define OFF 0
 #endif
 
+// Athena-Math compiled as a static library
+#define ATHENA_MATH_STATIC @ATHENA_MATH_STATIC@
+
 // Double-precision
 #define ATHENA_DOUBLE_PRECISION @ATHENA_DOUBLE_PRECISION@
 
