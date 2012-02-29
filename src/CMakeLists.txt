@@ -51,12 +51,9 @@ if (DEFINED ATHENA_SCRIPTING_ENABLED AND ATHENA_SCRIPTING_ENABLED)
 endif()
 
 
-if (WIN32)
-    # Disable some warnings in Visual Studio
-    xmake_add_to_list_property(ATHENA_MATH COMPILE_DEFINITIONS "_CRT_SECURE_NO_WARNINGS")
-    xmake_add_to_property(ATHENA_MATH COMPILE_FLAGS /wd4244)
-    xmake_add_to_property(ATHENA_MATH COMPILE_FLAGS /wd4305)
-endif()
+# Disable some warnings in Visual Studio
+xmake_disable_vs_warning(ATHENA_MATH 4244 NO)
+xmake_disable_vs_warning(ATHENA_MATH 4305 NO)
 
 
 # Exportations
