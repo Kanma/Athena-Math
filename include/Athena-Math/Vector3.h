@@ -29,7 +29,7 @@ namespace Math {
     /// (x, y, z). Note that positions, directions and scaling factors can be represented
     /// by a vector, depending on how you interpret the values.
     //------------------------------------------------------------------------------------
-    class ATHENA_SYMBOL Vector3
+    class ATHENA_MATH_SYMBOL Vector3
     {
         //_____ Construction / Destruction __________
     public:
@@ -578,7 +578,7 @@ namespace Math {
         //--------------------------------------------------------------------------------
         inline Vector3 perpendicular(void) const
         {
-            static const Real fSquareZero = 1e-06 * 1e-06;
+            static const Real fSquareZero = (Real) (1e-06 * 1e-06);
 
             Vector3 perp = this->crossProduct(Vector3::UNIT_X);
 

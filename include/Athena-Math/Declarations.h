@@ -55,17 +55,6 @@
 #   define ATHENA_ARCH_TYPE ATHENA_ARCHITECTURE_32
 #endif
 
-/// Used to export symbols from the library
-#if ATHENA_PLATFORM == ATHENA_PLATFORM_WIN32
-#    ifdef ATHENA_EXPORTS
-#        define ATHENA_SYMBOL    __declspec(dllexport)
-#    else
-#        define ATHENA_SYMBOL    __declspec(dllimport)
-#    endif
-#else
-#    define ATHENA_SYMBOL
-#endif
-
 /// See if we can use __forceinline or if we need to use __inline instead
 #if ATHENA_COMPILER == ATHENA_COMPILER_MSVC
 #   if ATHENA_COMP_VER >= 1200

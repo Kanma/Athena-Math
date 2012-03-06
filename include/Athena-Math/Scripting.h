@@ -25,111 +25,111 @@ namespace Math {
     //------------------------------------------------------------------------------------
     /// @brief  Create a C++ AxisAlignedBox from a JavaScript one
     //------------------------------------------------------------------------------------
-    AxisAlignedBox fromJSAxisAlignedBox(v8::Handle<v8::Value> value);
+    AxisAlignedBox ATHENA_MATH_SYMBOL fromJSAxisAlignedBox(v8::Handle<v8::Value> value);
 
     //------------------------------------------------------------------------------------
     /// @brief  Create a JavaScript AxisAlignedBox from a C++ one
     //------------------------------------------------------------------------------------
-    v8::Handle<v8::Value> toJavaScript(const AxisAlignedBox& value);
+    v8::Handle<v8::Value> ATHENA_MATH_SYMBOL toJavaScript(const AxisAlignedBox& value);
 
 
     //------------------------------------------------------------------------------------
     /// @brief  Create a C++ Color from a JavaScript one
     //------------------------------------------------------------------------------------
-    Color fromJSColor(v8::Handle<v8::Value> value);
+    Color ATHENA_MATH_SYMBOL fromJSColor(v8::Handle<v8::Value> value);
 
     //------------------------------------------------------------------------------------
     /// @brief  Create a JavaScript Color from a C++ one
     //------------------------------------------------------------------------------------
-    v8::Handle<v8::Value> toJavaScript(const Color& value);
+    v8::Handle<v8::Value> ATHENA_MATH_SYMBOL toJavaScript(const Color& value);
 
 
     //------------------------------------------------------------------------------------
     /// @brief  Create a C++ Matrix3 from a JavaScript one
     //------------------------------------------------------------------------------------
-    Matrix3 fromJSMatrix3(v8::Handle<v8::Value> value);
+    Matrix3 ATHENA_MATH_SYMBOL fromJSMatrix3(v8::Handle<v8::Value> value);
 
     //------------------------------------------------------------------------------------
     /// @brief  Create a JavaScript Matrix3 from a C++ one
     //------------------------------------------------------------------------------------
-    v8::Handle<v8::Value> toJavaScript(const Matrix3& value);
+    v8::Handle<v8::Value> ATHENA_MATH_SYMBOL toJavaScript(const Matrix3& value);
 
 
     //------------------------------------------------------------------------------------
     /// @brief  Create a C++ Matrix4 from a JavaScript one
     //------------------------------------------------------------------------------------
-    Matrix4 fromJSMatrix4(v8::Handle<v8::Value> value);
+    Matrix4 ATHENA_MATH_SYMBOL fromJSMatrix4(v8::Handle<v8::Value> value);
 
     //------------------------------------------------------------------------------------
     /// @brief  Create a JavaScript Matrix4 from a C++ one
     //------------------------------------------------------------------------------------
-    v8::Handle<v8::Value> toJavaScript(const Matrix4& value);
+    v8::Handle<v8::Value> ATHENA_MATH_SYMBOL toJavaScript(const Matrix4& value);
 
 
     //------------------------------------------------------------------------------------
     /// @brief  Create a C++ Plane from a JavaScript one
     //------------------------------------------------------------------------------------
-    Plane fromJSPlane(v8::Handle<v8::Value> value);
+    Plane ATHENA_MATH_SYMBOL fromJSPlane(v8::Handle<v8::Value> value);
 
     //------------------------------------------------------------------------------------
     /// @brief  Create a JavaScript Plane from a C++ one
     //------------------------------------------------------------------------------------
-    v8::Handle<v8::Value> toJavaScript(const Plane& value);
+    v8::Handle<v8::Value> ATHENA_MATH_SYMBOL toJavaScript(const Plane& value);
 
 
     //------------------------------------------------------------------------------------
     /// @brief  Create a C++ Quaternion from a JavaScript one
     //------------------------------------------------------------------------------------
-    Quaternion fromJSQuaternion(v8::Handle<v8::Value> value);
+    Quaternion ATHENA_MATH_SYMBOL fromJSQuaternion(v8::Handle<v8::Value> value);
 
     //------------------------------------------------------------------------------------
     /// @brief  Create a JavaScript Quaternion from a C++ one
     //------------------------------------------------------------------------------------
-    v8::Handle<v8::Value> toJavaScript(const Quaternion& value);
+    v8::Handle<v8::Value> ATHENA_MATH_SYMBOL toJavaScript(const Quaternion& value);
 
 
     //------------------------------------------------------------------------------------
     /// @brief  Create a C++ Sphere from a JavaScript one
     //------------------------------------------------------------------------------------
-    Sphere fromJSSphere(v8::Handle<v8::Value> value);
+    Sphere ATHENA_MATH_SYMBOL fromJSSphere(v8::Handle<v8::Value> value);
 
     //------------------------------------------------------------------------------------
     /// @brief  Create a JavaScript Sphere from a C++ one
     //------------------------------------------------------------------------------------
-    v8::Handle<v8::Value> toJavaScript(const Sphere& value);
+    v8::Handle<v8::Value> ATHENA_MATH_SYMBOL toJavaScript(const Sphere& value);
 
 
     //------------------------------------------------------------------------------------
     /// @brief  Create a C++ Vector2 from a JavaScript one
     //------------------------------------------------------------------------------------
-    Vector2 fromJSVector2(v8::Handle<v8::Value> value);
+    Vector2 ATHENA_MATH_SYMBOL fromJSVector2(v8::Handle<v8::Value> value);
 
     //------------------------------------------------------------------------------------
     /// @brief  Create a JavaScript Vector2 from a C++ one
     //------------------------------------------------------------------------------------
-    v8::Handle<v8::Value> toJavaScript(const Vector2& value);
+    v8::Handle<v8::Value> ATHENA_MATH_SYMBOL toJavaScript(const Vector2& value);
 
 
     //------------------------------------------------------------------------------------
     /// @brief  Create a C++ Vector3 from a JavaScript one
     //------------------------------------------------------------------------------------
-    Vector3 fromJSVector3(v8::Handle<v8::Value> value);
+    Vector3 ATHENA_MATH_SYMBOL fromJSVector3(v8::Handle<v8::Value> value);
 
     //------------------------------------------------------------------------------------
     /// @brief  Create a JavaScript Vector3 from a C++ one
     //------------------------------------------------------------------------------------
-    v8::Handle<v8::Value> toJavaScript(const Vector3& value);
+    v8::Handle<v8::Value> ATHENA_MATH_SYMBOL toJavaScript(const Vector3& value);
 
 
     //------------------------------------------------------------------------------------
     /// @brief  Create a C++ Vector4 from a JavaScript one
     //------------------------------------------------------------------------------------
-    Vector4 fromJSVector4(v8::Handle<v8::Value> value);
+    Vector4 ATHENA_MATH_SYMBOL fromJSVector4(v8::Handle<v8::Value> value);
 
     //------------------------------------------------------------------------------------
     /// @brief  Create a JavaScript Vector4 from a C++ one
     //------------------------------------------------------------------------------------
-    v8::Handle<v8::Value> toJavaScript(const Vector4& value);
+    v8::Handle<v8::Value> ATHENA_MATH_SYMBOL toJavaScript(const Vector4& value);
 }
 }
 

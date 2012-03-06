@@ -28,7 +28,7 @@ namespace Math {
     /// (x, y). Note that positions, directions and scaling factors can be represented by
     /// a vector, depending on how you interpret the values.
     //------------------------------------------------------------------------------------
-    class ATHENA_SYMBOL Vector2
+    class ATHENA_MATH_SYMBOL Vector2
     {
         //_____ Construction / Destruction __________
     public:

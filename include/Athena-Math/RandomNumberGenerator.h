@@ -22,7 +22,7 @@ namespace Math {
     ///
     /// See http://en.wikipedia.org/wiki/Linear_congruential_generator
     //------------------------------------------------------------------------------------
-    class ATHENA_SYMBOL RandomNumberGenerator
+    class ATHENA_MATH_SYMBOL RandomNumberGenerator
     {
         //_____ Construction / Destruction __________
     public:

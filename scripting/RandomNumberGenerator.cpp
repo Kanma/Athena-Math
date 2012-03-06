@@ -1,6 +1,6 @@
 /** @file   RandomNumberGenerator.cpp
     @author Philip Abbet
-    
+
     Javascript binding of the class Athena::Math::RandomNumberGenerator
 */
 
@@ -40,7 +40,7 @@ Handle<Value> RandomNumberGenerator_SetSeed(const Arguments& args)
     assert(self);
 
     self->setSeed(args[0]->Uint32Value());
-    
+
     return Handle<Value>();
 }
 
@@ -52,7 +52,7 @@ Handle<Value> RandomNumberGenerator_Reset(const Arguments& args)
     assert(self);
 
     self->reset();
-    
+
     return Handle<Value>();
 }
 
@@ -116,9 +116,9 @@ Handle<Value> RandomNumberGenerator_Randomize(const Arguments& args)
 bool bind_RandomNumberGenerator(Handle<Object> parent)
 {
     ScriptingManager* pManager = ScriptingManager::getSingletonPtr();
-    
+
     Handle<FunctionTemplate> rng = pManager->getClassTemplate("Athena.Math.RandomNumberGenerator");
-    
+
     if (rng.IsEmpty())
     {
         // Declaration of the class

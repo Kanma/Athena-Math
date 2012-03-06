@@ -24,8 +24,12 @@ add_dependencies(UnitTests-Athena-Math-Scripting Run-UnitTests-Athena-Scripting)
 
 
 # Run the unit tests
-get_property(PATH TARGET UnitTests-Athena-Math-Scripting PROPERTY RUNTIME_OUTPUT_DIRECTORY)
+set(WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+if (WIN32)
+    set(WORKING_DIRECTORY "${WORKING_DIRECTORY}/$(OutDir)")
+endif()
+
 add_custom_target(Run-UnitTests-Athena-Math-Scripting ALL UnitTests-Athena-Math-Scripting
                   DEPENDS UnitTests-Athena-Math-Scripting
-                  WORKING_DIRECTORY ${PATH}
+                  WORKING_DIRECTORY ${WORKING_DIRECTORY}
                   COMMENT "Unit testing: Athena-Math-Scripting..." VERBATIM)

@@ -40,6 +40,8 @@ if (NOT ATHENA_MATH_STATIC)
                                  "${ATHENA_MATH_VERSION_MAJOR}.${ATHENA_MATH_VERSION_MINOR}.${ATHENA_MATH_VERSION_PATCH}"
                                  "${ATHENA_MATH_VERSION_MAJOR}.${ATHENA_MATH_VERSION_MINOR}.${ATHENA_MATH_VERSION_PATCH}"
                                  ${SRCS})
+
+    xmake_add_to_list_property(ATHENA_MATH COMPILE_DEFINITIONS "ATHENA_MATH_EXPORTS")
 else()
     xmake_create_static_library(ATHENA_MATH Athena-Math ${SRCS})
 endif()
@@ -48,14 +50,9 @@ if (DEFINED ATHENA_SCRIPTING_ENABLED AND ATHENA_SCRIPTING_ENABLED)
     xmake_project_link(ATHENA_MATH V8)
 endif()
 
-xmake_add_to_list_property(ATHENA_MATH COMPILE_DEFINITIONS "ATHENA_EXPORTS")
 
-if (WIN32)
-    # Disable some warnings in Visual Studio
-    xmake_add_to_list_property(ATHENA_MATH COMPILE_DEFINITIONS "_CRT_SECURE_NO_WARNINGS")
-    xmake_add_to_list_property(ATHENA_MATH COMPILE_DEFINITIONS "/wd4244")
-    xmake_add_to_list_property(ATHENA_MATH COMPILE_DEFINITIONS "/wd4305")
-endif()
+# Disable some warnings in Visual Studio
+xmake_disable_vs_warning(ATHENA_MATH 4244 NO)
 
 
 # Exportations

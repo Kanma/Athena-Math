@@ -25,7 +25,7 @@ namespace Math {
     //------------------------------------------------------------------------------------
     /// @brief  4-dimensional homogeneous vector
     //------------------------------------------------------------------------------------
-    class ATHENA_SYMBOL Vector4
+    class ATHENA_MATH_SYMBOL Vector4
     {
         //_____ Construction / Destruction __________
     public:

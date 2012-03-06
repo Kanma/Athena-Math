@@ -19,7 +19,7 @@ using namespace Athena::Math;
 
 const Quaternion Quaternion::ZERO(0.0, 0.0, 0.0, 0.0);
 const Quaternion Quaternion::IDENTITY(1.0, 0.0, 0.0, 0.0);
-const Real Quaternion::SINE_CUTOFF = 1e-03;
+const Real Quaternion::SINE_CUTOFF = (Real) 1e-03;
 
 
 /*************************************** METHODS ****************************************/

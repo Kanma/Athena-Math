@@ -37,7 +37,7 @@ namespace Math {
     /// is the 'alpha' value, which represents transparency. In this case, 0.0 is
     /// completely transparent and 1.0 is fully opaque.
     //------------------------------------------------------------------------------------
-    class ATHENA_SYMBOL Color
+    class ATHENA_MATH_SYMBOL Color
     {
         //_____ Construction / Destruction __________
     public:

@@ -24,14 +24,12 @@ set(JS_SRCS AxisAlignedBox.js
 
 
 # Declaration of the module
-xmake_create_dynamic_library(ATHENA_MATH_SCRIPTING_MODULE Athena-Math-Scripting-module 1.0.0 1.0.0 ${SRCS})
+xmake_create_dynamic_library(ATHENA_MATH_SCRIPTING_MODULE Athena-Math-Scripting-module
+                            "${ATHENA_MATH_VERSION_MAJOR}.${ATHENA_MATH_VERSION_MINOR}.${ATHENA_MATH_VERSION_PATCH}"
+                            "${ATHENA_MATH_VERSION_MAJOR}.${ATHENA_MATH_VERSION_MINOR}.${ATHENA_MATH_VERSION_PATCH}"
+                            ${SRCS})
 xmake_project_link(ATHENA_MATH_SCRIPTING_MODULE ATHENA_SCRIPTING V8)
-set_target_properties(Athena-Math-Scripting-module PROPERTIES OUTPUT_NAME "Math"
-                                                              LIBRARY_OUTPUT_DIRECTORY "${XMAKE_BINARY_DIR}/bin/modules/Athena")
+
+create_scripting_module(ATHENA_MATH_SCRIPTING_MODULE "Athena.Math" "${JS_SRCS}")
 
 add_dependencies(Athena-Math-Scripting-module Run-UnitTests-Athena-Scripting)
-
-# Copy of the JavaScript files
-foreach (JS_SRC ${JS_SRCS})
-    configure_file(${JS_SRC} "${XMAKE_BINARY_DIR}/bin/modules/Athena/js/Math/${JS_SRC}" COPYONLY)
-endforeach()

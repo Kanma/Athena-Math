@@ -15,7 +15,7 @@ using namespace Athena::Math;
 
 /************************************** CONSTANTS ***************************************/
 
-const Real Matrix3::EPSILON = 1e-06;
+const Real Matrix3::EPSILON = (Real) 1e-06;
 const Matrix3 Matrix3::ZERO(0, 0, 0, 0, 0, 0, 0, 0, 0);
 const Matrix3 Matrix3::IDENTITY(1, 0, 0, 0, 1, 0, 0, 0, 1);
 

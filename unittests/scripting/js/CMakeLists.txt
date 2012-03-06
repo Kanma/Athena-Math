@@ -71,7 +71,7 @@ set(JS_FILES # AxisAlignedBox
              Matrix4/NotEquals.js
              Matrix4/Transpose.js
              Matrix4/Translation.js
-             
+
              # Plane
              Plane/ConstructionWithoutParameters.js
              Plane/ConstructionWithPlane.js
@@ -84,7 +84,7 @@ set(JS_FILES # AxisAlignedBox
              Plane/GetSideOfBox2.js
              Plane/ProjectVector.js
              Plane/GetDistance.js
-             
+
              # Quaternion
              Quaternion/CreationWithWXYZ.js
              Quaternion/CreationWithAngleAxis.js
@@ -102,7 +102,7 @@ set(JS_FILES # AxisAlignedBox
              Quaternion/Negate.js
              Quaternion/Equals.js
              Quaternion/NotEquals.js
-             
+
              # Vector2
              Vector2/CreationWithXY.js
              Vector2/CreationWithScale.js
@@ -203,7 +203,7 @@ set(JS_FILES # AxisAlignedBox
              Vector4/PositionCloses.js
              Vector4/IsNaN.js
              Vector4/Constants.js
-             
+
              # Intersections
              Intersection/AxisAlignedBox_AxisAlignedBox.js
              Intersection/AxisAlignedBox_Sphere.js
@@ -212,7 +212,7 @@ set(JS_FILES # AxisAlignedBox
              Intersection/Sphere_Sphere.js
              Intersection/Sphere_Plane.js
              Intersection/Sphere_Vector3.js
-             
+
              # RandomNumberGenerator
              RandomNumberGenerator/RandomizeMax.js
              RandomNumberGenerator/RandomizeMinMax.js
@@ -226,7 +226,12 @@ set(JS_FILES # AxisAlignedBox
 
 
 # Run the unit tests
+set(WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+if (WIN32)
+    set(WORKING_DIRECTORY "${WORKING_DIRECTORY}/$(OutDir)")
+endif()
+
 add_custom_target(Run-UnitTests-Athena-Math-Scripting-module ALL js_test_runner "${ATHENA_MATH_SOURCE_DIR}/unittests/scripting/js/" ${JS_FILES}
                   DEPENDS Athena-Math-Scripting-module js_test_runner
-                  WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+                  WORKING_DIRECTORY ${WORKING_DIRECTORY}
                   COMMENT "Unit testing: Athena-Math-Scripting-module..." VERBATIM)

@@ -25,7 +25,7 @@ namespace Math {
     //------------------------------------------------------------------------------------
     /// @brief  Implementation of a Quaternion, i.e. a rotation around an axis
     //------------------------------------------------------------------------------------
-    class ATHENA_SYMBOL Quaternion
+    class ATHENA_MATH_SYMBOL Quaternion
     {
         //_____ Construction / Destruction __________
     public:
