@@ -32,7 +32,7 @@ bool load_js_file(const std::string& fileName, Handle<Object> parent, const std:
 
 extern "C" {
 
-    bool init_module(Handle<Object> parent, const std::string& modulePath)
+    bool MODULE_INITIALISATION_FUNCTION init_module(Handle<Object> parent, const std::string& modulePath)
     {
         HandleScope handle_scope;
 

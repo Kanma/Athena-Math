@@ -53,7 +53,6 @@ endif()
 
 # Disable some warnings in Visual Studio
 xmake_disable_vs_warning(ATHENA_MATH 4244 NO)
-xmake_disable_vs_warning(ATHENA_MATH 4305 NO)
 
 
 # Exportations

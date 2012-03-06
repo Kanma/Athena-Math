@@ -226,7 +226,12 @@ set(JS_FILES # AxisAlignedBox
 
 
 # Run the unit tests
+set(WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+if (WIN32)
+    set(WORKING_DIRECTORY "${WORKING_DIRECTORY}/$(OutDir)")
+endif()
+
 add_custom_target(Run-UnitTests-Athena-Math-Scripting-module ALL js_test_runner "${ATHENA_MATH_SOURCE_DIR}/unittests/scripting/js/" ${JS_FILES}
                   DEPENDS Athena-Math-Scripting-module js_test_runner
-                  WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+                  WORKING_DIRECTORY ${WORKING_DIRECTORY}
                   COMMENT "Unit testing: Athena-Math-Scripting-module..." VERBATIM)

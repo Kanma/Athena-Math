@@ -361,7 +361,7 @@ void Color::getHSB(Real* hue, Real* saturation, Real* brightness) const
 
     *brightness = vMax;
 
-    if (MathUtils::RealEqual(delta, 0.0f, 1e-6))
+    if (MathUtils::RealEqual(delta, 0.0f, (Real) 1e-6))
     {
         // grey
         *hue = 0;

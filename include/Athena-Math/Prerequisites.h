@@ -69,7 +69,7 @@ namespace Math {
         typedef long long           int64;
     #endif
 
-    extern const char* VERSION;
+    ATHENA_MATH_SYMBOL extern const char* VERSION;
 }
 }
 
