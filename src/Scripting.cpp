@@ -15,36 +15,57 @@ namespace Athena {
 namespace Math {
 
 
-AxisAlignedBox fromJSAxisAlignedBox(Handle<Value> value)
+Handle<Value> getJSAthenaMath()
+{
+    Handle<Value> nsAthena = Context::GetCurrent()->Global()->Get(String::New("Athena"));
+    if (!nsAthena->IsObject())
+        return ThrowException(String::New("Can't find the namespace 'Athena'"));
+    
+    Handle<Value> nsMath = nsAthena->ToObject()->Get(String::New("Math"));
+    if (!nsMath->IsObject())
+        return ThrowException(String::New("Can't find the namespace 'Athena.Math'"));
+    
+    return nsMath;
+}
+
+//-----------------------------------------------------------------------
+
+bool isJSAxisAlignedBox(v8::Handle<v8::Value> value)
 {
     if (value->IsObject())
     {
         Handle<Object> object = value->ToObject();
         Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
 
-        if (std::string("Athena.Math.AxisAlignedBox") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
-        {
-            unsigned int t = object->Get(String::New("extent"))->ToNumber()->NumberValue();
-
-            if (t == 0)
-                return AxisAlignedBox(AxisAlignedBox::EXTENT_NULL);
-
-            if (t == 2)
-                return AxisAlignedBox(AxisAlignedBox::EXTENT_INFINITE);
-
-            return AxisAlignedBox(fromJSVector3(object->Get(String::New("minimum"))),
-                                  fromJSVector3(object->Get(String::New("maximum"))));
-        }
+        return (std::string("Athena.Math.AxisAlignedBox") == *String::AsciiValue(prototype->Get(String::New("__classname__"))));
     }
 
-    return AxisAlignedBox();
+    return false;
+}
+
+//-----------------------------------------------------------------------
+
+AxisAlignedBox fromJSAxisAlignedBoxUnsafe(Handle<Value> value)
+{
+    Handle<Object> object = value->ToObject();
+
+    unsigned int t = object->Get(String::New("extent"))->ToNumber()->NumberValue();
+
+    if (t == 0)
+        return AxisAlignedBox(AxisAlignedBox::EXTENT_NULL);
+
+    if (t == 2)
+        return AxisAlignedBox(AxisAlignedBox::EXTENT_INFINITE);
+
+    return AxisAlignedBox(fromJSVector3(object->Get(String::New("minimum"))),
+                          fromJSVector3(object->Get(String::New("maximum"))));
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> toJavaScript(const AxisAlignedBox& value)
 {
-    Handle<Value> constructor = Context::GetCurrent()->Global()->Get(String::New("Athena.Math.AxisAlignedBox"));
+    Handle<Value> constructor = getJSAthenaMath()->ToObject()->Get(String::New("AxisAlignedBox"));
     if (!constructor->IsFunction())
         return ThrowException(String::New("Can't find the constructor function of Athena.Math.AxisAlignedBox"));
 
@@ -70,30 +91,36 @@ Handle<Value> toJavaScript(const AxisAlignedBox& value)
 
 //-----------------------------------------------------------------------
 
-Color fromJSColor(Handle<Value> value)
+bool isJSColor(v8::Handle<v8::Value> value)
 {
     if (value->IsObject())
     {
         Handle<Object> object = value->ToObject();
         Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
 
-        if (std::string("Athena.Math.Color") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
-        {
-            return Color(object->Get(String::New("r"))->ToNumber()->NumberValue(),
-                         object->Get(String::New("g"))->ToNumber()->NumberValue(),
-                         object->Get(String::New("b"))->ToNumber()->NumberValue(),
-                         object->Get(String::New("a"))->ToNumber()->NumberValue());
-        }
+        return (std::string("Athena.Math.Color") == *String::AsciiValue(prototype->Get(String::New("__classname__"))));
     }
 
-    return Color();
+    return false;
+}
+
+//-----------------------------------------------------------------------
+
+Color fromJSColorUnsafe(Handle<Value> value)
+{
+    Handle<Object> object = value->ToObject();
+
+    return Color(object->Get(String::New("r"))->ToNumber()->NumberValue(),
+                 object->Get(String::New("g"))->ToNumber()->NumberValue(),
+                 object->Get(String::New("b"))->ToNumber()->NumberValue(),
+                 object->Get(String::New("a"))->ToNumber()->NumberValue());
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> toJavaScript(const Color& value)
 {
-    Handle<Value> constructor = Context::GetCurrent()->Global()->Get(String::New("Athena.Math.Color"));
+    Handle<Value> constructor = getJSAthenaMath()->ToObject()->Get(String::New("Color"));
     if (!constructor->IsFunction())
         return ThrowException(String::New("Can't find the constructor function of Athena.Math.Color"));
 
@@ -108,38 +135,44 @@ Handle<Value> toJavaScript(const Color& value)
 
 //-----------------------------------------------------------------------
 
-Matrix3 fromJSMatrix3(Handle<Value> value)
+bool isJSMatrix3(v8::Handle<v8::Value> value)
 {
     if (value->IsObject())
     {
         Handle<Object> object = value->ToObject();
         Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
 
-        if (std::string("Athena.Math.Matrix3") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
-        {
-            return Matrix3(object->Get(String::New("m_0_0"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("m_0_1"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("m_0_2"))->ToNumber()->NumberValue(),
-
-                           object->Get(String::New("m_1_0"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("m_1_1"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("m_1_2"))->ToNumber()->NumberValue(),
-
-                           object->Get(String::New("m_2_0"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("m_2_1"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("m_2_2"))->ToNumber()->NumberValue()
-            );
-        }
+        return (std::string("Athena.Math.Matrix3") == *String::AsciiValue(prototype->Get(String::New("__classname__"))));
     }
 
-    return Matrix3::ZERO;
+    return false;
+}
+
+//-----------------------------------------------------------------------
+
+Matrix3 fromJSMatrix3Unsafe(Handle<Value> value)
+{
+    Handle<Object> object = value->ToObject();
+
+    return Matrix3(object->Get(String::New("m_0_0"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("m_0_1"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("m_0_2"))->ToNumber()->NumberValue(),
+
+                   object->Get(String::New("m_1_0"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("m_1_1"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("m_1_2"))->ToNumber()->NumberValue(),
+
+                   object->Get(String::New("m_2_0"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("m_2_1"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("m_2_2"))->ToNumber()->NumberValue()
+    );
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> toJavaScript(const Matrix3& value)
 {
-    Handle<Value> constructor = Context::GetCurrent()->Global()->Get(String::New("Athena.Math.Matrix3"));
+    Handle<Value> constructor = getJSAthenaMath()->ToObject()->Get(String::New("Matrix3"));
     if (!constructor->IsFunction())
         return ThrowException(String::New("Can't find the constructor function of Athena.Math.Matrix3"));
 
@@ -162,46 +195,52 @@ Handle<Value> toJavaScript(const Matrix3& value)
 
 //-----------------------------------------------------------------------
 
-Matrix4 fromJSMatrix4(Handle<Value> value)
+bool isJSMatrix4(v8::Handle<v8::Value> value)
 {
     if (value->IsObject())
     {
         Handle<Object> object = value->ToObject();
         Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
 
-        if (std::string("Athena.Math.Matrix4") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
-        {
-            return Matrix4(object->Get(String::New("m_0_0"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("m_0_1"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("m_0_2"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("m_0_3"))->ToNumber()->NumberValue(),
-
-                           object->Get(String::New("m_1_0"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("m_1_1"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("m_1_2"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("m_1_3"))->ToNumber()->NumberValue(),
-
-                           object->Get(String::New("m_2_0"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("m_2_1"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("m_2_2"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("m_2_3"))->ToNumber()->NumberValue(),
-
-                           object->Get(String::New("m_3_0"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("m_3_1"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("m_3_2"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("m_3_3"))->ToNumber()->NumberValue()
-            );
-        }
+        return (std::string("Athena.Math.Matrix4") == *String::AsciiValue(prototype->Get(String::New("__classname__"))));
     }
 
-    return Matrix4::ZERO;
+    return false;
+}
+
+//-----------------------------------------------------------------------
+
+Matrix4 fromJSMatrix4Unsafe(Handle<Value> value)
+{
+    Handle<Object> object = value->ToObject();
+
+    return Matrix4(object->Get(String::New("m_0_0"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("m_0_1"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("m_0_2"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("m_0_3"))->ToNumber()->NumberValue(),
+
+                   object->Get(String::New("m_1_0"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("m_1_1"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("m_1_2"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("m_1_3"))->ToNumber()->NumberValue(),
+
+                   object->Get(String::New("m_2_0"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("m_2_1"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("m_2_2"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("m_2_3"))->ToNumber()->NumberValue(),
+
+                   object->Get(String::New("m_3_0"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("m_3_1"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("m_3_2"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("m_3_3"))->ToNumber()->NumberValue()
+    );
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> toJavaScript(const Matrix4& value)
 {
-    Handle<Value> constructor = Context::GetCurrent()->Global()->Get(String::New("Athena.Math.Matrix4"));
+    Handle<Value> constructor = getJSAthenaMath()->ToObject()->Get(String::New("Matrix4"));
     if (!constructor->IsFunction())
         return ThrowException(String::New("Can't find the constructor function of Athena.Math.Matrix4"));
 
@@ -232,28 +271,34 @@ Handle<Value> toJavaScript(const Matrix4& value)
 
 //-----------------------------------------------------------------------
 
-Plane fromJSPlane(Handle<Value> value)
+bool isJSPlane(v8::Handle<v8::Value> value)
 {
     if (value->IsObject())
     {
         Handle<Object> object = value->ToObject();
         Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
 
-        if (std::string("Athena.Math.Plane") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
-        {
-            return Plane(fromJSVector3(object->Get(String::New("normal"))),
-                         object->Get(String::New("d"))->ToNumber()->NumberValue());
-        }
+        return (std::string("Athena.Math.Plane") == *String::AsciiValue(prototype->Get(String::New("__classname__"))));
     }
 
-    return Plane();
+    return false;
+}
+
+//-----------------------------------------------------------------------
+
+Plane fromJSPlaneUnsafe(Handle<Value> value)
+{
+    Handle<Object> object = value->ToObject();
+
+    return Plane(fromJSVector3(object->Get(String::New("normal"))),
+                 object->Get(String::New("d"))->ToNumber()->NumberValue());
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> toJavaScript(const Plane& value)
 {
-    Handle<Value> constructor = Context::GetCurrent()->Global()->Get(String::New("Athena.Math.Plane"));
+    Handle<Value> constructor = getJSAthenaMath()->ToObject()->Get(String::New("Plane"));
     if (!constructor->IsFunction())
         return ThrowException(String::New("Can't find the constructor function of Athena.Math.Plane"));
 
@@ -266,30 +311,36 @@ Handle<Value> toJavaScript(const Plane& value)
 
 //-----------------------------------------------------------------------
 
-Quaternion fromJSQuaternion(Handle<Value> value)
+bool isJSQuaternion(v8::Handle<v8::Value> value)
 {
     if (value->IsObject())
     {
         Handle<Object> object = value->ToObject();
         Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
 
-        if (std::string("Athena.Math.Quaternion") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
-        {
-            return Quaternion(object->Get(String::New("w"))->ToNumber()->NumberValue(),
-                              object->Get(String::New("x"))->ToNumber()->NumberValue(),
-                              object->Get(String::New("y"))->ToNumber()->NumberValue(),
-                              object->Get(String::New("z"))->ToNumber()->NumberValue());
-        }
+        return (std::string("Athena.Math.Quaternion") == *String::AsciiValue(prototype->Get(String::New("__classname__"))));
     }
 
-    return Quaternion::ZERO;
+    return false;
+}
+
+//-----------------------------------------------------------------------
+
+Quaternion fromJSQuaternionUnsafe(Handle<Value> value)
+{
+    Handle<Object> object = value->ToObject();
+
+    return Quaternion(object->Get(String::New("w"))->ToNumber()->NumberValue(),
+                      object->Get(String::New("x"))->ToNumber()->NumberValue(),
+                      object->Get(String::New("y"))->ToNumber()->NumberValue(),
+                      object->Get(String::New("z"))->ToNumber()->NumberValue());
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> toJavaScript(const Quaternion& value)
 {
-    Handle<Value> constructor = Context::GetCurrent()->Global()->Get(String::New("Athena.Math.Quaternion"));
+    Handle<Value> constructor = getJSAthenaMath()->ToObject()->Get(String::New("Quaternion"));
     if (!constructor->IsFunction())
         return ThrowException(String::New("Can't find the constructor function of Athena.Math.Quaternion"));
 
@@ -304,28 +355,34 @@ Handle<Value> toJavaScript(const Quaternion& value)
 
 //-----------------------------------------------------------------------
 
-Sphere fromJSSphere(Handle<Value> value)
+bool isJSSphere(v8::Handle<v8::Value> value)
 {
     if (value->IsObject())
     {
         Handle<Object> object = value->ToObject();
         Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
 
-        if (std::string("Athena.Math.Sphere") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
-        {
-            return Sphere(fromJSVector3(object->Get(String::New("center"))),
-                          object->Get(String::New("radius"))->ToNumber()->NumberValue());
-        }
+        return (std::string("Athena.Math.Sphere") == *String::AsciiValue(prototype->Get(String::New("__classname__"))));
     }
 
-    return Sphere();
+    return false;
+}
+
+//-----------------------------------------------------------------------
+
+Sphere fromJSSphereUnsafe(Handle<Value> value)
+{
+    Handle<Object> object = value->ToObject();
+
+    return Sphere(fromJSVector3(object->Get(String::New("center"))),
+                  object->Get(String::New("radius"))->ToNumber()->NumberValue());
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> toJavaScript(const Sphere& value)
 {
-    Handle<Value> constructor = Context::GetCurrent()->Global()->Get(String::New("Athena.Math.Sphere"));
+    Handle<Value> constructor = getJSAthenaMath()->ToObject()->Get(String::New("Sphere"));
     if (!constructor->IsFunction())
         return ThrowException(String::New("Can't find the constructor function of Athena.Math.Sphere"));
 
@@ -338,28 +395,34 @@ Handle<Value> toJavaScript(const Sphere& value)
 
 //-----------------------------------------------------------------------
 
-Vector2 fromJSVector2(Handle<Value> value)
+bool isJSVector2(v8::Handle<v8::Value> value)
 {
     if (value->IsObject())
     {
         Handle<Object> object = value->ToObject();
         Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
 
-        if (std::string("Athena.Math.Vector2") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
-        {
-            return Vector2(object->Get(String::New("x"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("y"))->ToNumber()->NumberValue());
-        }
+        return (std::string("Athena.Math.Vector2") == *String::AsciiValue(prototype->Get(String::New("__classname__"))));
     }
 
-    return Vector2::ZERO;
+    return false;
+}
+
+//-----------------------------------------------------------------------
+
+Vector2 fromJSVector2Unsafe(Handle<Value> value)
+{
+    Handle<Object> object = value->ToObject();
+
+    return Vector2(object->Get(String::New("x"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("y"))->ToNumber()->NumberValue());
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> toJavaScript(const Vector2& value)
 {
-    Handle<Value> constructor = Context::GetCurrent()->Global()->Get(String::New("Athena.Math.Vector2"));
+    Handle<Value> constructor = getJSAthenaMath()->ToObject()->Get(String::New("Vector2"));
     if (!constructor->IsFunction())
         return ThrowException(String::New("Can't find the constructor function of Athena.Math.Vector2"));
 
@@ -372,29 +435,35 @@ Handle<Value> toJavaScript(const Vector2& value)
 
 //-----------------------------------------------------------------------
 
-Vector3 fromJSVector3(Handle<Value> value)
+bool isJSVector3(v8::Handle<v8::Value> value)
 {
     if (value->IsObject())
     {
         Handle<Object> object = value->ToObject();
         Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
 
-        if (std::string("Athena.Math.Vector3") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
-        {
-            return Vector3(object->Get(String::New("x"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("y"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("z"))->ToNumber()->NumberValue());
-        }
+        return (std::string("Athena.Math.Vector3") == *String::AsciiValue(prototype->Get(String::New("__classname__"))));
     }
 
-    return Vector3::ZERO;
+    return false;
+}
+
+//-----------------------------------------------------------------------
+
+Vector3 fromJSVector3Unsafe(Handle<Value> value)
+{
+    Handle<Object> object = value->ToObject();
+
+    return Vector3(object->Get(String::New("x"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("y"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("z"))->ToNumber()->NumberValue());
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> toJavaScript(const Vector3& value)
 {
-    Handle<Value> constructor = Context::GetCurrent()->Global()->Get(String::New("Athena.Math.Vector3"));
+    Handle<Value> constructor = getJSAthenaMath()->ToObject()->Get(String::New("Vector3"));
     if (!constructor->IsFunction())
         return ThrowException(String::New("Can't find the constructor function of Athena.Math.Vector3"));
 
@@ -408,30 +477,36 @@ Handle<Value> toJavaScript(const Vector3& value)
 
 //-----------------------------------------------------------------------
 
-Vector4 fromJSVector4(Handle<Value> value)
+bool isJSVector4(v8::Handle<v8::Value> value)
 {
     if (value->IsObject())
     {
         Handle<Object> object = value->ToObject();
         Handle<Function> prototype = Handle<Function>::Cast(object->GetPrototype());
 
-        if (std::string("Athena.Math.Vector4") == *String::AsciiValue(prototype->Get(String::New("__classname__"))))
-        {
-            return Vector4(object->Get(String::New("x"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("y"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("z"))->ToNumber()->NumberValue(),
-                           object->Get(String::New("w"))->ToNumber()->NumberValue());
-        }
+        return (std::string("Athena.Math.Vector4") == *String::AsciiValue(prototype->Get(String::New("__classname__"))));
     }
 
-    return Vector4::ZERO;
+    return false;
+}
+
+//-----------------------------------------------------------------------
+
+Vector4 fromJSVector4Unsafe(Handle<Value> value)
+{
+    Handle<Object> object = value->ToObject();
+
+    return Vector4(object->Get(String::New("x"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("y"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("z"))->ToNumber()->NumberValue(),
+                   object->Get(String::New("w"))->ToNumber()->NumberValue());
 }
 
 //-----------------------------------------------------------------------
 
 Handle<Value> toJavaScript(const Vector4& value)
 {
-    Handle<Value> constructor = Context::GetCurrent()->Global()->Get(String::New("Athena.Math.Vector4"));
+    Handle<Value> constructor = getJSAthenaMath()->ToObject()->Get(String::New("Vector4"));
     if (!constructor->IsFunction())
         return ThrowException(String::New("Can't find the constructor function of Athena.Math.Vector4"));
 
