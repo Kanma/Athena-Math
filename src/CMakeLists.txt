@@ -56,16 +56,12 @@ endif()
 
 
 # Declaration of the library
-if (NOT ATHENA_MATH_STATIC)
-    xmake_create_dynamic_library(ATHENA_MATH Athena-Math
-                                 "${ATHENA_MATH_VERSION_MAJOR}.${ATHENA_MATH_VERSION_MINOR}.${ATHENA_MATH_VERSION_PATCH}"
-                                 "${ATHENA_MATH_VERSION_MAJOR}.${ATHENA_MATH_VERSION_MINOR}.${ATHENA_MATH_VERSION_PATCH}"
-                                 ${HEADERS} ${SRCS})
+xmake_create_dynamic_library(ATHENA_MATH Athena-Math
+                             "${ATHENA_MATH_VERSION_MAJOR}.${ATHENA_MATH_VERSION_MINOR}.${ATHENA_MATH_VERSION_PATCH}"
+                             "${ATHENA_MATH_VERSION_MAJOR}.${ATHENA_MATH_VERSION_MINOR}.${ATHENA_MATH_VERSION_PATCH}"
+                             ${HEADERS} ${SRCS})
 
-    xmake_add_to_list_property(ATHENA_MATH COMPILE_DEFINITIONS "ATHENA_MATH_EXPORTS")
-else()
-    xmake_create_static_library(ATHENA_MATH Athena-Math ${HEADERS} ${SRCS})
-endif()
+xmake_add_to_list_property(ATHENA_MATH COMPILE_DEFINITIONS "ATHENA_MATH_EXPORTS")
 
 if (DEFINED ATHENA_SCRIPTING_ENABLED AND ATHENA_SCRIPTING_ENABLED)
     xmake_project_link(ATHENA_MATH V8)
