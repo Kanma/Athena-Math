@@ -7,17 +7,13 @@ project(ATHENA_MATH)
 
 set(ATHENA_DOUBLE_PRECISION OFF CACHE BOOL "Use double-precision floating point numbers")
 
-if (NOT DEFINED ATHENA_MATH_STATIC)
-    set(ATHENA_MATH_STATIC OFF CACHE BOOL "Build Athena-Math as a static library")
-endif()
-
 
 ##########################################################################################
 # Library version
 
 set(ATHENA_MATH_VERSION_MAJOR 1)
 set(ATHENA_MATH_VERSION_MINOR 1)
-set(ATHENA_MATH_VERSION_PATCH 4)
+set(ATHENA_MATH_VERSION_PATCH 5)
 set(ATHENA_MATH_VERSION_SUFFIX "")
 
 
