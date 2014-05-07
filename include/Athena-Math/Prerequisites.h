@@ -29,7 +29,7 @@
 namespace Athena {
 namespace Math {
 
-    #if ATHENA_DOUBLE_PRECISION == 1
+    #if ATHENA_DOUBLE_PRECISION
         /// Software floating point type.
         typedef double Real;
     #else
