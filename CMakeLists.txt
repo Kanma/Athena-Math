@@ -13,7 +13,7 @@ set(ATHENA_DOUBLE_PRECISION OFF CACHE BOOL "Use double-precision floating point 
 
 set(ATHENA_MATH_VERSION_MAJOR 1)
 set(ATHENA_MATH_VERSION_MINOR 1)
-set(ATHENA_MATH_VERSION_PATCH 6)
+set(ATHENA_MATH_VERSION_PATCH 7)
 set(ATHENA_MATH_VERSION_SUFFIX "")
 
 
@@ -62,8 +62,3 @@ test_big_endian(ATHENA_TEST_BIG_ENDIAN)
 
 add_subdirectory(include)
 add_subdirectory(src)
-
-if (DEFINED ATHENA_SCRIPTING_ENABLED AND ATHENA_SCRIPTING_ENABLED)
-    add_subdirectory(scripting)
-    add_subdirectory(unittests)
-endif()
