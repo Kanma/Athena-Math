@@ -12,9 +12,9 @@ set(ATHENA_DOUBLE_PRECISION OFF CACHE BOOL "Use double-precision floating point 
 # Library version
 
 set(ATHENA_MATH_VERSION_MAJOR 1)
-set(ATHENA_MATH_VERSION_MINOR 2)
-set(ATHENA_MATH_VERSION_PATCH 0)
-set(ATHENA_MATH_VERSION_SUFFIX " (Dev)")
+set(ATHENA_MATH_VERSION_MINOR 1)
+set(ATHENA_MATH_VERSION_PATCH 7)
+set(ATHENA_MATH_VERSION_SUFFIX "")
 
 
 ##########################################################################################
